@@ -57,11 +57,11 @@ html, body
 {
 	position:relative;
 	overflow:hidden;
-	background-image: url(hdr_ascii.png);
+	background-image: url(TildeAsteriskLogo.png);
 	background-repeat: no-repeat;
-	background-position: center top;
+	background-position: center;
 	width:180px;
-	height:70px;
+	height:180px;
 	
 	animation-name: hover_anim; 
 	animation-duration: 1s;
