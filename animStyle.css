@@ -58,7 +58,7 @@ html, body
 {
 	position:relative;
 	overflow:hidden;
-	background-image: url(assets/TildeAsteriskLogo.png);
+	background-image: url(assets/SymbolLogo.png);
 	background-repeat: no-repeat;
 	background-position: center;
     background-size: 100px 100px;
@@ -75,7 +75,7 @@ html, body
 #patrol {
 	position:relative;
 	overflow:hidden;
-	background-image: url(assets/TildeAsteriskAscii.png);
+	background-image: url(assets/TAascii.png);
 	background-repeat: no-repeat;
 	background-position: center top;
 	/* width:350px; */
