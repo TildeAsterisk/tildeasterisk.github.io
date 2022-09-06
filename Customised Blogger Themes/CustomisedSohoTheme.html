@@ -839,7 +839,7 @@ padding-left:0;
 padding-right:0
 }
 .overflow-button.hidden,.overflow-popup .tabs li.hidden,.overflow-popup li.hidden{
-display:none
+display:none;
 }
 .search{
 display:-webkit-box;
@@ -2326,6 +2326,10 @@ z-index:32
 }
 /* Custom Blogger Theme by Tilde Asterisk ~* */
 
+.centered-top{
+padding:10px 0 10px 0;
+}
+
 #page_list_top .widget.PageList .overflowable-contents ul{
 	line-height:80px;
 	font: 700 normal 25px Roboto, sans-serif;
@@ -2817,7 +2821,7 @@ z-index:-2807;
               </b:if>
               <div class='blog-name'>
                 <b:section id='header' name='Header' showaddelement='false'>
-                  <b:widget id='Header1' locked='true' title='  ~* (Header)' type='Header' visible='false'>
+                  <b:widget id='Header1' locked='true' title='  ~* (Header)' type='Header' visible='true'>
                     <b:widget-settings>
                       <b:widget-setting name='displayUrl'/>
                       <b:widget-setting name='displayHeight'>0</b:widget-setting>
@@ -2899,10 +2903,11 @@ z-index:-2807;
         </b:with>
       </div>
     </div>
-    <!-- ~* Overflow Button -->
+    <!-- ~* Overflow Button 
     <div class='overflow-button hidden'>
       <b:include name='overflowButton'/>
     </div>
+	-->
   </div>
 </b:includable>
                       <b:includable id='pageLink'>
