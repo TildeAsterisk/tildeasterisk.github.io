@@ -2334,25 +2334,29 @@ z-index:32
 
 #page_body .FeaturedPost .post-header
 {
-	position:absolute;
+	/* position:absolute; */
 	padding:10px;
+margin: 0px;
 	top:0;
 	right:0px;
+	text-align: right;
 	
 }
 
 #page_body .FeaturedPost .post-title
 {
-	padding:30px;
+	
+	padding:0 30px;
 	
 }
 
 .page .widget.FeaturedPost .post-content.has-featured-image .post-text-container {
-    position: absolute;
+    /* position: absolute; */
     padding:0px;
     width: 100%;
-	background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%); 
-	height:100%;
+	background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
+z-index: 2807;
+	
 }
 
 .page .widget.FeaturedPost .post-content.has-featured-image .post-text-container .snippet-item.r-snippetized{
@@ -2364,7 +2368,9 @@ z-index:32
 }
 
 .page .widget.FeaturedPost .thumb-link{
+  position:absolute;
 	width:100%;
+z-index:-2807;
 }
 
 .page .widget.FeaturedPost .thumb.hero-thumb{
@@ -2372,10 +2378,9 @@ z-index:32
 }
 
 .page .widget.FeaturedPost .post-footer{
-	position:absolute;
-	width:95%;
+	width:100%;
 	bottom: 0px;
-	    padding: 20px;
+	padding: 20px;
     margin: 0;
 	    
 }
@@ -2736,6 +2741,9 @@ z-index:32
     <div class='page'>
       <div class='page_body'>
         <div class='main-page-body-content'>
+          <div class='hero-image'>
+            <b:class cond='data:skin.vars.body_background.image' name='has-image'/>
+          </div>
           <div class='centered-top-placeholder'/>
           <header class='centered-top-container' role='banner'>
             <div class='centered-top'>
@@ -2795,7 +2803,7 @@ z-index:32
               </b:if>
               <div class='blog-name'>
                 <b:section id='header' name='Header' showaddelement='false'>
-                  <b:widget id='Header1' locked='true' title='  ~* (Header)' type='Header' visible='true'>
+                  <b:widget id='Header1' locked='true' title='  ~* (Header)' type='Header' visible='false'>
                     <b:widget-settings>
                       <b:widget-setting name='displayUrl'/>
                       <b:widget-setting name='displayHeight'>0</b:widget-setting>
@@ -2847,7 +2855,7 @@ z-index:32
                   <b:section id='page_list_top' name='Page List (Top)' showaddelement='false'>
                     <b:widget id='PageList1' locked='true' title='' type='PageList' visible='true'>
                       <b:widget-settings>
-                        <b:widget-setting name='pageListJson'><![CDATA[{"2643004162854848845":{"href":"https://www.tildeasterisk.com/p/about.html","position":1,"title":"About"},"link0":{"href":"https://linktr.ee/TildeAsterisk","position":0,"title":"Home"}}]]></b:widget-setting>
+                        <b:widget-setting name='pageListJson'><![CDATA[{"0":{"href":"https://www.tildeasterisk.com/","position":1,"title":"Home"},"2643004162854848845":{"href":"https://www.tildeasterisk.com/p/about.html","position":2,"title":"About"},"link0":{"href":"https://linktr.ee/TildeAsterisk","position":0,"title":"Linktree"}}]]></b:widget-setting>
                         <b:widget-setting name='homeTitle'>Home</b:widget-setting>
                       </b:widget-settings>
                       <b:includable id='main'>
@@ -2904,9 +2912,7 @@ z-index:32
               </div>
             </div>
           </header>
-          <div class='hero-image'>
-            <b:class cond='data:skin.vars.body_background.image' name='has-image'/>
-          </div>
+          
           <main class='centered-bottom' id='main' role='main' tabindex='-1'>
             <b:if cond='data:view.isMultipleItems'>
               <h2 class='main-heading'><data:messages.posts/></h2>
@@ -2926,7 +2932,7 @@ z-index:32
               </div>
             </b:if>
             <b:section ads='true' class='main' id='page_body' name='Page Body' showaddelement='false'>
-              <b:widget cond='data:view.isHomepage' id='FeaturedPost1' locked='true' title='' type='FeaturedPost' version='2' visible='true'>
+              <b:widget id='FeaturedPost1' locked='true' title='' type='FeaturedPost' version='2' visible='true'>
                 <b:widget-settings>
                   <b:widget-setting name='showSnippet'>true</b:widget-setting>
                   <b:widget-setting name='showPostTitle'>true</b:widget-setting>
