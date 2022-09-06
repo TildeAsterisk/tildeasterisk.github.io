@@ -2273,7 +2273,7 @@ min-height:300px;
 width:$(content.width / 2 - 10px)
 }
 .page .widget.FeaturedPost .post-content.has-featured-image .post-text-container{
-width:425px
+width:100%; /* ~* Edit */
 }
 .page .widget.FeaturedPost .post-content.no-featured-image .post-text-container{
 width:100%
@@ -2329,11 +2329,12 @@ z-index:32
 #page_body .FeaturedPost
 {
 	position: relative;
+	
 }
 
 .page .widget.FeaturedPost .post-content.has-featured-image .post-text-container {
     position: absolute;
-    padding: 30px 0px 0px 30px;
+    padding: 0px 0px 20px 0px
     width: 100%;
 	background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%); 
 	bottom:0;
