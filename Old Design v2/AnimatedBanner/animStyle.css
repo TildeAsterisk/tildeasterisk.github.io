@@ -1,0 +1,83 @@
+html, body
+{
+	width:100%;
+	height:100%;
+	border:0;
+	padding:0;
+	margin:0;
+	background-color:#000;
+	overflow:hidden;
+    color:white;
+}
+
+@keyframes bkg_anim 
+{
+    from {background-position: 0px center;}
+    to {background-position: -640px center;}
+}
+
+@keyframes hover_anim 
+{
+    from {top: 0px;}
+    to {top: 5px;}
+}
+
+#bkg
+{
+	position: absolute;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	background-image: url(assets/StarBannerBackground.jpg);
+	background-repeat: repeat-x;
+	background-position: 0px center;
+	animation-name: bkg_anim; 
+	animation-duration: 15s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+#dunes
+{
+	position: absolute;
+	
+	top:60px;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	background-image: url(assets/hdr_dunes.png);
+	background-repeat: repeat-x;
+	background-position: 0px center;
+	animation-name: bkg_anim; 
+	animation-duration: 10s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+#ascii
+{
+	position:relative;
+	overflow:hidden;
+	background-image: url(assets/SymbolLogo.png);
+	background-repeat: no-repeat;
+	background-position: center;
+    background-size: 100px 100px;
+	width:40px;
+    height:40px;
+    
+    animation-name: hover_anim; 
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+	animation-direction: alternate;
+}
+
+#patrol {
+	position:relative;
+	overflow:hidden;
+	background-image: url(assets/TAascii.png);
+	background-repeat: no-repeat;
+	background-position: center top;
+	/* width:350px; */
+	height:100px;
+}
