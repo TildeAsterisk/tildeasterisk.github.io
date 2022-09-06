@@ -2317,7 +2317,7 @@ margin-$startSide:$(sidebar.width)
 padding-$startSide:$(sidebar.width)
 }
 .hamburger-menu-container{
-display:none
+display:block;
 }
 .sidebar-container{
 overflow:visible;
@@ -2325,6 +2325,20 @@ z-index:32
 }
 }
 /* Custom Blogger Theme by Tilde Asterisk ~* */
+
+#page_list_top .widget.PageList .overflowable-contents ul{
+	line-height:80px;
+	font: 700 normal 25px Roboto, sans-serif;
+    text-transform: uppercase;
+    text-align: center;   
+}
+
+#page_list_top .widget.PageList .overflowable-contents ul li a{
+	line-height:80px;
+	font: 700 normal 25px Roboto, sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+}
 
 #page_body .FeaturedPost
 {
@@ -2853,9 +2867,9 @@ z-index:-2807;
                 </b:section>
                 <nav role='navigation'>
                   <b:section id='page_list_top' name='Page List (Top)' showaddelement='false'>
-                    <b:widget id='PageList1' locked='true' title='' type='PageList' visible='true'>
+                    <b:widget id='PageList1' locked='true' title='' type='PageList' version='2' visible='true'>
                       <b:widget-settings>
-                        <b:widget-setting name='pageListJson'><![CDATA[{"0":{"href":"https://www.tildeasterisk.com/","position":1,"title":"Home"},"2643004162854848845":{"href":"https://www.tildeasterisk.com/p/about.html","position":2,"title":"About"},"link0":{"href":"https://linktr.ee/TildeAsterisk","position":0,"title":"Linktree"}}]]></b:widget-setting>
+                        <b:widget-setting name='pageListJson'><![CDATA[{"2643004162854848845":{"href":"https://www.tildeasterisk.com/p/about.html","position":2,"title":"About"},"link1":{"href":"https://www.tildeasterisk.blogspot.com/","position":1,"title":"Blog"},"link0":{"href":"https://linktr.ee/TildeAsterisk","position":0,"title":"Linktree"}}]]></b:widget-setting>
                         <b:widget-setting name='homeTitle'>Home</b:widget-setting>
                       </b:widget-settings>
                       <b:includable id='main'>
@@ -2885,6 +2899,7 @@ z-index:-2807;
         </b:with>
       </div>
     </div>
+    <!-- ~* Overflow Button -->
     <div class='overflow-button hidden'>
       <b:include name='overflowButton'/>
     </div>
