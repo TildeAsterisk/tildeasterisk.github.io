@@ -2361,14 +2361,9 @@ margin: 0px;
 	
 }
 
-#page_body .FeaturedPost .title
-{
-	content:"";
-	
-}
-
 #page_body .FeaturedPost .post-title
 {
+	
 	padding:0 30px;
 	
 }
@@ -2878,7 +2873,7 @@ z-index:-2807;
                   <b:section id='page_list_top' name='Page List (Top)' showaddelement='false'>
                     <b:widget id='PageList1' locked='true' title='' type='PageList' version='2' visible='true'>
                       <b:widget-settings>
-                        <b:widget-setting name='pageListJson'><![CDATA[{"2643004162854848845":{"href":"https://www.tildeasterisk.com/p/about.html","position":2,"title":"About"},"link1":{"href":"https://www.tildeasterisk.com/./","position":1,"title":"Blog"},"link0":{"href":"https://linktr.ee/TildeAsterisk","position":0,"title":"Home"}}]]></b:widget-setting>
+                        <b:widget-setting name='pageListJson'><![CDATA[{"2643004162854848845":{"href":"https://www.tildeasterisk.com/p/about.html","position":2,"title":"About"},"link1":{"href":"https://www.tildeasterisk.blogspot.com/","position":1,"title":"Blog"},"link0":{"href":"https://linktr.ee/TildeAsterisk","position":0,"title":"Linktree"}}]]></b:widget-setting>
                         <b:widget-setting name='homeTitle'>Home</b:widget-setting>
                       </b:widget-settings>
                       <b:includable id='main'>
@@ -2957,7 +2952,7 @@ z-index:-2807;
               </div>
             </b:if>
             <b:section ads='true' class='main' id='page_body' name='Page Body' showaddelement='false'>
-              <b:widget cond='data:view.isHomepage' id='FeaturedPost1' locked='true' title='Featured' type='FeaturedPost' version='2' visible='true'>
+              <b:widget id='FeaturedPost1' locked='true' title='' type='FeaturedPost' version='2' visible='true'>
                 <b:widget-settings>
                   <b:widget-setting name='showSnippet'>true</b:widget-setting>
                   <b:widget-setting name='showPostTitle'>true</b:widget-setting>
@@ -3235,10 +3230,10 @@ z-index:-2807;
                   <b:widget-setting name='showLabels'>true</b:widget-setting>
                   <b:widget-setting name='showLocation'>true</b:widget-setting>
                   <b:widget-setting name='showTimestamp'>true</b:widget-setting>
-                  <b:widget-setting name='postsPerAd'>1</b:widget-setting>
+                  <b:widget-setting name='postsPerAd'>4</b:widget-setting>
                   <b:widget-setting name='showBacklinks'>false</b:widget-setting>
                   <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
-                  <b:widget-setting name='showInlineAds'>false</b:widget-setting>
+                  <b:widget-setting name='showInlineAds'>true</b:widget-setting>
                   <b:widget-setting name='showReactions'>false</b:widget-setting>
                 </b:widget-settings>
                 <b:includable id='main'>
@@ -3250,7 +3245,7 @@ z-index:-2807;
 
           <!-- Display title on homepage -->
           <b:if cond='data:posts.any and data:view.isHomepage'>
-			<h3 class='title'><data:messages.latestPosts/></h3> 
+            <h3 class='title'><data:messages.latestPosts/></h3>
           </b:if>
           <!-- Filter out the featured post, but only on the homepage. -->
           <b:with value='(data:widgets.FeaturedPost filter w =&gt; w.sectionId == &quot;page_body&quot;) map (w =&gt; w.postId)' var='featuredPostIds'>
@@ -3862,7 +3857,7 @@ z-index:-2807;
   </section>
 </b:includable>
               </b:widget>
-              <b:widget cond='data:view.isSingleItem and data:posts any (p =&gt; p.id != data:view.postId)' id='PopularPosts1' locked='true' title='' type='PopularPosts' version='2' visible='false'>
+              <b:widget cond='data:view.isSingleItem and data:posts any (p =&gt; p.id != data:view.postId)' id='PopularPosts1' locked='true' title='' type='PopularPosts' version='2' visible='true'>
                 <b:widget-settings>
                   <b:widget-setting name='numItemsToShow'>2</b:widget-setting>
                   <b:widget-setting name='showThumbnails'>true</b:widget-setting>
@@ -4121,7 +4116,7 @@ z-index:-2807;
         <b:section class='footer' id='footer' name='Footer' showaddelement='false' tag='footer'>
           <b:widget id='Attribution1' locked='true' title='' type='Attribution' visible='true'>
             <b:widget-settings>
-              <b:widget-setting name='copyright'>~*</b:widget-setting>
+              <b:widget-setting name='copyright'/>
             </b:widget-settings>
             <b:includable id='main' var='this'>
   <div class='widget-content'>
