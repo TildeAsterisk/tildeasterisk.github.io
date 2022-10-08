@@ -959,7 +959,7 @@ padding:0
 display:none
 }
 .post-share-buttons{
-position:relative
+position:relative;
 }
 .centered-bottom .share-buttons .svg-icon-24,.share-buttons .svg-icon-24{
 fill:$(body.text.color)
@@ -1712,9 +1712,11 @@ background-position:center;
 background-size:cover;
 height:100%
 }
+
 .widget.FeaturedPost .featured-post-snippet:before{
 content:"\2014"
 }
+
 .snippet-container,.snippet-fade{
 font:$(post.text.font.small);
 line-height:$(post.text.font.small.size * 1.7)
@@ -1776,9 +1778,14 @@ color:$(post.title.color)
 .post.no-featured-image .post-title,.post.no-featured-image .post-title a{
 color:$(post.text.title.color)
 }
+
+
+/* remove small symbol at top of posts
 body.item-view .post-body-container:before{
 content:"\2014"
 }
+*/
+
 .post-body{
 color:$(post.text.color);
 font:$(post.text.font.small);
@@ -2329,22 +2336,23 @@ z-index:32
 /* Custom Blogger Theme by Tilde Asterisk ~* */
 
 .centered-top{
-padding:10px 0 10px 0;
+padding:0;
+margin=0;
 }
 
 #page_list_top .widget.PageList .overflowable-contents ul{
-	line-height:80px;
-	font: 700 normal 25px Roboto, sans-serif;
-    text-transform: uppercase;
-    text-align: center;   
+	text-transform: uppercase;
+    text-align: center;
+	font: 900 normal 25px Roboto, sans-serif;
 }
 
+/*
 #page_list_top .widget.PageList .overflowable-contents ul li a{
-	line-height:80px;
-	font: 700 normal 25px Roboto, sans-serif;
-    text-transform: uppercase;
+	text-transform: uppercase;
     text-align: center;
 }
+*/
+
 
 #page_body .FeaturedPost
 {
@@ -2886,7 +2894,7 @@ filter: brightness(50%);
                   <b:section id='page_list_top' name='Page List (Top)' showaddelement='false'>
                     <b:widget id='PageList1' locked='true' title='' type='PageList' version='2' visible='true'>
                       <b:widget-settings>
-                        <b:widget-setting name='pageListJson'><![CDATA[{"2289421130385493046":{"href":"https://www.tildeasterisk.com/p/games.html","position":1,"title":"Games"},"2643004162854848845":{"href":"https://www.tildeasterisk.com/p/about.html","position":3,"title":"About"},"link1":{"href":"https://tildeasterisk.myshopify.com/?_ab=0&_fd=0&_sc=1","position":2,"title":"Shop"},"link0":{"href":"https://www.tildeasterisk.com/./","position":0,"title":"Home"}}]]></b:widget-setting>
+                        <b:widget-setting name='pageListJson'><![CDATA[{"2289421130385493046":{"href":"https://www.tildeasterisk.com/p/games.html","position":1,"title":"Games"},"2643004162854848845":{"href":"https://www.tildeasterisk.com/p/about.html","position":3,"title":"About"},"4920613189232455421":{"href":"https://www.tildeasterisk.com/p/shop.html","position":2,"title":"Shop"},"link0":{"href":"https://www.tildeasterisk.com/./","position":0,"title":"Home"}}]]></b:widget-setting>
                         <b:widget-setting name='homeTitle'>Home</b:widget-setting>
                       </b:widget-settings>
                       <b:includable id='main'>
@@ -3570,6 +3578,7 @@ filter: brightness(50%);
 </b:includable>
                 <b:includable id='post' var='post'>
           <b:if cond='data:view.isSingleItem'>
+            <!-- remove sidebar and center page body ~* edit
             <div class='post-sidebar'>
               <b:if cond='data:widgets.Blog.first.allBylineItems.share and data:post.shareUrl'>
                 <div class='post-sidebar-item post-share-buttons'>
@@ -3589,6 +3598,7 @@ filter: brightness(50%);
                 </div>
               </b:if>
             </div>
+          	-->
           </b:if>
           <div class='post'>
             <b:class cond='data:view.isMultipleItems and data:post.featuredImage' name='has-featured-image'/>
@@ -4366,7 +4376,7 @@ filter: brightness(50%);
           <b:include data='{                               buttonClass: &quot;flat-button&quot;,                               items: data:this.labels,                               itemSet: &quot;labels&quot;,                               itemsMarkup: &quot;super.list&quot;                             }' name='extendableItems'/>
         </b:includable>
         </b:widget>
-        <b:widget id='ReportAbuse1' locked='true' title='' type='ReportAbuse' visible='true'>
+        <b:widget id='ReportAbuse1' locked='true' title='' type='ReportAbuse' visible='false'>
           <b:includable id='main'>
   <b:include name='reportAbuse'/>
 </b:includable>
