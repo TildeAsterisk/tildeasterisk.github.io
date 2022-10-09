@@ -809,7 +809,7 @@ border-radius:50%
 animation-duration:.3s
 }
 .overflowable-container{
-max-height:$(header.pageList.font.size * 2);
+/*max-height:$(header.pageList.font.size * 2);*/
 overflow:hidden;
 position:relative
 }
@@ -2335,6 +2335,20 @@ z-index:32
 }
 /* Custom Blogger Theme by Tilde Asterisk ~* */
 
+.hero-image.has-image{
+  display:table;
+}
+
+#BannerCenteredLogoText {
+  text-align: center;
+  height: 100%;
+  margin: 0;
+  position: relative;
+  font: 900 normal 80px Arial, sans-serif;
+  display: table-cell;
+  vertical-align: middle;
+}
+
 .centered-top{
 padding:0;
 margin=0;
@@ -2781,6 +2795,7 @@ filter: brightness(50%);
       <div class='page_body'>
         <div class='main-page-body-content'>
           <div class='hero-image'>
+            <h1 id='BannerCenteredLogoText'>~*</h1>
             <b:class cond='data:skin.vars.body_background.image' name='has-image'/>
           </div>
           <div class='centered-top-placeholder'/>
