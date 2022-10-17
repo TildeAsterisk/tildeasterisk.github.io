@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='fancy.xml' b:templateVersion='1.3.3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
   <head>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'/>
     <meta content='width=device-width, initial-scale=1' name='viewport'/>
     <!-- <title><data:view.title.escaped/></title> -->
  	<title>Tilde Asterisk ~*</title>
@@ -1748,8 +1749,9 @@ margin-bottom:50px
 }
 .widget.Blog .post.no-featured-image,.widget.PopularPosts .post.no-featured-image{
 background-color:$(post.text.background.color);
-padding:30px
+padding:30px;
 }
+
 .widget.Blog .post>.post-share-buttons-top{
 $endSide:0;
 position:absolute;
@@ -2344,13 +2346,17 @@ z-index:32
 }
 
 #BannerCenteredLogoText {
-  text-align: center;
-  height: 100%;
-  margin: 0;
-  position: relative;
   font: 900 normal 80px Arial, sans-serif;
-  display: table-cell;
+  color:white;
+  padding:100px;
+  height: 100%;
+  text-align: center;
+  /*
   vertical-align: middle;
+  margin: 0;
+  display: table-cell;
+  position: relative;
+  */
 }
 
 .centered-top{
@@ -2425,7 +2431,7 @@ margin=0;
 	width:100%;
 	z-index:-2807;
 filter: brightness(50%);
-	height:85%
+	height:85%;
 }
 
 .page .widget.FeaturedPost .thumb.hero-thumb{
@@ -2445,6 +2451,16 @@ filter: brightness(50%);
 	position:absolute;
 	right:0px;	
 	padding-right:30px;
+}
+
+/* Posts without image thumbnail ~* */
+.widget.Blog .post.no-featured-image{
+padding:35px;
+background:url("https://r4.wallpaperflare.com/wallpaper/933/317/171/computer-dark-minimalism-ascii-art-wallpaper-c59657d4be91fa05826ff640607f28a0.jpg")no-repeat center;
+}
+
+.sidebar-container .widget.Profile .individual .profile-link, .sidebar-container .widget.Profile .team .visit-profile​ {
+color:black;
 }
 
 /* End of Custom Blogger Theme by Tilde Asterisk */
@@ -2799,7 +2815,7 @@ filter: brightness(50%);
       <div class='page_body'>
         <div class='main-page-body-content'>
           <div class='hero-image'>
-            <!-- <h1 id='BannerCenteredLogoText'>~*</h1> -->
+            <a href='https://www.tildeasterisk.com/'><h1 id='BannerCenteredLogoText'>~*</h1></a>
             <b:class cond='data:skin.vars.body_background.image' name='has-image'/>
           </div>
           <div class='centered-top-placeholder'/>
@@ -4198,7 +4214,38 @@ filter: brightness(50%);
         <b:include data='{ iconClass: &quot;touch-icon sidebar-back rtl-reversible-icon&quot; }' name='backArrowIcon'/>
       </div>
       <b:section id='sidebar' name='Sidebar' preferred='yes'>
-        <b:widget id='Profile1' locked='false' title='About Me' type='Profile' version='2' visible='true'>
+        <b:widget id='BlogSearch2' locked='false' title='Search' type='BlogSearch' visible='true'>
+          <b:includable id='main'>
+  <b:include name='widget-title'/>
+  <b:include name='content'/>
+</b:includable>
+          <b:includable id='content'>
+  <div class='widget-content' role='search'>
+    <b:include name='searchForm'/>
+  </div>
+</b:includable>
+          <b:includable id='searchForm'>
+  <form expr:action='data:blog.searchUrl'>
+    <b:attr cond='not data:view.isPreview' name='target' value='_top'/>
+    <b:include name='urlParamsAsFormInput'/>
+    <div class='search-input'>
+      <input autocomplete='off' expr:aria-label='data:messages.searchThisBlog' expr:placeholder='data:messages.searchThisBlog' expr:value='data:view.isSearch ? data:view.search.query.escaped : &quot;&quot;' name='q'/>
+    </div>
+    <b:include name='searchSubmit'/>
+  </form>
+</b:includable>
+          <b:includable id='searchSubmit'>
+          <b:if cond='data:widget.sectionId == &quot;search_top&quot;'>
+            <label>
+              <input type='submit'/>
+              <b:include data='{ iconClass: &quot;touch-icon search-icon&quot; }' name='searchIcon'/>
+            </label>
+          <b:else/>
+            <b:include name='super.searchSubmit'/>
+          </b:if>
+        </b:includable>
+        </b:widget>
+        <b:widget id='Profile1' locked='false' title='About Me' type='Profile' version='2' visible='false'>
           <b:widget-settings>
             <b:widget-setting name='showaboutme'>true</b:widget-setting>
             <b:widget-setting name='showlocation'>false</b:widget-setting>
@@ -4208,7 +4255,7 @@ filter: brightness(50%);
           <b:include name='content'/>
         </b:includable>
           <b:includable id='authorProfileImage'>
-  <img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:authorPhoto.height' expr:src='data:authorPhoto.image' expr:width='data:authorPhoto.width'/>
+  <a href='https://www.tildeasterisk.com/p/about.html'><img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:authorPhoto.height' expr:src='data:authorPhoto.image' expr:width='data:authorPhoto.width'/></a>
 </b:includable>
           <b:includable id='content'>
   <b:if cond='data:team'>
@@ -4246,7 +4293,7 @@ filter: brightness(50%);
 </b:includable>
           <b:includable id='teamProfileLink'>
           <!-- Remove background image, add "Visit profile" message -->
-          <a class='profile-link g-profile' expr:href='data:userUrl'>
+          <a class='profile-link g-profile' href='https://www.tildeasterisk.com/p/about.html'>
             <b:include name='profileImage'/>
             <div class='profile-name-wrapper'>
               <div class='profile-name'><data:display-name/></div>
