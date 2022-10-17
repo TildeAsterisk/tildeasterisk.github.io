@@ -12,24 +12,24 @@ https://TildeAsterisk.github.io/web/TEMPLATE/blank.html
 tildeasterisk.github.io
 ├── README.md
 │
-├─── web
+├─── web/
 │   ├── [index.html](https://TildeAsterisk.github.io/web/index.html)
 │   ├── file012.txt
 │   │
-│   ├─── animated_banner
+│   ├─── animated_banner/
 │   |   ├── [blank.html](https://TildeAsterisk.github.io/web/animated_banner/index.html)
 │   |   ├── file112.txt
 │   |   └── ...
 |   |
-│   ├─── TEMPLATE
+│   ├─── TEMPLATE/
 │   |   ├── [blank.html](https://TildeAsterisk.github.io/web/TEMPLATE/blank.html)
 │   |   ├── file112.txt
 │   |   └── ...
 |   |
-│   └─── about
+│   └─── about/
 │       └── about.html
 │   
-└─── TildeAsterisk.com Blogger
+└─── TildeAsterisk.com Blogger/
     ├── -'Tilde-Asterisk_Blogger-Theme.html
     └── about_page_blogger.html
 ```
