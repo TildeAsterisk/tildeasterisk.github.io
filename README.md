@@ -21,7 +21,7 @@ tildeasterisk.github.io
 │   |   ├── file112.txt
 │   |   └── ...
 |   |
-│   └─── TEMPLATE
+│   ├─── TEMPLATE
 │   |   ├── [blank.html](https://TildeAsterisk.github.io/web/TEMPLATE/blank.html)
 │   |   ├── file112.txt
 │   |   └── ...
