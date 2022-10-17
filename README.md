@@ -1,2 +1,2 @@
 # TildeAsterisk.github.io
-https://www.tildeasterisk.com/index.html
+https://TildeAsterisk.github.io/index.html
