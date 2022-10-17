@@ -2461,6 +2461,7 @@ div.post.has-featured-image h3.post-title.entry-title {
     padding: 10px;
     background: linear-gradient(to right, rgb(58 58 58) 0%,rgb(0 0 0 / 0%) 100%);
     font-weight: 900;
+    text-shadow: -1px -1px 0 #3a3a3a, 1px -1px 0 #3a3a3a, -1px 1px 0 #3a3a3a, 1px 1px 0 #3a3a3a;
 }
 
 div.post.no-featured-image h3.post-title.entry-title {
@@ -2472,8 +2473,9 @@ div.post.no-featured-image h3.post-title.entry-title {
     text-align: center;
     padding: 10px;
     background: linear-gradient(to right, rgb(58 58 58) 0%,rgb(0 0 0 / 0%) 100%);
-	*/
-    font-weight: 900;
+    */
+	font-weight: 900;
+    text-shadow: -1px -1px 0 #3a3a3a, 1px -1px 0 #3a3a3a, -1px 1px 0 #3a3a3a, 1px 1px 0 #3a3a3a;
 }
 
 
@@ -4221,6 +4223,105 @@ color:black;
         <b:include data='{ iconClass: &quot;touch-icon sidebar-back rtl-reversible-icon&quot; }' name='backArrowIcon'/>
       </div>
       <b:section id='sidebar' name='Sidebar' preferred='yes'>
+        <b:widget id='Profile1' locked='false' title='About Me' type='Profile' version='2' visible='false'>
+          <b:widget-settings>
+            <b:widget-setting name='showaboutme'>false</b:widget-setting>
+            <b:widget-setting name='showlocation'>false</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main' var='this'>
+          <!-- Remove widget title -->
+          <b:include name='content'/>
+        </b:includable>
+          <b:includable id='authorProfileImage'>
+  <a href='https://www.tildeasterisk.com/p/about.html'><img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:authorPhoto.height' expr:src='data:authorPhoto.image' expr:width='data:authorPhoto.width'/></a>
+</b:includable>
+          <b:includable id='content'>
+  <b:if cond='data:team'>
+    <div class='widget-content team'>
+      <b:include name='teamProfile'/>
+    </div>
+  <b:else/>
+    <div class='widget-content individual'>
+      <b:include name='userProfile'/>
+    </div>
+  </b:if>
+</b:includable>
+          <b:includable id='defaultProfileImage'>
+          <div class='default-avatar-wrapper'>
+            <b:include data='{ iconClass: &quot;avatar-icon&quot; }' name='defaultAvatarIcon'/>
+          </div>
+        </b:includable>
+          <b:includable id='profileImage'>
+  <b:if cond='data:authorPhoto.image'>
+    <b:include name='authorProfileImage'/>
+  <b:else/>
+    <b:include name='defaultProfileImage'/>
+  </b:if>
+</b:includable>
+          <b:includable id='teamProfile'>
+  <ul>
+    <b:loop values='data:authors' var='author'>
+      <li>
+        <div class='team-member'>
+          <b:include data='author' name='teamProfileLink'/>
+        </div>
+      </li>
+    </b:loop>
+  </ul>
+</b:includable>
+          <b:includable id='teamProfileLink'>
+          <!-- Remove background image, add "Visit profile" message -->
+          <a class='profile-link g-profile' href='https://www.tildeasterisk.com/p/about.html'>
+            <b:include name='profileImage'/>
+            <div class='profile-name-wrapper'>
+              <div class='profile-name'><data:display-name/></div>
+              <div class='visit-profile'><data:messages.visitProfile/></div>
+            </div>
+          </a>
+        </b:includable>
+          <b:includable id='userLocation'>
+  <dd class='profile-data location'><data:location/></dd>
+</b:includable>
+          <b:includable id='userProfile'>
+  <b:include name='userProfileImage'/>
+  <b:include name='userProfileInfo'/>
+</b:includable>
+          <b:includable id='userProfileData'>
+  <dt class='profile-data'>
+    <a class='profile-link g-profile' expr:href='data:userUrl' rel='author nofollow'>
+      <data:displayname/>
+    </a>
+  </dt>
+</b:includable>
+          <b:includable id='userProfileImage'>
+  <a expr:href='data:userUrl' rel='nofollow'>
+    <b:include name='profileImage'/>
+  </a>
+</b:includable>
+          <b:includable id='userProfileInfo'>
+  <div class='profile-info'>
+    <dl class='profile-datablock'>
+      <b:class cond='data:showlocation and data:location != &quot;&quot;' name='has-location'/>
+
+      <b:include name='userProfileData'/>
+      <b:include cond='data:showlocation and data:location != &quot;&quot;' name='userLocation'/>
+      <b:include cond='data:aboutme != &quot;&quot;' name='userProfileText'/>
+    </dl>
+    <b:include name='viewProfileLink'/>
+  </div>
+</b:includable>
+          <b:includable id='userProfileText'>
+  <dd class='profile-textblock'>
+    <data:aboutme/>
+  </dd>
+</b:includable>
+          <b:includable id='viewProfileLink'>
+          <!-- Change message to "Visit profile" -->
+          <a class='profile-link' expr:href='data:userUrl' rel='author'>
+            <data:messages.visitProfile/>
+          </a>
+        </b:includable>
+        </b:widget>
         <b:widget id='HTML1' locked='false' title='' type='HTML' visible='true'>
           <b:widget-settings>
             <b:widget-setting name='content'>&lt;h2 style=&quot;text-align:center;&quot;&gt;Plushie Panic!&lt;/h2&gt;
@@ -4325,105 +4426,6 @@ color:black;
     </div>
   </div>
 </b:includable>
-        </b:widget>
-        <b:widget id='Profile1' locked='false' title='About Me' type='Profile' version='2' visible='false'>
-          <b:widget-settings>
-            <b:widget-setting name='showaboutme'>true</b:widget-setting>
-            <b:widget-setting name='showlocation'>false</b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main' var='this'>
-          <!-- Remove widget title -->
-          <b:include name='content'/>
-        </b:includable>
-          <b:includable id='authorProfileImage'>
-  <a href='https://www.tildeasterisk.com/p/about.html'><img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:authorPhoto.height' expr:src='data:authorPhoto.image' expr:width='data:authorPhoto.width'/></a>
-</b:includable>
-          <b:includable id='content'>
-  <b:if cond='data:team'>
-    <div class='widget-content team'>
-      <b:include name='teamProfile'/>
-    </div>
-  <b:else/>
-    <div class='widget-content individual'>
-      <b:include name='userProfile'/>
-    </div>
-  </b:if>
-</b:includable>
-          <b:includable id='defaultProfileImage'>
-          <div class='default-avatar-wrapper'>
-            <b:include data='{ iconClass: &quot;avatar-icon&quot; }' name='defaultAvatarIcon'/>
-          </div>
-        </b:includable>
-          <b:includable id='profileImage'>
-  <b:if cond='data:authorPhoto.image'>
-    <b:include name='authorProfileImage'/>
-  <b:else/>
-    <b:include name='defaultProfileImage'/>
-  </b:if>
-</b:includable>
-          <b:includable id='teamProfile'>
-  <ul>
-    <b:loop values='data:authors' var='author'>
-      <li>
-        <div class='team-member'>
-          <b:include data='author' name='teamProfileLink'/>
-        </div>
-      </li>
-    </b:loop>
-  </ul>
-</b:includable>
-          <b:includable id='teamProfileLink'>
-          <!-- Remove background image, add "Visit profile" message -->
-          <a class='profile-link g-profile' href='https://www.tildeasterisk.com/p/about.html'>
-            <b:include name='profileImage'/>
-            <div class='profile-name-wrapper'>
-              <div class='profile-name'><data:display-name/></div>
-              <div class='visit-profile'><data:messages.visitProfile/></div>
-            </div>
-          </a>
-        </b:includable>
-          <b:includable id='userLocation'>
-  <dd class='profile-data location'><data:location/></dd>
-</b:includable>
-          <b:includable id='userProfile'>
-  <b:include name='userProfileImage'/>
-  <b:include name='userProfileInfo'/>
-</b:includable>
-          <b:includable id='userProfileData'>
-  <dt class='profile-data'>
-    <a class='profile-link g-profile' expr:href='data:userUrl' rel='author nofollow'>
-      <data:displayname/>
-    </a>
-  </dt>
-</b:includable>
-          <b:includable id='userProfileImage'>
-  <a expr:href='data:userUrl' rel='nofollow'>
-    <b:include name='profileImage'/>
-  </a>
-</b:includable>
-          <b:includable id='userProfileInfo'>
-  <div class='profile-info'>
-    <dl class='profile-datablock'>
-      <b:class cond='data:showlocation and data:location != &quot;&quot;' name='has-location'/>
-
-      <b:include name='userProfileData'/>
-      <b:include cond='data:showlocation and data:location != &quot;&quot;' name='userLocation'/>
-      <b:include cond='data:aboutme != &quot;&quot;' name='userProfileText'/>
-    </dl>
-    <b:include name='viewProfileLink'/>
-  </div>
-</b:includable>
-          <b:includable id='userProfileText'>
-  <dd class='profile-textblock'>
-    <data:aboutme/>
-  </dd>
-</b:includable>
-          <b:includable id='viewProfileLink'>
-          <!-- Change message to "Visit profile" -->
-          <a class='profile-link' expr:href='data:userUrl' rel='author'>
-            <data:messages.visitProfile/>
-          </a>
-        </b:includable>
         </b:widget>
         <b:widget id='Label1' locked='false' title='Labels' type='Label' visible='true'>
           <b:includable id='main' var='this'>
