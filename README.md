@@ -7,7 +7,6 @@ https://tildeasterisk.github.io/web/animated_banner/index.html
 ```
 tildeasterisk.github.io
 ├── README.md
-├── file001.txt    
 │
 └───web
 │   ├── [index.html](https://TildeAsterisk.github.io/web/index.html)
