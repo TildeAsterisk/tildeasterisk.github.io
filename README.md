@@ -12,7 +12,7 @@ https://TildeAsterisk.github.io/web/TEMPLATE/blank.html
 tildeasterisk.github.io
 ├── README.md
 │
-└───web
+├───web
 │   ├── [index.html](https://TildeAsterisk.github.io/web/index.html)
 │   ├── file012.txt
 │   │
