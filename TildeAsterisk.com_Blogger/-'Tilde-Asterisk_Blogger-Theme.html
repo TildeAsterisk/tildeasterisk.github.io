@@ -2413,9 +2413,8 @@ margin=0;
     /* position: absolute; */
     padding:0px;
     width: 100%;
-	/*background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);*/
+	/*background: linear-gradient(to bottom, rgba(0,0,0,0.1) 28.0799%, rgba(0,0,0,0.8) 100%);*/
 	z-index: 2807;
-	
 }
 
 .page .widget.FeaturedPost .post-content.has-featured-image .post-text-container .snippet-item.r-snippetized{
@@ -2452,6 +2451,31 @@ filter: brightness(50%);
 	right:0px;	
 	padding-right:30px;
 }
+
+div.post.has-featured-image h3.post-title.entry-title {
+    position: absolute;
+    top: 0;
+    background-color: #000000d6;
+    width: 100%;
+    /* text-align: center; */
+    padding: 10px;
+    background: linear-gradient(to right, rgb(58 58 58) 0%,rgb(0 0 0 / 0%) 100%);
+    font-weight: 900;
+}
+
+div.post.no-featured-image h3.post-title.entry-title {
+	/*
+    position: absolute;
+    top: 0;
+    background-color: #000000d6;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background: linear-gradient(to right, rgb(58 58 58) 0%,rgb(0 0 0 / 0%) 100%);
+	*/
+    font-weight: 900;
+}
+
 
 /* Posts without image thumbnail ~* */
 .widget.Blog .post.no-featured-image{
@@ -3250,23 +3274,6 @@ color:black;
     </b:loop>
   </div>
 </b:includable>
-              </b:widget>
-              <b:widget cond='data:view.isHomepage' id='AdSense1' locked='false' title='' type='AdSense' visible='true'>
-                <b:includable id='main'>
-  <div class='widget-content'>
-    <b:if cond='data:adCode'>
-      <data:adCode/>
-    <b:else/>
-      <b:include name='defaultAdUnit'/>
-    </b:if>
-  </div>
-</b:includable>
-                <b:includable id='defaultAdUnit'>
-          <!-- Clear out style (need non-empty string) -->
-          <b:with value='&quot;/* Done in css. */&quot;' var='style'>
-            <b:include name='super.defaultAdUnit'/>
-          </b:with>
-        </b:includable>
               </b:widget>
               <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
                 <b:widget-settings>
@@ -4214,36 +4221,110 @@ color:black;
         <b:include data='{ iconClass: &quot;touch-icon sidebar-back rtl-reversible-icon&quot; }' name='backArrowIcon'/>
       </div>
       <b:section id='sidebar' name='Sidebar' preferred='yes'>
-        <b:widget id='BlogSearch2' locked='false' title='Search' type='BlogSearch' visible='true'>
+        <b:widget id='HTML1' locked='false' title='' type='HTML' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='content'>&lt;h2 style=&quot;text-align:center;&quot;&gt;Plushie Panic!&lt;/h2&gt;
+&lt;iframe frameborder=&quot;0&quot; src=&quot;https://itch.io/embed/1696454?border_width=5&amp;amp;bg_color=222222&amp;amp;fg_color=eeeeee&amp;amp;link_color=454545&amp;amp;border_color=363636&quot; width=&quot;216&quot; height=&quot;175&quot;&gt;&lt;a href=&quot;https://tildeasterisk.itch.io/plushie-panic&quot;&gt;Plushie Panic! by TildeAsterisk&lt;/a&gt;&lt;/iframe&gt;</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+  <b:include name='widget-title'/>
+  <div class='widget-content'>
+    <data:content/>
+  </div>
+</b:includable>
+        </b:widget>
+        <b:widget id='BlogArchive1' locked='false' title='Archive' type='BlogArchive' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='showStyle'>FLAT</b:widget-setting>
+            <b:widget-setting name='yearPattern'>yyyy</b:widget-setting>
+            <b:widget-setting name='showWeekEnd'>true</b:widget-setting>
+            <b:widget-setting name='monthPattern'>MMMM yyyy</b:widget-setting>
+            <b:widget-setting name='dayPattern'>MMM dd</b:widget-setting>
+            <b:widget-setting name='weekPattern'>MM/dd</b:widget-setting>
+            <b:widget-setting name='chronological'>false</b:widget-setting>
+            <b:widget-setting name='showPosts'>false</b:widget-setting>
+            <b:widget-setting name='frequency'>MONTHLY</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main' var='this'>
+          <details class='collapsible extendable'>
+            <b:attr cond='data:view.isArchive' name='open' value='open'/>
+            <b:with value='true' var='renderAsDetails'>
+            <b:with value='data:messages.archive' var='defaultTitle'>
+              <b:include name='super.main'/>
+            </b:with>
+            </b:with>
+          </details>
+        </b:includable>
+          <b:includable id='content'>
+  <div class='widget-content'>
+    <div id='ArchiveList'>
+      <div expr:id='data:widget.instanceId + &quot;_ArchiveList&quot;'>
+        <b:include cond='data:this.style == &quot;HIERARCHY&quot;' name='hierarchy'/>
+        <b:include cond='data:this.style in {&quot;FLAT&quot;, &quot;MENU&quot;}' name='flat'/>
+      </div>
+    </div>
+  </div>
+</b:includable>
+          <b:includable id='flat'>
+          <b:include data='{                               buttonClass: &quot;flat-button&quot;,                               items: data:this.data,                               itemSet: &quot;data&quot;,                               itemsMarkup: &quot;super.flat&quot;                             }' name='extendableItems'/>
+        </b:includable>
+          <b:includable id='hierarchy'>
+          <b:include data='{                               buttonClass: &quot;flat-button&quot;,                               limit: 1,                               items: data:this.data,                               itemSet: &quot;data&quot;,                               itemsMarkup: &quot;super.hierarchy&quot;                             }' name='extendableItems'/>
+        </b:includable>
+          <b:includable id='interval' var='intervals'>
+  <ul class='hierarchy'>
+    <b:loop values='data:intervals' var='interval'>
+      <li class='archivedate'>
+        <div class='hierarchy-title'>
+          <a class='post-count-link' expr:href='data:interval.url'>
+            <data:interval.name/>
+            <span class='post-count'><data:interval.post-count/></span>
+          </a>
+        </div>
+        <div class='hierarchy-content'>
+          <b:include cond='data:interval.data' data='interval.data' name='interval'/>
+          <b:include cond='data:interval.posts' data='interval.posts' name='posts'/>
+        </div>
+      </li>
+    </b:loop>
+  </ul>
+</b:includable>
+          <b:includable id='posts' var='posts'>
+  <ul class='posts hierarchy'>
+    <b:loop values='data:posts' var='post'>
+      <li>
+        <a expr:href='data:post.url'><data:post.title/></a>
+      </li>
+    </b:loop>
+  </ul>
+</b:includable>
+        </b:widget>
+        <b:widget id='Stats1' locked='false' title='Total Pageviews' type='Stats' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='showGraphicalCounter'>false</b:widget-setting>
+            <b:widget-setting name='showAnimatedCounter'>false</b:widget-setting>
+            <b:widget-setting name='showSparkline'>true</b:widget-setting>
+            <b:widget-setting name='sparklineStyle'>BLACK_TRANSPARENT</b:widget-setting>
+            <b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>
+          </b:widget-settings>
           <b:includable id='main'>
   <b:include name='widget-title'/>
   <b:include name='content'/>
 </b:includable>
           <b:includable id='content'>
-  <div class='widget-content' role='search'>
-    <b:include name='searchForm'/>
+  <div class='widget-content'>
+    <!-- Content is going to be visible when data will be fetched from server. -->
+    <div expr:id='data:widget.instanceId + &quot;_content&quot;' style='display: none;'>
+      <!-- Counter and image will be injected later via AJAX call. -->
+      <b:if cond='data:showSparkline'>
+        <script src='https://www.gstatic.com/charts/loader.js' type='text/javascript'/>
+        <span expr:id='data:widget.instanceId + &quot;_sparklinespan&quot;' style='display:inline-block; width:75px; height:30px'/>
+      </b:if>
+      <span expr:class='&quot;counter-wrapper &quot; + (data:showGraphicalCounter ? &quot;graph-counter-wrapper&quot; : &quot;text-counter-wrapper&quot;)' expr:id='data:widget.instanceId + &quot;_totalCount&quot;'>
+      </span>
+    </div>
   </div>
 </b:includable>
-          <b:includable id='searchForm'>
-  <form expr:action='data:blog.searchUrl'>
-    <b:attr cond='not data:view.isPreview' name='target' value='_top'/>
-    <b:include name='urlParamsAsFormInput'/>
-    <div class='search-input'>
-      <input autocomplete='off' expr:aria-label='data:messages.searchThisBlog' expr:placeholder='data:messages.searchThisBlog' expr:value='data:view.isSearch ? data:view.search.query.escaped : &quot;&quot;' name='q'/>
-    </div>
-    <b:include name='searchSubmit'/>
-  </form>
-</b:includable>
-          <b:includable id='searchSubmit'>
-          <b:if cond='data:widget.sectionId == &quot;search_top&quot;'>
-            <label>
-              <input type='submit'/>
-              <b:include data='{ iconClass: &quot;touch-icon search-icon&quot; }' name='searchIcon'/>
-            </label>
-          <b:else/>
-            <b:include name='super.searchSubmit'/>
-          </b:if>
-        </b:includable>
         </b:widget>
         <b:widget id='Profile1' locked='false' title='About Me' type='Profile' version='2' visible='false'>
           <b:widget-settings>
@@ -4344,80 +4425,7 @@ color:black;
           </a>
         </b:includable>
         </b:widget>
-        <b:widget id='BlogArchive1' locked='false' title='Archive' type='BlogArchive' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='showStyle'>FLAT</b:widget-setting>
-            <b:widget-setting name='yearPattern'>yyyy</b:widget-setting>
-            <b:widget-setting name='showWeekEnd'>true</b:widget-setting>
-            <b:widget-setting name='monthPattern'>MMMM yyyy</b:widget-setting>
-            <b:widget-setting name='dayPattern'>MMM dd</b:widget-setting>
-            <b:widget-setting name='weekPattern'>MM/dd</b:widget-setting>
-            <b:widget-setting name='chronological'>false</b:widget-setting>
-            <b:widget-setting name='showPosts'>false</b:widget-setting>
-            <b:widget-setting name='frequency'>MONTHLY</b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main' var='this'>
-          <details class='collapsible extendable'>
-            <b:attr cond='data:view.isArchive' name='open' value='open'/>
-            <b:with value='true' var='renderAsDetails'>
-            <b:with value='data:messages.archive' var='defaultTitle'>
-              <b:include name='super.main'/>
-            </b:with>
-            </b:with>
-          </details>
-        </b:includable>
-          <b:includable id='content'>
-  <div class='widget-content'>
-    <div id='ArchiveList'>
-      <div expr:id='data:widget.instanceId + &quot;_ArchiveList&quot;'>
-        <b:include cond='data:this.style == &quot;HIERARCHY&quot;' name='hierarchy'/>
-        <b:include cond='data:this.style in {&quot;FLAT&quot;, &quot;MENU&quot;}' name='flat'/>
-      </div>
-    </div>
-  </div>
-</b:includable>
-          <b:includable id='flat'>
-          <b:include data='{                               buttonClass: &quot;flat-button&quot;,                               items: data:this.data,                               itemSet: &quot;data&quot;,                               itemsMarkup: &quot;super.flat&quot;                             }' name='extendableItems'/>
-        </b:includable>
-          <b:includable id='hierarchy'>
-          <b:include data='{                               buttonClass: &quot;flat-button&quot;,                               limit: 1,                               items: data:this.data,                               itemSet: &quot;data&quot;,                               itemsMarkup: &quot;super.hierarchy&quot;                             }' name='extendableItems'/>
-        </b:includable>
-          <b:includable id='interval' var='intervals'>
-  <ul class='hierarchy'>
-    <b:loop values='data:intervals' var='interval'>
-      <li class='archivedate'>
-        <div class='hierarchy-title'>
-          <a class='post-count-link' expr:href='data:interval.url'>
-            <data:interval.name/>
-            <span class='post-count'><data:interval.post-count/></span>
-          </a>
-        </div>
-        <div class='hierarchy-content'>
-          <b:include cond='data:interval.data' data='interval.data' name='interval'/>
-          <b:include cond='data:interval.posts' data='interval.posts' name='posts'/>
-        </div>
-      </li>
-    </b:loop>
-  </ul>
-</b:includable>
-          <b:includable id='posts' var='posts'>
-  <ul class='posts hierarchy'>
-    <b:loop values='data:posts' var='post'>
-      <li>
-        <a expr:href='data:post.url'><data:post.title/></a>
-      </li>
-    </b:loop>
-  </ul>
-</b:includable>
-        </b:widget>
         <b:widget id='Label1' locked='false' title='Labels' type='Label' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
-            <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'/>
-            <b:widget-setting name='showType'>ALL</b:widget-setting>
-            <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
-          </b:widget-settings>
           <b:includable id='main' var='this'>
           <details class='collapsible extendable'>
             <b:attr cond='data:view.isLabelSearch' name='open' value='open'/>
@@ -4446,23 +4454,6 @@ color:black;
           <b:includable id='main'>
   <b:include name='reportAbuse'/>
 </b:includable>
-        </b:widget>
-        <b:widget id='AdSense2' locked='false' title='' type='AdSense' visible='false'>
-          <b:includable id='main'>
-  <div class='widget-content'>
-    <b:if cond='data:adCode'>
-      <data:adCode/>
-    <b:else/>
-      <b:include name='defaultAdUnit'/>
-    </b:if>
-  </div>
-</b:includable>
-          <b:includable id='defaultAdUnit'>
-          <!-- Clear out style (need non-empty string) -->
-          <b:with value='&quot;/* Done in css. */&quot;' var='style'>
-            <b:include name='super.defaultAdUnit'/>
-          </b:with>
-        </b:includable>
         </b:widget>
       </b:section>
     </aside>
