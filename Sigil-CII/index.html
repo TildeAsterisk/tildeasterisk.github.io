@@ -1,123 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 	
-<head>
+	<head>
+		<!-- THE CSS STYLING IS HERE!!! -->
+		<style>
+			body{
+				background-color:rgb(0, 0, 0);
+				color:#00FF41;
+				font: 1.3rem Inconsolata, monospace;
+				text-shadow: 0 0 5px #00FF41;
+				/*padding:42.0px;*/
+			}
+			
+			body::after{
+				content: "";
+				  position: absolute;
+				  top: 0;
+				  left: 0;
+				  width: 100vw;
+				  height: 100vh;
+			
+				content: "";
+				  position: absolute;
+				  top: 0;
+				  left: 0;
+				 width: 100vw;
+				  height: 100vh;
+				background: repeating-linear-gradient(
+				0deg,
+				#00000015,
+				#00000015 2px,
+				transparent 2px,
+				transparent 4px
+			  );
+			}
+			
+			.aw1 {
+				display: inline-block;
+				padding: 20px;
+			}
+		</style>
+	</head>
 
-<script>
-/*	
-	usage: ASCIIAnimation(param1, param2, param3)
-	
-	param1 - array of animation 'frames' (strings)
-	param2 - speed of animation in ms
-	param3 - DOM target, inserts animation to .innerHTML (retains spaces)
-	
-	ex: 
-	var anim1 = new ASCIIAnimation(["1","2","3"], 100, div1);
-*/
+	<body>
+		<p id="p">
+			~*/web/Sigil-CII/ >_
+		</p>
+	</body>
 
-function ASCIIAnimation(animArray, speed, DOMtarget) {
-  var currentFrame = 0;
-	for(var i = 0; i < animArray.length; i++) {
-		animArray[i] = animArray[i].replace(/ /g,"&nbsp;");
-		animArray[i] = "<pre>" + animArray[i] + "</pre>";
-	}
-	DOMtarget.innerHTML = animArray[0];
-	currentFrame++;
-	this.animation = setInterval(function() {
-		DOMtarget.innerHTML = animArray[currentFrame];
+<!-- THE JAVASCRIPT IS LOCATED HERE!!! -->
+	<script>
+	/*	
+		usage: ASCIIAnimation(param1, param2, param3)
+		
+		param1 - array of animation 'frames' (strings)
+		param2 - speed of animation in ms
+		param3 - DOM target, inserts animation to .innerHTML (retains spaces)
+		
+		ex: 
+		var anim1 = new ASCIIAnimation(["1","2","3"], 100, div1);
+	*/
+	
+	function ASCIIAnimation(animArray, speed, DOMtarget) {
+	  var currentFrame = 0;
+		for(var i = 0; i < animArray.length; i++) {
+			animArray[i] = animArray[i].replace(/ /g,"&nbsp;");
+			animArray[i] = "<pre>" + animArray[i] + "</pre>";
+		}
+		DOMtarget.innerHTML = animArray[0];
 		currentFrame++;
-		if(currentFrame >= animArray.length) currentFrame = 0;
-	}, speed);
-	this.getCurrentFrame = function() {
-		return currentFrame;
+		this.animation = setInterval(function() {
+			DOMtarget.innerHTML = animArray[currentFrame];
+			currentFrame++;
+			if(currentFrame >= animArray.length) currentFrame = 0;
+		}, speed);
+		this.getCurrentFrame = function() {
+			return currentFrame;
+		}
 	}
-}
-
-ASCIIAnimation.prototype.stopAnimation = function() {
-	clearInterval(this.animation);
-}
-
-document.body.style.textAlign = "center";
-document.body.innerHTML = "<br /><br /><h1>Sigil-CII by ~*</h1>";
-
-function makeDiv() { return document.createElement("div"); }
-
-function bodyAppend(element) { document.body.appendChild(element); }
-
-//EX4:
-var div4 = makeDiv();
-div4.classname="aw1";
-bodyAppend(div4);
-div4.style.fontFamily = "monospace";
-var animArray4 = [
-	"",
-	"",
-	"",
-	"*",
-	"~*",
-	" ~*",
-	"  ~*",
-	"   ~*",
-	"    ~*",
-	"     ~*",
-	"      ~*",
-	"       ~*",
-	"        ~*",
-	"         ~*",
-	"          ~*",
-	"           ~*",
-	"            ~*",
-	"             ~",
-];
-
-var anim4 = new ASCIIAnimation(animArray4, 50, div4);
-
-</script>
-
-
-<style>
-body{
-	background-color:rgb(0, 0, 0);
-	color:#00FF41;
-	font: 1.3rem Inconsolata, monospace;
-	text-shadow: 0 0 5px #00FF41;
-	padding:42.0px;
-}
-
-body::after{
-	content: "";
-  	position: absolute;
-  	top: 0;
-  	left: 0;
-  	width: 100vw;
-  	height: 100vh;
-
-	content: "";
-  	position: absolute;
-  	top: 0;
-  	left: 0;
- 	width: 100vw;
-  	height: 100vh;
-	background: repeating-linear-gradient(
-    0deg,
-    #00000015,
-    #00000015 2px,
-    transparent 2px,
-    transparent 4px
-  );
-}
-
-.aw1 {
-	display: inline-block;
-	padding: 20px;
-}
-	</style>
-</head>
-
-<body>
-	<p>
-		~*/web/Sigil-CII/ >_
-	</p>
-</body>
+	
+	ASCIIAnimation.prototype.stopAnimation = function() {
+		clearInterval(this.animation);
+	}
+	
+	//document.body.style.textAlign = "center";
+	var bodyHTML=document.body.innerHTML;
+	document.body.innerHTML = "<h1 style='text-align: center'>Sigil-CII by ~*</h1>";
+	
+	function makeDiv() { return document.createElement("div"); }
+	
+	function bodyAppend(element) { document.body.appendChild(element); }
+	
+	//EX4:
+	var div4 = makeDiv();
+	div4.classname="aw1";
+	bodyAppend(div4);
+	div4.style.fontFamily = "monospace";
+	var animArray4 = [
+		"",
+		"",
+		"",
+		"*",
+		"~*",
+		" ~*",
+		"  ~*",
+		"   ~*",
+		"    ~*",
+		"     ~*",
+		"      ~*",
+		"       ~*",
+		"        ~*",
+		"         ~*",
+		"          ~*",
+		"           ~*",
+		"            ~*",
+		"             ~",
+	];
+	
+	var anim4 = new ASCIIAnimation(animArray4, 50, div4);
+	
+	</script>
 
 </html>
