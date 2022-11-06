@@ -1,9 +1,9 @@
 # TildeAsterisk.github.io
-https://TildeAsterisk.github.io/web/index.html
+https://TildeAsterisk.github.io/
 
-https://tildeasterisk.github.io/web/animated_banner/index.html
+https://tildeasterisk.github.io/animated_banner/index.html
 
-https://TildeAsterisk.github.io/web/TEMPLATE/blank.html
+https://TildeAsterisk.github.io/TEMPLATE/blank.html
 
 - My widgets/gadgets can be hosted here and embedded onto website by sourcing the github.io link in an iframe.
 - Web Apps
