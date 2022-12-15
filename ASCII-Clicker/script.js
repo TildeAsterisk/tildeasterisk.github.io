@@ -158,10 +158,8 @@ function GenerateShopItem(){
   shopItemOutput_ASCII = `
   +--------- - - - - -<br>
   | Buy:<br>| `+shopItem[0]+`<br>
-  | Points/t:<br>
-  | `+shopItem[2]+`<br>
-  | Price:<br>
-  | `+shopItem[1]+`<span>&#677; 10&#442; 10&#8859;</span>`+`<br>
+  | Price, Pts/t:<br>
+  | `+shopItem[1]+`<span>&#677;</span> `+shopItem[2]+`<span>&#8859;</span><br>
   +--------- - - - - -`;
 }
 
@@ -184,7 +182,7 @@ function BuyItem(){
 }
 
 function UpdateScoreElement(){
-  scoreElement.innerHTML = wave_symbol+` `+score.toFixed(2)+`<span>&#677</span>`;
+  scoreElement.innerHTML = wave_symbol+` `+score.toFixed(2)+`<span>&#442</span>`;
 }
 
 function UpdateInventoryElement(){
