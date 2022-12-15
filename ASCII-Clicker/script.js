@@ -59,6 +59,21 @@ var shopItemList = [
   ['Cheap Ting',10,1.1],
   ['Cheap Ting',10,1.1],
   ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
   ['Cheap Ting',10,1.1]
   ]; 
   var inventory = [];
