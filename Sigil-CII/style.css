@@ -1,0 +1,74 @@
+
+body {
+  font-family: "Monaco Mono", monospace;
+  background-color: #1f1f1f;
+  color:#00FF41;
+  text-shadow: 0 0 5px #8dffa8;
+}
+
+body::after{
+	content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+ 	width: 100vw;
+  height: 100vh;
+	background: repeating-linear-gradient(
+    0deg,
+    #00000015,
+    #00000015 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  z-index: -1;
+}
+
+h1 {
+  text-align: center;
+}
+
+#score {
+  font-size: 2em;
+  font-weight: bold;
+  /*text-align: center;*/
+}
+
+
+#clicker {
+  /*
+  display: inline-block;
+  background-color: #33cc33;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  line-height: 200px;
+  cursor: pointer;
+  */
+  text-align: center;
+}
+
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.ascii-art {
+    font-family: "Monaco Mono", monospace;
+    white-space: pre;
+}
+
+#shop-item-info {
+  bottom:0px;
+  left: 0px;
+  position:absolute;
+  padding: 20px;
+  margin:0px;
+  /*width:25%;*/
+  text-overflow: clip;
+}
