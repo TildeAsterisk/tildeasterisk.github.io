@@ -184,7 +184,7 @@ function BuyItem(){
 }
 
 function UpdateScoreElement(){
-  scoreElement.innerHTML = wave_symbol+` `+score.toFixed(2);
+  scoreElement.innerHTML = wave_symbol+` `+score.toFixed(2)+`<span>&#677</span>`;
 }
 
 function UpdateInventoryElement(){
