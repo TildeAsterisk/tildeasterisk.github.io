@@ -73,13 +73,13 @@ function Clicker(){
 
   //shopItemElement.innerHTML = shopItemOutput_ASCII;
   shopContainerElement.onclick = function () {
-    alert("Button is clicked");
     if(score>=shopItem[1]){
       BuyItem();
       GenerateShopItem();
     }
     else{
       //Not enough money
+      alert("You're too broke for that lol.");
     }
   };
 }
