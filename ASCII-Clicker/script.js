@@ -34,11 +34,20 @@ var shopItemList = [
   'Mallet',
   'Rubber chicken',
   'Robotic finger',
-  'Robotic hand',
   'Laser pointer', // or other light-based tool
   'Suction cup', //or other adhesive device
   'Pair of nunchucks', // or other martial arts weapon
-  'Pile of sticks']; // or other kindling material
+  'Pile of sticks',// or other kindling material
+  'Laser beam',
+  'Telekinesis',
+  'VR interface',
+  'Neural implant',
+  'Mini Drone',
+  'Sonic pulse',
+  'Hardlight projection',
+  'BMI Neuralink',
+  'Gravity field gen'
+  ]; 
   var itemPrice = 10;
   var inventory = [];
 
