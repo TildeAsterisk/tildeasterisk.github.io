@@ -39,10 +39,10 @@ var shopItemList = [
   'Suction cup', //or other adhesive device
   'Pair of nunchucks', // or other martial arts weapon
   'Pile of sticks']; // or other kindling material
-
   var itemPrice = 10;
+  var inventory = [];
 
-//ASCII HTML ELEMENTS
+// ~~~* ASCII HTML ELEMENTS *~~~ \\
 var buttonElement = document.getElementById("ASCII-Button");
 buttonElement.innerHTML = box_button;
 
@@ -59,8 +59,17 @@ function Clicker(){
   score++;
 
   // Update the score element with the new score
-  //scoreElement.innerHTML = score;
+  UpdateScoreElement();
 
+  //shopItemElement.innerHTML = shopItemOutput_ASCII;
+  shopContainerElement.onclick = function () {
+    console.log("Button is clicked");
+    BuyItem();
+    GenerateShopItem();
+  };
+}
+
+function GenerateShopItem(){
   //Generate a new item in the shop
   itemName=shopItemList[Math.floor(Math.random() * shopItemList.length)];
   shopItemOutput_ASCII = `
@@ -69,34 +78,6 @@ function Clicker(){
   | Price:<br>
   | `+itemPrice+`<span>&#677; 10&#442; 10&#8859;</span>`+`<br>
   +--------- - - - - -`;
-  //shopItemElement.innerHTML = shopItemOutput_ASCII;
-  shopContainerElement.onclick = function () {
-    console.log("Button is clicked");
-    BuyItem();
-  };
-
-  /*
-  // Define the dimensions of the nebula
-  const WIDTH = 80;
-  const HEIGHT = 20;
-
-  // Generate the nebula
-  for (let i = 0; i < HEIGHT; i++) {
-    let line = "";
-    for (let j = 0; j < WIDTH; j++) {
-      if (Math.random() > 0.95) {
-        // Generate a star with a 5% chance
-        line += "*";
-      } else {
-        // Generate empty space
-        line += " ";
-      }
-    }
-    console.log(line);
-    line+="<br>",line;
-    starsElement.innerHTML = line;
-    }
-    */
 }
 
 var itemBought = false;
@@ -104,15 +85,34 @@ function BuyItem(){
   score = score-itemPrice;
   //store item in inventory
   itemBought = true;
+
+  inventory.push(`<br>`+itemName);
+
+  var autopoints=0;
+  for (i in inventory){
+    autopoints += 0.5;
+  }
+
+  starsElement.innerHTML = `<u>
+  Inventory:</u>`+inventory+`<br>
+  __________<br>+ `+autopoints;
+
+  UpdateScoreElement();
 }
 
+function UpdateScoreElement(){
+  scoreElement.innerHTML = wave_symbol+` `+score;
+}
 //#endregion
+
+//~~~* MAIN CODE STARTS HERE *~~~\\
+
+GenerateShopItem();
 
 function MainLoop(){
   // Update the score element with the new score
-  scoreElement.innerHTML = wave_symbol+` `+score;
-
-  //If the score is >10 then buy stuff
+  UpdateScoreElement();
+  //If the score is >10 then show generated shop output
   if (score>=itemPrice){
     shopItemElement.innerHTML = shopItemOutput_ASCII;
   }
@@ -121,8 +121,8 @@ function MainLoop(){
   }
 
   //Do something if item bought
-  if(itemBought){
-    score+=0.5;
+  for (i in inventory){
+    score += 0.5;
   }
 
 }
