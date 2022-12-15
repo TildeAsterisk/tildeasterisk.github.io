@@ -34,20 +34,32 @@ var shopItemList = [
   ['Hammer',10,1.1],
   ['Mallet',10,1.1],
   ['Rubber chicken',3,1.1],
-  ['Robotic finger',80,1.1],
+  ['Robotic finger',80,1.2],
   ['Laser pointer',10,1.1],// or other light-based tool
   ['Suction cup',10,1.1], //or other adhesive device
-  ['Pair of nunchucks',30,1.1], // or other martial arts weapon
+  ['Pair of nunchucks',30,1.2], // or other martial arts weapon
   ['Pile of sticks',1,1.1],// or other kindling material
   ['Laser beam',10,1.1],
-  ['Telekinesis',100,1.1],
-  ['VR interface',300,1.1],
-  ['Neural implant',999,1.1],
-  ['Mini Drone',50,1.1],
-  ['Sonic pulse',4000,1.1],
-  ['Hardlight projection',999,1.1],
-  ['BMI Neuralink',999000,1.1],
-  ['Gravity field gen',999999,1.1]
+  ['Telekinesis',100,1.2],
+  ['VR interface',300,1.2],
+  ['Neural implant',999,1.4],
+  ['Mini Drone',50,1.3],
+  ['Sonic pulse',4000,1.4],
+  ['Hardlight projection',999,1.5],
+  ['BMI Neuralink',999000,2],
+  ['Gravity field gen',999999,2],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1],
+  ['Cheap Ting',10,1.1]
   ]; 
   var inventory = [];
   var inventoryItemList = [];
