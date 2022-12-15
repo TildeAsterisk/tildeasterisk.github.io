@@ -42,12 +42,12 @@ var shopItemList = [
   ['Laser beam',10,1.1],
   ['Telekinesis',100,1.2],
   ['VR interface',300,1.2],
-  ['Neural implant',999,1.4],
+  ['Neural implant',99,1.4],
   ['Mini Drone',50,1.3],
-  ['Sonic pulse',4000,1.4],
-  ['Hardlight projection',999,1.5],
-  ['BMI Neuralink',999000,2],
-  ['Gravity field gen',999999,2],
+  ['Sonic pulse',99,1.4],
+  ['Hardlight projection',99,1.5],
+  ['BMI Neuralink',999,2],
+  ['Gravity field gen',999,2],
   ['Cheap Ting',10,1.1],
   ['Cheap Ting',10,1.1],
   ['Cheap Ting',10,1.1],
@@ -150,7 +150,7 @@ function UpdateScoreElement(){
 function UpdateInventoryElement(){
   starsElement.innerHTML = `<u>
   Inventory:</u>`+inventory+`<br>
-  __________<br>&#8859 `+CalculateItemMultiplier().toFixed(9);
+  ______________<br>&#8859 `+CalculateItemMultiplier().toFixed(9);
 }
 //#endregion
 
