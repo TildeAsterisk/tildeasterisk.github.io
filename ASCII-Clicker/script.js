@@ -26,30 +26,31 @@ var scoreElement = document.getElementById("score");
 var clickerElement = document.getElementById("clicker");
 var starsElement = document.getElementById("GenStars");
 var shopItemList = [
-  'Mechanical arm',
-  'Plunger',
-  'Pile of rocks',
-  'Pebbles',
-  'Hammer',
-  'Mallet',
-  'Rubber chicken',
-  'Robotic finger',
-  'Laser pointer', // or other light-based tool
-  'Suction cup', //or other adhesive device
-  'Pair of nunchucks', // or other martial arts weapon
-  'Pile of sticks',// or other kindling material
-  'Laser beam',
-  'Telekinesis',
-  'VR interface',
-  'Neural implant',
-  'Mini Drone',
-  'Sonic pulse',
-  'Hardlight projection',
-  'BMI Neuralink',
-  'Gravity field gen'
+  //Name, Price, ScoreMultiplier
+  ['Mechanical arm',100,1.5],
+  ['Plunger',5,1.1],
+  ['Pile of rocks',1,1.1],
+  ['Pebbles',5,1.1],
+  ['Hammer',10,1.1],
+  ['Mallet',10,1.1],
+  ['Rubber chicken',3,1.1],
+  ['Robotic finger',80,1.1],
+  ['Laser pointer',10,1.1],// or other light-based tool
+  ['Suction cup',10,1.1], //or other adhesive device
+  ['Pair of nunchucks',30,1.1], // or other martial arts weapon
+  ['Pile of sticks',1,1.1],// or other kindling material
+  ['Laser beam',10,1.1],
+  ['Telekinesis',100,1.1],
+  ['VR interface',300,1.1],
+  ['Neural implant',999,1.1],
+  ['Mini Drone',50,1.1],
+  ['Sonic pulse',4000,1.1],
+  ['Hardlight projection',999,1.1],
+  ['BMI Neuralink',999000,1.1],
+  ['Gravity field gen',999999,1.1]
   ]; 
-  var itemPrice = 10;
   var inventory = [];
+  var inventoryItemList = [];
 
 // ~~~* ASCII HTML ELEMENTS *~~~ \\
 var buttonElement = document.getElementById("ASCII-Button");
@@ -61,7 +62,7 @@ var shopContainerElement = document.getElementById("shop-container");
 //#endregion
 
 //#region ~* Functions *~
-var itemName;
+var shopItem;
 var shopItemOutput_ASCII;
 function Clicker(){
   // Increment the score when the clicker is clicked
@@ -72,45 +73,56 @@ function Clicker(){
 
   //shopItemElement.innerHTML = shopItemOutput_ASCII;
   shopContainerElement.onclick = function () {
-    console.log("Button is clicked");
-    BuyItem();
-    GenerateShopItem();
+    alert("Button is clicked");
+    if(score>=shopItem[1]){
+      BuyItem();
+      GenerateShopItem();
+    }
+    else{
+      //Not enough money
+    }
   };
 }
 
 function GenerateShopItem(){
   //Generate a new item in the shop
-  itemName=shopItemList[Math.floor(Math.random() * shopItemList.length)];
+  shopItem=shopItemList[Math.floor(Math.random() * shopItemList.length)];
   shopItemOutput_ASCII = `
   +--------- - - - - -<br>
-  | Buy:<br>| `+itemName+`<br>
+  | Buy:<br>| `+shopItem[0]+`<br>
+  | Points/t:<br>
+  | `+shopItem[2]+`<br>
   | Price:<br>
-  | `+itemPrice+`<span>&#677; 10&#442; 10&#8859;</span>`+`<br>
+  | `+shopItem[1]+`<span>&#677; 10&#442; 10&#8859;</span>`+`<br>
   +--------- - - - - -`;
 }
 
-var itemBought = false;
-function BuyItem(){
-  score = score-itemPrice;
-  //store item in inventory
-  itemBought = true;
-
-  inventory.push(`<br>`+itemName);
-
-  var autopoints=0;
-  for (i in inventory){
-    autopoints += 0.5;
+function CalculateItemMultiplier(){
+  var multiplier=1;
+  for (i in inventoryItemList){
+    multiplier = multiplier * inventoryItemList[i][2];
   }
+  return multiplier;
+}
 
-  starsElement.innerHTML = `<u>
-  Inventory:</u>`+inventory+`<br>
-  __________<br>+ `+autopoints;
+function BuyItem(){
+  score = score-shopItem[1];
+  //store item in inventory
+  inventory.push(`<br>`+shopItem[0]);
+  inventoryItemList.push(shopItem);
 
+  UpdateInventoryElement();
   UpdateScoreElement();
 }
 
 function UpdateScoreElement(){
-  scoreElement.innerHTML = wave_symbol+` `+score;
+  scoreElement.innerHTML = wave_symbol+` `+score.toFixed(2);
+}
+
+function UpdateInventoryElement(){
+  starsElement.innerHTML = `<u>
+  Inventory:</u>`+inventory+`<br>
+  __________<br>&#8859 `+CalculateItemMultiplier().toFixed(9);
 }
 //#endregion
 
@@ -119,27 +131,26 @@ function UpdateScoreElement(){
 GenerateShopItem();
 
 function MainLoop(){
-  // Update the score element with the new score
-  UpdateScoreElement();
   //If the score is >10 then show generated shop output
-  if (score>=itemPrice){
+  if (score>=10){
     shopItemElement.innerHTML = shopItemOutput_ASCII;
   }
   else{
     shopItemElement.innerHTML = ``;
   }
 
-  //Do something if item bought
-  for (i in inventory){
-    score += 0.5;
+  //Add Score Multiplier
+  if(inventoryItemList.length > 0){
+    score += 1*CalculateItemMultiplier();
   }
 
+  // Update the HTML elements
+  UpdateScoreElement();
+  //UpdateInventoryElement();
 }
 
 // Add an event listener to the clicker element
 clickerElement.addEventListener("click", function() {Clicker();});
-
-//shopContainerElement.addEventListener("buyitem", function() {score-=1;});
 
 // will execture function once every tdelay ms
 var tdelay = 500;
