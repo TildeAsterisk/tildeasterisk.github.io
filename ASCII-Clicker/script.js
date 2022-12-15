@@ -95,7 +95,27 @@ var shopItemList = [
   ['Fierce button tapping',10,1.1],
   ['Vigorous button pressing',10,1.1],
   ['Intense button clicking',10,1.1],
-  ['Rapid button pounding',10,1.1]
+  ['Rapid button pounding',10,1.1],
+  ['Mechanical clicking device',50,1.5],
+  ['Electric button presser',100,1.1],
+  ['Robotic button masher',150,1.1],
+  ['High-speed clicking machine',200,1.1],
+  ['Superpowered clicking gloves',250,1.5],
+  ['Hyperclicking boots',300,1.1],
+  ['Ultra-efficient clicking belt',350,1.5],
+  ['Infinite clicking staff',400,1.0],
+  ['Magical clicking wand',450,1.5],
+  ['Divine clicking hammer',500,1.0],
+  ['Automated clicking robot',550,1.5],
+  ['Hyperspace clicking portal',600,1.0],
+  ['Temporal clicking accelerator',650,1.75],
+  ['Gravity-defying clicking boots',700,1.80],
+  ['Supercomputer-assisted clicking device',750,1.85],
+  ['Quantum clicking machine',800,1.90],
+  ['Interdimensional clicking portal',850,1.95],
+  ['Multiversal clicking staff',900,1.100],
+  ['Cosmic clicking gloves',950,1.105],
+  ['Divine clicking hammer',1000,1.110]
   ]; 
   var inventory = [];
   var inventoryItemList = [];
