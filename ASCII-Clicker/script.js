@@ -147,7 +147,7 @@ function Clicker(){
     }
     else{
       //Not enough money
-      alert("You're too broke for that lol.");
+      alert("That costs: "+shopItem[1]+". You have: "+score.toFixed()+". You're too broke for that lol.");
       GenerateShopItem()
     }
   };
