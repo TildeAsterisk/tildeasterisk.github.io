@@ -24,7 +24,7 @@ wave_symbol=`<span>&#8779;</span>`
 var score = 0;
 var scoreElement = document.getElementById("score");
 var clickerElement = document.getElementById("clicker");
-var starsElement = document.getElementById("GenStars");
+var starsElement = document.getElementById("inventory-element");
 var shopItemList = [
   //Name, Price, ScoreMultiplier
   ['Mechanical arm',100,1.5],
@@ -86,16 +86,6 @@ var shopItemList = [
   ['Clicking force field',10,1.1],
   ['Clicking god mode aura',10,1.1],
   ['Clicking god mode potion',10,1.1],
-  ['Rapidly tap the button',10,1.1],
-  ['Feverishly press the button',10,1.1],
-  ['Frantic button mashing',10,1.1],
-  ['Quickly hammer the button',10,1.1],
-  ['Hastily click the button repeatedly',10,1.1],
-  ['Frenzied button clicking',10,1.1],
-  ['Fierce button tapping',10,1.1],
-  ['Vigorous button pressing',10,1.1],
-  ['Intense button clicking',10,1.1],
-  ['Rapid button pounding',10,1.1],
   ['Mechanical clicking device',50,1.5],
   ['Electric button presser',100,1.1],
   ['Robotic button masher',150,1.1],
@@ -127,6 +117,7 @@ buttonElement.innerHTML = box_button;
 var shopBoxElement = document.getElementById("shop-box");
 var shopItemElement = document.getElementById("shop-item-info");
 var shopContainerElement = document.getElementById("shop-container");
+var inventoryElement = document.getElementById("inventory-element");
 //#endregion
 
 //#region ~* Functions *~
@@ -147,7 +138,7 @@ function Clicker(){
     }
     else{
       //Not enough money
-      alert("That costs: "+shopItem[1]+". You have: "+score.toFixed()+". You're too broke for that lol.");
+      alert("You cannot afford the"+shopItem[0]+", it costs: "+shopItem[1]+". You have: "+score.toFixed()+". The shop has been reset.");
       GenerateShopItem()
     }
   };
@@ -159,7 +150,6 @@ function GenerateShopItem(){
   shopItemOutput_ASCII = `
   +--------- - - - - -<br>
   | Buy:<br>| `+shopItem[0]+`<br>
-  | Price, Pts/t:<br>
   | `+shopItem[1]+`<span>&#677;</span> `+shopItem[2]+`<span>&#8859;</span><br>
   +--------- - - - - -`;
 }
@@ -191,6 +181,18 @@ function UpdateInventoryElement(){
   Inventory:</u>`+inventory+`<br>
   ______________<br>&#8859 `+CalculateItemMultiplier().toFixed(9);
 }
+
+function ToggleInventoryElement(){
+  //Hide/show
+  var x = inventoryElement;
+  if (x.innerHTML=="<u>Inventory:</u>") {
+    UpdateInventoryElement();  
+  } 
+  else {
+    x.innerHTML="<u>Inventory:</u>";
+  }
+}
+
 //#endregion
 
 //~~~* MAIN CODE STARTS HERE *~~~\\
@@ -218,6 +220,8 @@ function MainLoop(){
 
 // Add an event listener to the clicker element
 clickerElement.addEventListener("click", function() {Clicker();});
+inventoryElement.addEventListener("click", function() {ToggleInventoryElement();});
+
 
 // will execture function once every tdelay ms
 var tdelay = 500;
