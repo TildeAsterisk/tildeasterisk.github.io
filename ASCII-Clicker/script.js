@@ -1,19 +1,17 @@
 //#region ~* ASCII ART *~
 
-box_button = `
-+-------------+
+box_button = `+-------------+
 |   Action!   |
-+-------------+
-`;
++-------------+`;
 
-large_box = `
-+----------------+
+egg_symbol="&#129370;";
+
+large_box = `+----------------+
 |                |
 |                |
 |                |
-|                |
-+----------------+
-`;
+|       o        |
++----------------+`;
 
 wave_symbol=`<span>&#8779;</span>`
 
@@ -118,6 +116,7 @@ var shopBoxElement = document.getElementById("shop-box");
 var shopItemElement = document.getElementById("shop-item-info");
 var shopContainerElement = document.getElementById("shop-container");
 var inventoryElement = document.getElementById("inventory-element");
+var minigameElement = document.getElementById("mini-game-element");
 //#endregion
 
 //#region ~* Functions *~
@@ -149,8 +148,9 @@ function GenerateShopItem(){
   shopItem=shopItemList[Math.floor(Math.random() * shopItemList.length)];
   shopItemOutput_ASCII = `
   +--------- - - - - -<br>
-  | Buy:<br>| `+shopItem[0]+`<br>
-  | `+shopItem[1]+`<span>&#677;</span> `+shopItem[2]+`<span>&#8859;</span><br>
+  | Buy:<br>
+  | `+shopItem[0]+`<br>
+  | `+shopItem[1]+`<span>&#442;</span> `+shopItem[2]+`<span>&#8859;</span><br>
   +--------- - - - - -`;
 }
 
@@ -173,7 +173,7 @@ function BuyItem(){
 }
 
 function UpdateScoreElement(){
-  scoreElement.innerHTML = wave_symbol+` `+score.toFixed(2)+`<span>&#442</span>`;
+  scoreElement.innerHTML = wave_symbol+` `+score.toFixed(2)+`<span>&#442;</span>`;
 }
 
 function UpdateInventoryElement(){
@@ -183,13 +183,20 @@ function UpdateInventoryElement(){
 }
 
 function ToggleInventoryElement(){
-  //Hide/show
   var x = inventoryElement;
-  if (x.innerHTML=="<u>Inventory:</u>") {
+  var hiddenInvString="<u>Inventory:<br>&nbsp&nbsp* * *&nbsp&nbsp&nbsp</u><br>&#8859 "+CalculateItemMultiplier().toFixed(5);
+  if (x.innerHTML.includes("* * *")) {
     UpdateInventoryElement();  
   } 
   else {
-    x.innerHTML="<u>Inventory:</u>";
+    x.innerHTML=hiddenInvString;
+  }
+}
+
+function MiniGame(){
+  var minigameText=`<br>There is an egg in the box!`;
+  if(score>=100){
+    minigameElement.innerHTML=large_box+minigameText;
   }
 }
 
@@ -212,6 +219,9 @@ function MainLoop(){
   if(inventoryItemList.length > 0){
     score += 1*CalculateItemMultiplier();
   }
+
+  //Minigame
+  MiniGame();
 
   // Update the HTML elements
   UpdateScoreElement();

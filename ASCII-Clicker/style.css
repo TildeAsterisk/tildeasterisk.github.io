@@ -3,7 +3,7 @@ body {
   font-family: "Monaco Mono", monospace;
   background-color: #1f1f1f;
   color:#00FF41;
-  text-shadow: 0 0 5px #8dffa8;
+  text-shadow: 0 0 3px #8dffa8;
 }
 
 body::after{
@@ -31,7 +31,7 @@ h1 {
   font-size: 2em;
   font-weight: bold;
   /*text-align: center;*/
-  margin: 0 0 0 45%;
+  margin: 0 0 0 40%;
 }
 
 
@@ -48,6 +48,10 @@ h1 {
   text-align: center;
 }
 
+#ASCII-Button{
+  margin:0;
+  padding:0;
+}
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -80,4 +84,9 @@ h1 {
 }
 #inventory-element:hover  {
   border: 1px solid #00FF41;
+}
+
+#mini-game-element{
+  white-space: pre;
+  text-align: center;
 }
