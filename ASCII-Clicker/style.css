@@ -3,7 +3,7 @@ body {
   font-family: "Monaco Mono", monospace;
   background-color: #1f1f1f;
   color:#00FF41;
-  text-shadow: 0 0 3px #8dffa8;
+  text-shadow: 0 0 4px #8dffa8;
 }
 
 body::after{

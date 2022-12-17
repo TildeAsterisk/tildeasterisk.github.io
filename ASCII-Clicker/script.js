@@ -13,7 +13,7 @@ large_box = `+----------------+
 |       o        |
 +----------------+`;
 
-wave_symbol=`<span>&#8779;</span>`
+wave_symbol=`<span>&#8779;</span>`;
 
 //#endregion
 
@@ -117,6 +117,7 @@ var shopItemElement = document.getElementById("shop-item-info");
 var shopContainerElement = document.getElementById("shop-container");
 var inventoryElement = document.getElementById("inventory-element");
 var minigameElement = document.getElementById("mini-game-element");
+var gameTitleDivElement=document.getElementById("game-title-element");
 //#endregion
 
 //#region ~* Functions *~
@@ -194,8 +195,14 @@ function ToggleInventoryElement(){
 }
 
 function MiniGame(){
-  var minigameText=`<br>There is an egg in the box!`;
-  if(score>=100){
+  var minigameText;
+  if(score>=150){
+    minigameText=`<br>There is an egg in the box!`;
+    minigameElement.innerHTML=large_box+minigameText;
+  }
+  else if(score>=100){
+    gameTitleDivElement.innerHTML="";
+    minigameText=`<br>Suddenly a box appears!`;
     minigameElement.innerHTML=large_box+minigameText;
   }
 }
