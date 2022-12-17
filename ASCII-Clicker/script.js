@@ -10,7 +10,7 @@ large_box = `+----------------+
 |                |
 |                |
 |                |
-|       o        |
+|       0        |
 +----------------+`;
 
 wave_symbol=`<span>&#8779;</span>`;
@@ -229,6 +229,11 @@ function MainLoop(){
 
   //Minigame
   MiniGame();
+
+  if(score>=999999){
+    //Play Easteregg
+  }
+
 
   // Update the HTML elements
   UpdateScoreElement();
