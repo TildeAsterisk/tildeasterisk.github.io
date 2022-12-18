@@ -90,3 +90,10 @@ h1 {
   white-space: pre;
   text-align: center;
 }
+
+#game-text-element{
+  position: absolute;
+  top: 0px;
+  left:0px;
+  margin:10px;
+}

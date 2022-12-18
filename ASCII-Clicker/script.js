@@ -146,7 +146,7 @@ var shopContainerElement = document.getElementById("shop-container");
 var inventoryElement = document.getElementById("inventory-element");
 var minigameElement = document.getElementById("mini-game-element");
 var gameTitleDivElement=document.getElementById("game-title-element");
-var gameTextElement=makeDiv('ascii-art');
+var gameTextElement=makeDiv('ascii-art',`game-text-element`);
 //#endregion
 
 //#region ~* Functions *~
@@ -250,9 +250,11 @@ function ASCIIAnimation(animArray, speed, DOMtarget) {
 ASCIIAnimation.prototype.stopAnimation = function() {
 	clearInterval(this.animation);
 }
-function makeDiv(divclass) { 
+function makeDiv(divclass, divid) { 
+  divid = divid || '';
   var element = document.createElement("div");
   element.className=divclass;
+  element.id=divid;
   return document.body.appendChild(element);
 }
 //var anim1 = new ASCIIAnimation(animArray1, 50, div1);
