@@ -15,6 +15,34 @@ large_box = `+----------------+
 
 wave_symbol=`<span>&#8779;</span>`;
 
+var animArray1 = [
+	`+----------------+
+  |       0        |
+  |                |
+  |                |
+  |                |
+  +----------------+`,
+  `+----------------+
+|                |
+|       0        |
+|                |
+|                |
++----------------+`,
+`+----------------+
+|                |
+|                |
+|       0        |
+|                |
++----------------+`,
+`+----------------+
+|                |
+|                |
+|                |
+|       0        |
++----------------+`
+
+];
+
 //#endregion
 
 //#region ~* Variable Defenitions *~
@@ -118,6 +146,7 @@ var shopContainerElement = document.getElementById("shop-container");
 var inventoryElement = document.getElementById("inventory-element");
 var minigameElement = document.getElementById("mini-game-element");
 var gameTitleDivElement=document.getElementById("game-title-element");
+var gameTextElement=makeDiv('ascii-art');
 //#endregion
 
 //#region ~* Functions *~
@@ -138,7 +167,7 @@ function Clicker(){
     }
     else{
       //Not enough money
-      alert("You cannot afford the"+shopItem[0]+", it costs: "+shopItem[1]+". You have: "+score.toFixed()+". The shop has been reset.");
+      alert("You cannot afford the "+shopItem[0]+", it costs: "+shopItem[1]+". You have: "+score.toFixed()+". The shop has been reset.");
       GenerateShopItem()
     }
   };
@@ -194,17 +223,64 @@ function ToggleInventoryElement(){
   }
 }
 
+var animElementMade = false;
+var minigameText;
 function MiniGame(){
-  var minigameText;
-  if(score>=150){
-    minigameText=`<br>There is an egg in the box!`;
-    minigameElement.innerHTML=large_box+minigameText;
-  }
-  else if(score>=100){
-    gameTitleDivElement.innerHTML="";
-    minigameText=`<br>Suddenly a box appears!`;
-    minigameElement.innerHTML=large_box+minigameText;
-  }
+  //idk?
+}
+
+function ASCIIAnimation(animArray, speed, DOMtarget) {
+  var currentFrame = 0;
+	for(var i = 0; i < animArray.length; i++) {
+		animArray[i] = animArray[i].replace(/ /g,"&nbsp;");
+		//animArray[i] = "<pre>" + animArray[i] + "</pre>";
+    animArray[i] = animArray[i];
+	}
+	DOMtarget.innerHTML = animArray[0];
+	currentFrame++;
+	this.animation = setInterval(function() {
+		DOMtarget.innerHTML = animArray[currentFrame];
+		currentFrame++;
+		if(currentFrame >= animArray.length) currentFrame = animArray.length-1;
+	}, speed);
+	this.getCurrentFrame = function() {
+		return currentFrame;
+	}
+}
+ASCIIAnimation.prototype.stopAnimation = function() {
+	clearInterval(this.animation);
+}
+function makeDiv(divclass) { 
+  var element = document.createElement("div");
+  element.className=divclass;
+  return document.body.appendChild(element);
+}
+//var anim1 = new ASCIIAnimation(animArray1, 50, div1);
+
+// ~~~* PRINT STRING LINE BY LINE *~~~ \\
+var notes = [
+  {scenario: 1, intro: "Suddenly a box appears!", que: "Is that an egg?"},
+  {scenario: 2, intro: "This is the second scen.", que: "What is the second law of ...?"},
+  {scenario: 3, intro: "This is the third thing.", que: "What is the third law of ...?"}
+];
+function terminal(gameTextElement) {
+  var txt = [notes[0].intro, notes[0].que].join('\n').split('');
+  var i = 0;
+  (function display() {
+    if(i < txt.length) {
+      minigameElement.onclick = function (){/* Do nothing */};
+      gameTextElement.innerHTML += txt[i].replace('\n', '<br />');
+      ++i;
+      setTimeout(display, 50);
+    }
+    else{
+      minigameElement.onclick = function (){
+        gameTextElement.innerHTML="";
+        terminal(gameTextElement);
+      }
+    }
+   })
+  ();
 }
 
 //#endregion
@@ -215,7 +291,7 @@ GenerateShopItem();
 
 function MainLoop(){
   //If the score is >10 then show generated shop output
-  if (score>=10){
+  if (score>=100){
     shopItemElement.innerHTML = shopItemOutput_ASCII;
   }
   else{
@@ -228,7 +304,27 @@ function MainLoop(){
   }
 
   //Minigame
-  MiniGame();
+  if(score>=150){
+    minigameText=`<br>There is an egg in the box!`;
+    //minigameElement.innerHTML=large_box+minigameText;
+  }
+  else if(score>=10){
+    gameTitleDivElement.innerHTML="";
+    minigameText=`<br>Suddenly a box appears!`;
+    //if the anim element hasnt yet been made
+    if(!animElementMade){
+      //set minigame box onclick to redraw gameText
+      minigameElement.onclick = function (){
+        gameTextElement.innerHTML="";
+        terminal(gameTextElement);
+      }
+      //Play ascii animation of eggdrop
+      var anim1 = new ASCIIAnimation(animArray1, 10, minigameElement);
+      //Draw text to terminal char by char
+      terminal(gameTextElement);      
+      animElementMade=true;
+    }
+  }
 
   if(score>=999999){
     //Play Easteregg
@@ -243,8 +339,9 @@ function MainLoop(){
 // Add an event listener to the clicker element
 clickerElement.addEventListener("click", function() {Clicker();});
 inventoryElement.addEventListener("click", function() {ToggleInventoryElement();});
+//minigameElement.addEventListener("replayAnim", function() {ASCIIAnimation(animArray1, 50, minigameElement); alert("ok");});
 
 
 // will execture function once every tdelay ms
-var tdelay = 500;
+var tdelay = 1000;
 window.setInterval(function(){MainLoop()}, tdelay);
