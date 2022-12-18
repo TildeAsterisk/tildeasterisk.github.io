@@ -291,7 +291,7 @@ GenerateShopItem();
 
 function MainLoop(){
   //If the score is >10 then show generated shop output
-  if (score>=100){
+  if (score>=10){
     shopItemElement.innerHTML = shopItemOutput_ASCII;
   }
   else{
@@ -304,11 +304,7 @@ function MainLoop(){
   }
 
   //Minigame
-  if(score>=150){
-    minigameText=`<br>There is an egg in the box!`;
-    //minigameElement.innerHTML=large_box+minigameText;
-  }
-  else if(score>=10){
+  if(score>=100){
     gameTitleDivElement.innerHTML="";
     minigameText=`<br>Suddenly a box appears!`;
     //if the anim element hasnt yet been made
