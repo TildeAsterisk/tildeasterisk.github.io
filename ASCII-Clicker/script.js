@@ -164,12 +164,15 @@ function Clicker(){
     if(score>=shopItem[1]){
       BuyItem();
       GenerateShopItem();
+      UpdateInventoryElement();
+      UpdateScoreElement();
     }
     else{
       //Not enough money
       alert("You cannot afford the "+shopItem[0]+", it costs: "+shopItem[1]+". You have: "+score.toFixed()+". The shop has been reset.");
       GenerateShopItem()
     }
+    shopItemElement.innerHTML = shopItemOutput_ASCII;
   };
 }
 
@@ -197,9 +200,6 @@ function BuyItem(){
   //store item in inventory
   inventory.push(`<br>`+shopItem[0]);
   inventoryItemList.push(shopItem);
-
-  UpdateInventoryElement();
-  UpdateScoreElement();
 }
 
 function UpdateScoreElement(){
