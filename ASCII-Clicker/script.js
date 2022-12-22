@@ -147,6 +147,7 @@ var inventoryElement = document.getElementById("inventory-element");
 var minigameElement = document.getElementById("mini-game-element");
 var gameTitleDivElement=document.getElementById("game-title-element");
 var gameTextElement=makeDiv('ascii-art',`game-text-element`);
+
 //#endregion
 
 //#region ~* Functions *~
@@ -171,7 +172,7 @@ function Clicker(){
       //Not enough money
       //alert("You cannot afford the "+shopItem[0]+", it costs: "+shopItem[1]+". You have: "+score.toFixed()+". The shop has been reset.");
       var brokeTxt = "You cannot afford the "+shopItem[0]+". \nIt costs: "+shopItem[1]+", \nyou have: "+score.toFixed()+". \nThe shop has been reset.";
-      terminal(gameTextElement, brokeTxt, 20);
+      if(!writing){terminal(gameTextElement, brokeTxt, 20);}
       GenerateShopItem()
     }
     shopItemElement.innerHTML = shopItemOutput_ASCII;
@@ -267,6 +268,7 @@ var notes = [
   {scenario: 2, intro: "This is the second scen.", que: "What is the second law of ...?"},
   {scenario: 3, intro: "This is the third thing.", que: "What is the third law of ...?"}
 ];
+var writing = false;
 function terminal(gameTextElement, txt, printSpeed) {
   gameTextElement.innerHTML = "";
   var txt = txt || [notes[0].intro, notes[0].que].join('\n').split('');
@@ -274,15 +276,15 @@ function terminal(gameTextElement, txt, printSpeed) {
   var i = 0;
   (function display() {
     if(i < txt.length) {
+      writing=true;
       minigameElement.onclick = function (){/* Do nothing */};
       gameTextElement.innerHTML += txt[i].replace('\n', '<br />');
       ++i;
       setTimeout(display, txt, printSpeed);
     }
     else{
-      minigameElement.onclick = function (){
-        terminal(gameTextElement, txt, printSpeed);
-      }
+      writing=false;
+      minigameElement.onclick = function (){ terminal(gameTextElement, txt, printSpeed);  }
     }
    })
   ();
@@ -313,13 +315,10 @@ function MainLoop(){
     gameTitleDivElement.innerHTML="";
     //if the anim element hasnt yet been made
     if(!animElementMade){
-      //set minigame box onclick to redraw gameText
-      minigameElement.onclick = terminal(gameTextElement);
-      gameTextElement.onclick = terminal(gameTextElement);
       //Play ascii animation of eggdrop
       var anim1 = new ASCIIAnimation(animArray1, 10, minigameElement);
-      //Draw text to terminal char by char
-      terminal(gameTextElement);      
+      //Draw text to game text element char by char
+      if(!writing){ terminal(gameTextElement); }      
       animElementMade=true;
     }
   }
@@ -337,6 +336,7 @@ function MainLoop(){
 // Add an event listener to the clicker element
 clickerElement.addEventListener("click", function() {Clicker();});
 inventoryElement.addEventListener("click", function() {ToggleInventoryElement();});
+
 //minigameElement.addEventListener("replayAnim", function() {ASCIIAnimation(animArray1, 50, minigameElement); alert("ok");});
 
 
