@@ -169,7 +169,9 @@ function Clicker(){
     }
     else{
       //Not enough money
-      alert("You cannot afford the "+shopItem[0]+", it costs: "+shopItem[1]+". You have: "+score.toFixed()+". The shop has been reset.");
+      //alert("You cannot afford the "+shopItem[0]+", it costs: "+shopItem[1]+". You have: "+score.toFixed()+". The shop has been reset.");
+      var brokeTxt = "You cannot afford the "+shopItem[0]+". \nIt costs: "+shopItem[1]+", \nyou have: "+score.toFixed()+". \nThe shop has been reset.";
+      terminal(gameTextElement, brokeTxt, 20);
       GenerateShopItem()
     }
     shopItemElement.innerHTML = shopItemOutput_ASCII;
@@ -224,7 +226,7 @@ function ToggleInventoryElement(){
 }
 
 var animElementMade = false;
-var minigameText;
+
 function MiniGame(){
   //idk?
 }
@@ -265,20 +267,21 @@ var notes = [
   {scenario: 2, intro: "This is the second scen.", que: "What is the second law of ...?"},
   {scenario: 3, intro: "This is the third thing.", que: "What is the third law of ...?"}
 ];
-function terminal(gameTextElement) {
-  var txt = [notes[0].intro, notes[0].que].join('\n').split('');
+function terminal(gameTextElement, txt, printSpeed) {
+  gameTextElement.innerHTML = "";
+  var txt = txt || [notes[0].intro, notes[0].que].join('\n').split('');
+  var printSpeed = printSpeed || 10;
   var i = 0;
   (function display() {
     if(i < txt.length) {
       minigameElement.onclick = function (){/* Do nothing */};
       gameTextElement.innerHTML += txt[i].replace('\n', '<br />');
       ++i;
-      setTimeout(display, 50);
+      setTimeout(display, txt, printSpeed);
     }
     else{
       minigameElement.onclick = function (){
-        gameTextElement.innerHTML="";
-        terminal(gameTextElement);
+        terminal(gameTextElement, txt, printSpeed);
       }
     }
    })
@@ -308,14 +311,11 @@ function MainLoop(){
   //Minigame
   if(score>=100){
     gameTitleDivElement.innerHTML="";
-    minigameText=`<br>Suddenly a box appears!`;
     //if the anim element hasnt yet been made
     if(!animElementMade){
       //set minigame box onclick to redraw gameText
-      minigameElement.onclick = function (){
-        gameTextElement.innerHTML="";
-        terminal(gameTextElement);
-      }
+      minigameElement.onclick = terminal(gameTextElement);
+      gameTextElement.onclick = terminal(gameTextElement);
       //Play ascii animation of eggdrop
       var anim1 = new ASCIIAnimation(animArray1, 10, minigameElement);
       //Draw text to terminal char by char
