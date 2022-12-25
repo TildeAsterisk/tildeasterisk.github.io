@@ -42,14 +42,17 @@ body::after{
   font-weight: bold;
   /* text-align: center;
   margin: 0 0 0 40%; */
-  position: absolute;
-  right: 3%;
-  top: 3%;
 }
 
+/*
 body button{
   font-family: "Monaco Mono", monospace;
   background-color: #1f1f1f;
   color:#00FF41;
   text-shadow: 0 0 4px #8dffa8;
+}
+*/
+
+#navbar-btn1{
+  background-color: rgb(58, 58, 58);
 }
