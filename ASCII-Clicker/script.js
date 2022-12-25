@@ -14,6 +14,9 @@ clicker.onclick= function (){
 }
 var navBar=document.getElementById("nav-bar");
 navBar.innerHTML=navbarASCII;
+var navbtn1List = document.querySelectorAll(".navbar-btn1");
+var navbtn2List = document.querySelectorAll(".navbar-btn2");
+var navbtn3List = document.querySelectorAll(".navbar-btn3");
 
 //Game Variables
 var score = 0;
@@ -26,32 +29,39 @@ function UpdateHTML(){
 
 // 0 = Home, 1 = Inventory, 2 = Map
 function NavBarSelect(dest){
+  var navBtnsColours = ["","","","",""];
   switch (dest){
     case 0:
       //Go to Home
-      alert("Selected Home");
-      document.querySelector(".navbar-btn1").style.backgroundColor = "#333333";
-      document.querySelector(".navbar-btn2").style.backgroundColor = "initial";
-      document.querySelector(".navbar-btn3").style.backgroundColor = "initial";
+      navBtnsColours[0]="#333333";
+      navBtnsColours[1]="initial";
+      navBtnsColours[2]="initial";
       terminal(clickerBtn,"Home");
       break;
     case 1:
-      //Inventory
-      alert("Selected inventory");
-      document.querySelector(".navbar-btn1").style.backgroundColor = "initial";
-      document.querySelector(".navbar-btn2").style.backgroundColor = "#333333";
-      document.querySelector(".navbar-btn3").style.backgroundColor = "initial";
+      //Inventory      
+      navBtnsColours[0]="initial";
+      navBtnsColours[1]="#333333";
+      navBtnsColours[2]="initial";
       terminal(clickerBtn,"Inventory");
       break;
     case 2:
       //Map
-      alert("Selected map");
-      document.querySelector(".navbar-btn2").style.backgroundColor = "initial";
-      document.querySelector(".navbar-btn1").style.backgroundColor = "initial";
-      document.querySelector(".navbar-btn3").style.backgroundColor = "#333333";
+      navBtnsColours[0]="initial";
+      navBtnsColours[1]="initial";
+      navBtnsColours[2]="#333333";
       terminal(clickerBtn,"Atlas");
       break;
   }
+  navbtn1List.forEach(spantag => {
+    spantag.style.backgroundColor = navBtnsColours[0];
+  });
+  navbtn2List.forEach(spantag => {
+    spantag.style.backgroundColor = navBtnsColours[1];
+  });
+  navbtn3List.forEach(spantag => {
+    spantag.style.backgroundColor = navBtnsColours[2];
+  });
 }
 
 var writing = false;
@@ -82,11 +92,16 @@ function Main(){
   UpdateHTML();
 }
 
-var navbtn2 = document.querySelector("#navbar-btn2");
-document.querySelector(".navbar-btn1").onclick = () => NavBarSelect(0);
-document.querySelector(".navbar-btn2").onclick = () => NavBarSelect(1);
-document.querySelector(".navbar-btn3").onclick = () => NavBarSelect(2);
-
+//Set onclick function for each spantag of id in navbar
+navbtn1List.forEach(navbtn => {
+  navbtn.onclick = () => NavBarSelect(0);
+});
+navbtn2List.forEach(navbtn => {
+  navbtn.onclick = () => NavBarSelect(1);
+});
+navbtn3List.forEach(navbtn => {
+  navbtn.onclick = () => NavBarSelect(2);
+});
 
 // will execture function once every tdelay ms
 var tdelay = 1000;
