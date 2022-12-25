@@ -17,6 +17,8 @@ navBar.innerHTML=navbarASCII;
 var navbtn1List = document.querySelectorAll(".navbar-btn1");
 var navbtn2List = document.querySelectorAll(".navbar-btn2");
 var navbtn3List = document.querySelectorAll(".navbar-btn3");
+var gameScreenElem = document.getElementById("div0");
+var gameTerminalText = document.getElementById("div1");
 
 //Game Variables
 var score = 0;
@@ -36,21 +38,21 @@ function NavBarSelect(dest){
       navBtnsColours[0]="#333333";
       navBtnsColours[1]="initial";
       navBtnsColours[2]="initial";
-      terminal(clickerBtn,"Home");
+      terminal(gameTerminalText,"Home");
       break;
     case 1:
       //Inventory      
       navBtnsColours[0]="initial";
       navBtnsColours[1]="#333333";
       navBtnsColours[2]="initial";
-      terminal(clickerBtn,"Inventory");
+      terminal(gameTerminalText,"Inventory");
       break;
     case 2:
       //Map
       navBtnsColours[0]="initial";
       navBtnsColours[1]="initial";
       navBtnsColours[2]="#333333";
-      terminal(clickerBtn,"Atlas");
+      terminal(gameTerminalText,"Atlas");
       break;
   }
   navbtn1List.forEach(spantag => {
