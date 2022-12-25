@@ -37,12 +37,23 @@ body::after{
   font-family: "Monaco Mono", monospace;
   white-space: pre;
 }
+#nav-bar{
+  text-align: center;
+}
 #score {
   font-size: 2em;
   font-weight: bold;
   /* text-align: center;
   margin: 0 0 0 40%; */
   text-align: right;
+  display:inline-block;
+  margin:0 3%;
+}
+
+#clicker{
+  display:inline-block;
+  cursor:pointer;
+  margin:0 3%;
 }
 
 /*
@@ -52,11 +63,10 @@ body button{
   color:#00FF41;
   text-shadow: 0 0 4px #8dffa8;
 }
-*/
-
-#navbar-btn1{
-  background-color: rgb(58, 58, 58);
+#nav-bar span{
+  cursor: pointer;
 }
+*/
 
 #div1{
   bottom: 0;
