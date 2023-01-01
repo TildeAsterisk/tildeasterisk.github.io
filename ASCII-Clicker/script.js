@@ -1,9 +1,11 @@
 //#region ASCII ART
 var navbarASCII=`+--------------------------------------------+
 `+`|<span class="navbar-btn1">        </span>|`+`<span class="navbar-btn2">        </span>|`+`<span class="navbar-btn3">        </span>|`+`<span class="navbar-btn4">        </span>|`+`<span class="navbar-btn5">        </span>|`+`
-`+`|<span class="navbar-btn1">  Home  </span>|`+`<span class="navbar-btn2"> Storage</span>|`+`<span class="navbar-btn3">  Map   </span>|`+`<span class="navbar-btn4">  Shop  </span>|`+`<span class="navbar-btn5">   ???  </span>|`+`
+`+`|<span class="navbar-btn1">  Home  </span>|`+`<span class="navbar-btn2">  Inv   </span>|`+`<span class="navbar-btn3">  Map   </span>|`+`<span class="navbar-btn4">  Shop  </span>|`+`<span class="navbar-btn5">   ???  </span>|`+`
 `+`|<span class="navbar-btn1">        </span>|`+`<span class="navbar-btn2">        </span>|`+`<span class="navbar-btn3">        </span>|`+`<span class="navbar-btn4">        </span>|`+`<span class="navbar-btn5">        </span>|`+`
 +--------------------------------------------+`;
+
+var currency_symbol = `<span>&#8859;</span>`;
 
 var animArray1 = [
 `+----------------+
@@ -37,8 +39,8 @@ var animArray1 = [
 var homeHTMLContent = `|_| _ __  _                
 | |(_)|||(/_`;
 var inventoryHTMLContent = `___                        
- | __     _ __ _|_ _  __ \/
-_|_| |\_/(/_| | |_(_) |  / 
+ | __     _ __ _|_ _  __ \\/
+_|_| |\\_/(/_| | |_(_) |  / 
 `;
 var mapHTMLContent = `       _
 |V| _ |_)
@@ -48,6 +50,7 @@ var shopHTMLContent = ` __       _
 __)| |(_)|`;
 // #endregion
 
+// #region variable declarations
 //Element Variables
 var scoreElem=document.getElementById("score");
 var clickerBtn=document.getElementById("clicker");
@@ -148,19 +151,7 @@ var shopItemList = [
   ]; 
 var inventory = [];
 var inventoryItemList = [];
-
-//Set onclick function for each spantag of id in navbar
-navbtn1List.forEach(navbtn => {
-  navbtn.onclick = () => NavBarSelect(0);
-});
-navbtn2List.forEach(navbtn => { navbtn.onclick = () => NavBarSelect(1); });
-navbtn3List.forEach(navbtn => { navbtn.onclick = () => NavBarSelect(2); });
-navbtn4List.forEach(navbtn => { navbtn.onclick = () => NavBarSelect(3); });
-
-clicker.onclick= function (){
-  score+=1;
-  UpdateScoreElementHTML();
-}
+// #endregion
 
 // #region Functions
 function UpdateScoreElementHTML(){
@@ -190,7 +181,9 @@ function NavBarSelect(dest){
       navBtnsColours[2]="initial";
       navBtnsColours[3]="initial";
       terminal(gameTerminalText,"Inventory");
-      GenerateInventoryElementHTML();
+      if (inventory.length!=0){
+        GenerateInventoryElementHTML();
+      }
       //gameScreenElem.innerHTML=inventoryHTMLContent;
       break;
     case 2:
@@ -283,7 +276,6 @@ function ASCIIAnimation(animArray, speed, DOMtarget) {
 ASCIIAnimation.prototype.stopAnimation = function() {
 	clearInterval(this.animation);
 }
-//#endregion ~~~* End of functions *~~~
 
 function GenerateShopElementHTML(){
   //Generate a new item in the shop
@@ -292,7 +284,7 @@ function GenerateShopElementHTML(){
 +--------- - - - - -
 | Buy:
 | `+shopItem[0]+`
-| `+shopItem[1]+`<span>&#442;</span> `+shopItem[2]+`<span>&#8859;</span>
+| `+shopItem[1]+`<span>&#442;</span> `+shopItem[2]+currency_symbol+`
 +--------- - - - - -`;
   shopItemOutput_ASCII = "<span style='cursor:pointer;'>"+shopItemOutput_ASCII+"</span>";
   //add shop title to shop item
@@ -309,16 +301,45 @@ function BuyItem(){
 }
 
 function GenerateInventoryElementHTML(){
-  return gameScreenElem.innerHTML=inventoryHTMLContent+`
-========================`+inventory;
+  return gameScreenElem.innerHTML=inventoryHTMLContent+`========================`+inventory+`<br>========================<br>`+CalculateTotalAutoPoints()+currency_symbol;
 }
+
+function GenerateMainElementHTML(){
+  return gameScreenElem.innerHTML=homeHTMLContent;
+}
+
+function CalculateTotalAutoPoints(){
+  var autopoints=1;
+  for (i in inventoryItemList){
+    autopoints += inventoryItemList[i][2];
+  }
+  return autopoints;
+}
+
+//#endregion ~~~* End of functions *~~~
 
 //~~~* MAIN LOOP *~~\\
 function Main(){
+  score+=CalculateTotalAutoPoints();
+  UpdateScoreElementHTML();
+}
+
+// ~~~* INITIALIZE *~~~ \\
+//Set onclick function for each spantag of id in navbar
+navbtn1List.forEach(navbtn => {
+  navbtn.onclick = () => NavBarSelect(0);
+});
+navbtn2List.forEach(navbtn => { navbtn.onclick = () => NavBarSelect(1); });
+navbtn3List.forEach(navbtn => { navbtn.onclick = () => NavBarSelect(2); });
+navbtn4List.forEach(navbtn => { navbtn.onclick = () => NavBarSelect(3); });
+
+clicker.onclick= function (){
   score+=1;
   UpdateScoreElementHTML();
 }
 
+//Start with home selected in navbar
+NavBarSelect(0);
 
 // will execture function once every tdelay ms
 var tdelay = 1000;
