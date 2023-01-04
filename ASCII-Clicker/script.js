@@ -160,7 +160,9 @@ const yrange = 80;
 var gameScreenArray = Array2DConstructor();
 var playerCharacter = {
   //[y,x]
-  position:[0,0]
+  position:[9,1],
+  health:100,
+  strength:5
 }
 
 // #endregion
@@ -358,14 +360,16 @@ function CharacterMovement(move_vector){
   //gameScreenArray[xrange-1][1] = "o"; //stickman &#129989;
   playerCharacter.position[0] += move_vector[0];
   playerCharacter.position[1] += move_vector[1];
-  gameScreenArray[playerCharacter.position[0]] [playerCharacter.position[1]] = "o";
   console.log("Moved to ",playerCharacter.position);
   
-  //redraw gamescreen
   RedrawGameScreen();
 }
 
 function RedrawGameScreen(){
+  for (var x = 0; x < xrange; x++) {
+    gameScreenArray[x] = new Array(yrange).fill(medium_shade_block_ASCII_char); // make each element an array
+  }
+  gameScreenArray[playerCharacter.position[0]] [playerCharacter.position[1]] = "o";
   gameScreenElem.innerHTML=GenerateGameDisplayFromArray(gameScreenArray);
 }
 
