@@ -48,6 +48,9 @@ var mapHTMLContent = `       _
 var shopHTMLContent = ` __       _
 (_ |_  _ |_)
 __)| |(_)|`;
+
+
+var medium_shade_block_ASCII_char = `&#9618;`;
 // #endregion
 
 // #region variable declarations
@@ -151,6 +154,15 @@ var shopItemList = [
   ]; 
 var inventory = [];
 var inventoryItemList = [];
+
+const xrange = 20;
+const yrange = 80;
+var gameScreenArray = Array2DConstructor();
+var playerCharacter = {
+  //[y,x]
+  position:[0,0]
+}
+
 // #endregion
 
 // #region Functions
@@ -165,12 +177,14 @@ function NavBarSelect(dest){
   switch (dest){
     case 0:
       //Go to Home
+      // Show selected in navbar
       navBtnsColours[0]="#333333";
       navBtnsColours[1]="initial";
       navBtnsColours[2]="initial";
       navBtnsColours[3]="initial";
+      // Write to gametext element
       terminal(gameTerminalText,"Home");
-      gameScreenElem.innerHTML=homeHTMLContent;
+      gameScreenElem.innerHTML=GenerateGameDisplayFromArray(gameScreenArray);
       //playanim
       //var anim1 = ASCIIAnimation(animArray1, 200, gameScreenElem);
       break;
@@ -181,9 +195,7 @@ function NavBarSelect(dest){
       navBtnsColours[2]="initial";
       navBtnsColours[3]="initial";
       terminal(gameTerminalText,"Inventory");
-      if (inventory.length!=0){
-        GenerateInventoryElementHTML();
-      }
+      GenerateInventoryElementHTML();
       //gameScreenElem.innerHTML=inventoryHTMLContent;
       break;
     case 2:
@@ -249,7 +261,7 @@ function terminal(gameTextElement, txt, printSpeed) {
     }
     else{
       writing=false;
-      minigameElement.onclick = function (){ terminal(gameTextElement, txt, printSpeed);  }
+      //minigameElement.onclick = function (){ terminal(gameTextElement, txt, printSpeed);  }
     }
    })
   ();
@@ -301,7 +313,12 @@ function BuyItem(){
 }
 
 function GenerateInventoryElementHTML(){
-  return gameScreenElem.innerHTML=inventoryHTMLContent+`========================`+inventory+`<br>========================<br>`+CalculateTotalAutoPoints()+currency_symbol;
+  
+  if (inventory.length==0){
+    return gameScreenElem.innerHTML=inventoryHTMLContent+`========================`+inventory+`<br> . . .`;
+  }
+
+  return gameScreenElem.innerHTML=inventoryHTMLContent+`========================`+inventory+`<br>========================<br>`+CalculateTotalAutoPoints().toFixed(2)+currency_symbol;
 }
 
 function GenerateMainElementHTML(){
@@ -314,6 +331,42 @@ function CalculateTotalAutoPoints(){
     autopoints += inventoryItemList[i][2];
   }
   return autopoints;
+}
+
+function Array2DConstructor(){
+  let arr = new Array(xrange); // create an empty array of length n
+  for (var x = 0; x < xrange; x++) {
+    arr[x] = new Array(yrange).fill(medium_shade_block_ASCII_char); // make each element an array
+  }
+  //console.log(arr);
+  return arr;
+}
+
+function GenerateGameDisplayFromArray(screenArray){
+  var output_txt="";
+  var tempScreenArray = screenArray;
+  for(var x=0;x<tempScreenArray.length;x++){
+    tempScreenArray[x][yrange+1]="<br>";
+    output_txt+=tempScreenArray[x].join("");
+  }
+  return output_txt;
+}
+
+//Move character on plane
+function CharacterMovement(move_vector){
+  //spawn character
+  //gameScreenArray[xrange-1][1] = "o"; //stickman &#129989;
+  playerCharacter.position[0] += move_vector[0];
+  playerCharacter.position[1] += move_vector[1];
+  gameScreenArray[playerCharacter.position[0]] [playerCharacter.position[1]] = "o";
+  console.log("Moved to ",playerCharacter.position);
+  
+  //redraw gamescreen
+  RedrawGameScreen();
+}
+
+function RedrawGameScreen(){
+  gameScreenElem.innerHTML=GenerateGameDisplayFromArray(gameScreenArray);
 }
 
 //#endregion ~~~* End of functions *~~~
@@ -338,7 +391,29 @@ clicker.onclick= function (){
   UpdateScoreElementHTML();
 }
 
+//Set up inputs
+document.addEventListener('keydown', function(event) {
+  switch(event.keyCode){
+    case 37:
+      console.log("Left Arrow");
+      CharacterMovement([0,-1]);
+      break;
+    case 38:
+      console.log("Up Arrow");
+      CharacterMovement([-1,0]);
+      break;
+    case 39:
+      console.log("Right Arrow");
+      CharacterMovement([0,1]);
+      break;
+    case 40:
+      console.log("Down Arrow");
+      CharacterMovement([1,0]);
+  }
+});
+
 //Start with home selected in navbar
+CharacterMovement(playerCharacter.position);
 NavBarSelect(0);
 
 // will execture function once every tdelay ms
