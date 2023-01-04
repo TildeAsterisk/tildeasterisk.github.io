@@ -334,10 +334,10 @@ function CharacterMovement(move_vector){
   {
     playerCharacter.position[0] += move_vector[0];
     playerCharacter.position[1] += move_vector[1];
-    console.log("Moved to ",playerCharacter.position);
+    //console.log("Moved to ",playerCharacter.position);
   }
   else{
-    console.log("BUG: You cannot move off the screen "+playerCharacter.position);
+    console.log("You cannot move off the screen "+playerCharacter.position);
   }
   
   RedrawGameScreen();
