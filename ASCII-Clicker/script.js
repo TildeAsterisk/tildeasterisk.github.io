@@ -7,35 +7,6 @@ var navbarASCII=`+--------------------------------------------+
 
 var currency_symbol = `<span>&#8859;</span>`;
 
-var animArray1 = [
-`+----------------+
-|       0        |
-|                |
-|                |
-|                |
-+----------------+`,
-  `+----------------+
-|                |
-|       0        |
-|                |
-|                |
-+----------------+`,
-`+----------------+
-|                |
-|                |
-|       0        |
-|                |
-+----------------+`,
-`+----------------+
-|                |
-|                |
-|                |
-|       0        |
-+----------------+`
-
-];
-
-
 var homeHTMLContent = `|_| _ __  _                
 | |(_)|||(/_`;
 var inventoryHTMLContent = `___                        
@@ -160,7 +131,7 @@ const yrange = 80;
 var gameScreenArray = Array2DConstructor();
 var playerCharacter = {
   //[y,x]
-  position:[9,1],
+  position:[0,0],
   health:100,
   strength:5
 }
@@ -358,9 +329,18 @@ function GenerateGameDisplayFromArray(screenArray){
 function CharacterMovement(move_vector){
   //spawn character
   //gameScreenArray[xrange-1][1] = "o"; //stickman &#129989;
-  playerCharacter.position[0] += move_vector[0];
-  playerCharacter.position[1] += move_vector[1];
-  console.log("Moved to ",playerCharacter.position);
+  if( 
+    playerCharacter.position[0] + move_vector[0] >= 0 && (playerCharacter.position[0] + move_vector[0] < xrange) &&
+    playerCharacter.position[1] + move_vector[1] >= 0 && (playerCharacter.position[1] + move_vector[1] < yrange)
+    )
+  {
+    playerCharacter.position[0] += move_vector[0];
+    playerCharacter.position[1] += move_vector[1];
+    console.log("Moved to ",playerCharacter.position);
+  }
+  else{
+    console.log("BUG: You cannot move off the screen "+playerCharacter.position);
+  }
   
   RedrawGameScreen();
 }
@@ -417,7 +397,6 @@ document.addEventListener('keydown', function(event) {
 });
 
 //Start with home selected in navbar
-CharacterMovement(playerCharacter.position);
 NavBarSelect(0);
 
 // will execture function once every tdelay ms
