@@ -131,7 +131,7 @@ const yrange = 80;
 var gameScreenArray = Array2DConstructor();
 var playerCharacter = {
   //[y,x]
-  position:[0,0],
+  position:[18,1],
   health:100,
   strength:5
 }
@@ -327,8 +327,6 @@ function GenerateGameDisplayFromArray(screenArray){
 
 //Move character on plane
 function CharacterMovement(move_vector){
-  //spawn character
-  //gameScreenArray[xrange-1][1] = "o"; //stickman &#129989;
   if( 
     playerCharacter.position[0] + move_vector[0] >= 0 && (playerCharacter.position[0] + move_vector[0] < xrange) &&
     playerCharacter.position[1] + move_vector[1] >= 0 && (playerCharacter.position[1] + move_vector[1] < yrange)
@@ -347,9 +345,9 @@ function CharacterMovement(move_vector){
 
 function RedrawGameScreen(){
   for (var x = 0; x < xrange; x++) {
-    gameScreenArray[x] = new Array(yrange).fill(medium_shade_block_ASCII_char); // make each element an array
+    gameScreenArray[x].fill(medium_shade_block_ASCII_char); // make each element an array
   }
-  gameScreenArray[playerCharacter.position[0]] [playerCharacter.position[1]] = "o";
+  gameScreenArray[playerCharacter.position[0]] [playerCharacter.position[1]] = "o"; //stick figure &#129989;
   gameScreenElem.innerHTML=GenerateGameDisplayFromArray(gameScreenArray);
 }
 
@@ -363,9 +361,7 @@ function Main(){
 
 // ~~~* INITIALIZE *~~~ \\
 //Set onclick function for each spantag of id in navbar
-navbtn1List.forEach(navbtn => {
-  navbtn.onclick = () => NavBarSelect(0);
-});
+navbtn1List.forEach(navbtn => { navbtn.onclick = () => NavBarSelect(0); });
 navbtn2List.forEach(navbtn => { navbtn.onclick = () => NavBarSelect(1); });
 navbtn3List.forEach(navbtn => { navbtn.onclick = () => NavBarSelect(2); });
 navbtn4List.forEach(navbtn => { navbtn.onclick = () => NavBarSelect(3); });
