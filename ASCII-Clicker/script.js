@@ -164,13 +164,13 @@ var playerItemList = [
 ];
 
 //working list to store entities active in game
-var active_game_items_list = [
+var active_game_objs = [
   //playerCharacterStats,
   new game_character("Box","Maybe there's an item inside. Maybe not.",[4,4],10,0,0)
 ];
 
-const yrange = 20;
-const xrange = 50;
+const xrange = 20;
+const yrange = 80;
 var gameScreenArray = Array2DConstructor();
 
 // #endregion
@@ -344,9 +344,9 @@ function CalculateTotalAutoPoints(){
 }
 
 function Array2DConstructor(){
-  let arr = new Array(yrange); // create an empty array of length n
-  for (var x = 0; x < yrange; x++) {
-    arr[x] = new Array(xrange).fill(medium_shade_block_ASCII_char); // make each element an array
+  let arr = new Array(xrange); // create an empty array of length n
+  for (var x = 0; x < xrange; x++) {
+    arr[x] = new Array(yrange).fill(medium_shade_block_ASCII_char); // make each element an array
   }
   //console.log(arr);
   return arr;
@@ -356,7 +356,7 @@ function GenerateGameDisplayFromArray(screenArray){
   var output_txt="";
   var tempScreenArray = screenArray;
   for(var x=0;x<tempScreenArray.length;x++){
-    tempScreenArray[x][xrange+1]="<br>";
+    tempScreenArray[x][yrange+1]="<br>";
     output_txt+=tempScreenArray[x].join("");
   }
   return output_txt;
@@ -381,7 +381,7 @@ function CharacterMovement(move_vector){
 }
 
 function RedrawGameScreen(){
-  for (var x = 0; x < yrange; x++) {
+  for (var x = 0; x < xrange; x++) {
     gameScreenArray[x].fill(medium_shade_block_ASCII_char); // make each element an array
   }
   gameScreenArray[playerCharacterStats.position[0]] [playerCharacterStats.position[1]] = "o"; //stick figure &#129989;
