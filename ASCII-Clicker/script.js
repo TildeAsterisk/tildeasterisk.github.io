@@ -151,20 +151,22 @@ class game_character_object{
     this.position[1] = spawnpos[1];
     //Add to active objs list
     active_game_objs.push(this);
-    console.log("Spawning Game Object "+this.name+" with Game Object ID "+this.id+" at position "+this.position);
+    console.log("Spawning Game Object:\n"+this.name+this.id+"\nPos: "+this.position);
     return this.position;
   }
   AttackObject(target){
     target.health -= this.attack;
     if(target.health<=0){
-      //die
-      terminal(gameScreenArray,this.name+" has killed "+target.name+".");
-      console.log("MURDERED!");
+      var deadname=this.name;
       target.Die();
+      setTimeout(function() {
+        if(!writing){terminal(gameTerminalText,deadname+" has killed "+target.name+".",false);}
+    }, 2000);
     }
   }
   Die(){
     //find id in active game obj list
+    if(!writing){terminal(gameScreenArray,this.name+","+this.id+" has been destroyed.",false);}
     var tmptxt="";
     active_game_objs.forEach(gameObject => {
       tmptxt+=gameObject.name+":"+gameObject.id+",";
@@ -300,10 +302,14 @@ function NavBarSelect(dest){
 }
 
 var writing = false;
-function terminal(gameTextElement, txt, printSpeed) {
-  gameTextElement.innerHTML = "";
+var terminalbuffertxt = "";
+function terminal(gameTextElement, txt, printSpeed,clear) {
+  var gameTextElement = gameTextElement || gameTerminalText;
+  var clear = clear || true;
+  if(clear){gameTextElement.innerHTML = "";}
+  else{gameTextElement.innerHTML+="\n";}
   var txt = txt || [notes[0].intro, notes[0].que].join('\n').split('');
-  var printSpeed = printSpeed || 1000;
+  var printSpeed = printSpeed || 50;
   var i = 0;
   (function display() {
     if(i < txt.length) {
@@ -311,10 +317,13 @@ function terminal(gameTextElement, txt, printSpeed) {
       //minigameElement.onclick = function (){/* Do nothing */};
       gameTextElement.innerHTML += txt[i].replace('\n', '<br />');
       ++i;
-      setTimeout(display, txt, printSpeed);
+      setTimeout(function() {
+        display();
+      }, printSpeed);
     }
     else{
       writing=false;
+      //terminalbuffertxt="";
       //minigameElement.onclick = function (){ terminal(gameTextElement, txt, printSpeed);  }
     }
    })
@@ -459,7 +468,8 @@ function PlayerAction(){
     var attackposcoord = [playerCharacterStats.position[0],playerCharacterStats.position[1]+1];
     if(attackposcoord[0] == gameObj.position[0] && attackposcoord[1] == gameObj.position[1]){
       //attack gameObj
-      terminal(gameTerminalText, "You attack the "+gameObj.name+".\n"+gameObj.name+" Health:"+gameObj.health);
+      if(!writing){terminal(gameTerminalText, "You attack the "+gameObj.name+".\n"+gameObj.name+" Health:"+gameObj.health,false);}
+      else{terminalbuffertxt="You attack the "+gameObj.name+".\n"+gameObj.name+" Health:"+gameObj.health;}
       console.log("You attack the "+gameObj.name+".\n"+gameObj.name+" Health:"+gameObj.health);
       playerCharacterStats.AttackObject(gameObj);
     }
