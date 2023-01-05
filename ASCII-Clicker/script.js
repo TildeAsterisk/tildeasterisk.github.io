@@ -131,7 +131,7 @@ var shopItemList = [
 var inventory = [];
 var inventoryItemList = [];
 
-//revised item system, possible stats
+//revised item system, classes, object, methods
 
 class game_character_object{
   constructor(name,lore,position,health,attack,defence){
