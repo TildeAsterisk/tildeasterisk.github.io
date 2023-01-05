@@ -133,7 +133,7 @@ var inventoryItemList = [];
 
 //revised item system, possible stats
 
-class game_character{
+class game_character_object{
   constructor(name,lore,position,health,attack,defence){
     this.name = name;
     this.lore = lore;
@@ -141,6 +141,12 @@ class game_character{
     this.health = health;
     this.attack = attack;
     this.defence = defence
+  }
+  SpawnRandom(){
+    //Set random position
+    this.position[0] = Math.floor(Math.random() * yrange);
+    this.position[1] = Math.floor(Math.random() * xrange);
+    return this.position;
   }
 }
 
@@ -172,11 +178,11 @@ var playerItemList = [
 //working list to store entities active in game
 var active_game_objs = [
   playerCharacterStats,
-  new game_character("Box","Maybe there's an item inside. Maybe not.",[4,4],10,0,0)
+  new game_character_object("Box","Maybe there's an item inside. Maybe not.",[4,4],10,0,0)
 ];
 
-const xrange = 20;
-const yrange = 80;
+const yrange = 20;
+const xrange = 80;
 var gameScreenArray = Array2DConstructor();
 
 // #endregion
@@ -350,9 +356,9 @@ function CalculateTotalAutoPoints(){
 }
 
 function Array2DConstructor(){
-  let arr = new Array(xrange); // create an empty array of length n
-  for (var x = 0; x < xrange; x++) {
-    arr[x] = new Array(yrange).fill(medium_shade_block_ASCII_char); // make each element an array
+  let arr = new Array(yrange); // create an empty array of length n
+  for (var x = 0; x < yrange; x++) {
+    arr[x] = new Array(xrange).fill(medium_shade_block_ASCII_char); // make each element an array
   }
   //console.log(arr);
   return arr;
@@ -362,7 +368,7 @@ function GenerateGameDisplayFromArray(screenArray){
   var output_txt="";
   var tempScreenArray = screenArray;
   for(var x=0;x<tempScreenArray.length;x++){
-    tempScreenArray[x][yrange+1]="<br>";
+    tempScreenArray[x][xrange+1]="<br>";
     output_txt+=tempScreenArray[x].join("");
   }
   return output_txt;
@@ -371,8 +377,8 @@ function GenerateGameDisplayFromArray(screenArray){
 //Move character on plane
 function CharacterMovement(move_vector){
   if( 
-    playerCharacterStats.position[0] + move_vector[0] >= 0 && (playerCharacterStats.position[0] + move_vector[0] < xrange) &&
-    playerCharacterStats.position[1] + move_vector[1] >= 0 && (playerCharacterStats.position[1] + move_vector[1] < yrange)
+    playerCharacterStats.position[0] + move_vector[0] >= 0 && (playerCharacterStats.position[0] + move_vector[0] < yrange) &&
+    playerCharacterStats.position[1] + move_vector[1] >= 0 && (playerCharacterStats.position[1] + move_vector[1] < xrange)
     )
   {
     playerCharacterStats.position[0] += move_vector[0];
@@ -388,7 +394,7 @@ function CharacterMovement(move_vector){
 
 function RedrawGameScreen(){
   //Draw Background
-  for (var x = 0; x < xrange; x++) {
+  for (var x = 0; x < yrange; x++) {
     gameScreenArray[x].fill(medium_shade_block_ASCII_char); // make each element an array
   }
   //Draw each active object
@@ -480,6 +486,9 @@ document.addEventListener('keydown', function(event) {
 
 //Start with home selected in navbar
 NavBarSelect(0);
+
+//spawn box
+active_game_objs[1].SpawnRandom();
 
 // will execture function once every tdelay ms
 var tdelay = 1000;
