@@ -140,13 +140,43 @@ class game_character_object{
     this.position = position;
     this.health = health;
     this.attack = attack;
-    this.defence = defence
+    this.defence = defence;
+    this.equippedWeaponItem = {};
+    this.id=NewGameObjIndex();
   }
-  SpawnRandom(){
+  SpawnGameObj(spawnpos){
     //Set random position
-    this.position[0] = Math.floor(Math.random() * yrange);
-    this.position[1] = Math.floor(Math.random() * xrange);
+    var spawnpos = [Math.floor(Math.random() * yrange), Math.floor(Math.random() * xrange)];
+    this.position[0] = spawnpos[0];
+    this.position[1] = spawnpos[1];
+    //Add to active objs list
+    active_game_objs.push(this);
+    console.log("Spawning Game Object "+this.name+" with Game Object ID "+this.id+" at position "+this.position);
     return this.position;
+  }
+  AttackObject(target){
+    target.health -= this.attack;
+    if(target.health<=0){
+      //die
+      terminal(gameScreenArray,this.name+" has killed "+target.name+".");
+      console.log("MURDERED!");
+      target.Die();
+    }
+  }
+  Die(){
+    //find id in active game obj list
+    var tmptxt="";
+    active_game_objs.forEach(gameObject => {
+      tmptxt+=gameObject.name+":"+gameObject.id+",";
+      if(gameObject.id == this.id){
+        console.log("Destroying "+this.name+" GameObjID: "+this.id);
+        active_game_objs.splice(active_game_objs.indexOf(gameObject.name),1);
+        //spawn new one before destroying
+        new game_character_object("Box",null,[0,0],15,0,1).SpawnGameObj();
+      }
+
+    });
+    console.log("ActiveGameObjs:\n"+tmptxt);
   }
 }
 
@@ -160,7 +190,8 @@ class game_item{
   }
 }
 
-var playerCharacterStats = {
+/*
+{
   //[y,x]
   name:"Player",
   position:[18,0],
@@ -168,6 +199,7 @@ var playerCharacterStats = {
   attack:5,
   equippedWeaponItem:{}
 }
+*/
 
 //Name, Price, damage, damagetype, defence, addpts
 var playerItemList = [
@@ -176,10 +208,10 @@ var playerItemList = [
 ];
 
 //working list to store entities active in game
-var active_game_objs = [
-  playerCharacterStats,
-  new game_character_object("Box","Maybe there's an item inside. Maybe not.",[4,4],10,0,0)
-];
+var ActiveGameObjIndexCounter = 0;
+var active_game_objs = [];
+
+var playerCharacterStats = active_game_objs[0];
 
 const yrange = 20;
 const xrange = 80;
@@ -421,7 +453,17 @@ function PlayerAction(){
       //play melee attack anim
       PlayMeleeAnim();
   }
+
   //interact with item in range
+  active_game_objs.forEach(gameObj => {
+    var attackposcoord = [playerCharacterStats.position[0],playerCharacterStats.position[1]+1];
+    if(attackposcoord[0] == gameObj.position[0] && attackposcoord[1] == gameObj.position[1]){
+      //attack gameObj
+      terminal(gameTerminalText, "You attack the "+gameObj.name+".\n"+gameObj.name+" Health:"+gameObj.health);
+      console.log("You attack the "+gameObj.name+".\n"+gameObj.name+" Health:"+gameObj.health);
+      playerCharacterStats.AttackObject(gameObj);
+    }
+  });
 }
 
 function PlayMeleeAnim(){
@@ -438,6 +480,8 @@ function PlayMeleeAnim(){
   //update screen
   //RedrawGameScreen();
 }
+
+function NewGameObjIndex(){ActiveGameObjIndexCounter+=1;return ActiveGameObjIndexCounter-1;}
 
 //#endregion ~~~* End of functions *~~~
 
@@ -487,8 +531,12 @@ document.addEventListener('keydown', function(event) {
 //Start with home selected in navbar
 NavBarSelect(0);
 
-//spawn box
-active_game_objs[1].SpawnRandom();
+//spawn Player
+var playerCharacterStats= new game_character_object("Player",null,[18,0],100,5,0);
+playerCharacterStats.SpawnGameObj(playerCharacterStats.position);
+//spawn the first non player game object active entity
+var firstNPC = new game_character_object("Box","Maybe there's an item inside. Maybe not.",[4,4],10,0,0);
+firstNPC.SpawnGameObj(); //spawn in random pos
 
 // will execture function once every tdelay ms
 var tdelay = 1000;
