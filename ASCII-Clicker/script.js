@@ -20,8 +20,13 @@ var shopHTMLContent = ` __       _
 (_ |_  _ |_)
 __)| |(_)|`;
 
-
 var medium_shade_block_ASCII_char = `&#9618;`;
+
+var game_character_symbol_dict = {
+  // name : symbol
+  "Player" : "o",
+  "Box" : "&#9635;"
+};
 // #endregion
 
 // #region variable declarations
@@ -151,6 +156,7 @@ class game_item{
 
 var playerCharacterStats = {
   //[y,x]
+  name:"Player",
   position:[18,0],
   health:100,
   attack:5,
@@ -165,7 +171,7 @@ var playerItemList = [
 
 //working list to store entities active in game
 var active_game_objs = [
-  //playerCharacterStats,
+  playerCharacterStats,
   new game_character("Box","Maybe there's an item inside. Maybe not.",[4,4],10,0,0)
 ];
 
@@ -381,10 +387,17 @@ function CharacterMovement(move_vector){
 }
 
 function RedrawGameScreen(){
+  //Draw Background
   for (var x = 0; x < xrange; x++) {
     gameScreenArray[x].fill(medium_shade_block_ASCII_char); // make each element an array
   }
-  gameScreenArray[playerCharacterStats.position[0]] [playerCharacterStats.position[1]] = "o"; //stick figure &#129989;
+  //Draw each active object
+  active_game_objs.forEach(entity => {
+    //draw entity at position
+    gameScreenArray[entity.position[0]] [entity.position[1]] = game_character_symbol_dict[entity.name];
+    //draw character from object dict { name:"symbol" }
+  });
+  //gameScreenArray[playerCharacterStats.position[0]] [playerCharacterStats.position[1]] = "o"; //stick figure &#129989;
   gameScreenElem.innerHTML=GenerateGameDisplayFromArray(gameScreenArray);
 }
 
