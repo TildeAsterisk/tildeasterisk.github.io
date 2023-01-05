@@ -5,7 +5,7 @@ body{
   background-color: #1f1f1f;
   color:#00FF41;
   text-shadow: 0 0 4px #8dffa8;
-  margin:2.5%;
+  margin:1%;
 }
 body::after{
 	content: "";
