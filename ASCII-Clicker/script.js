@@ -176,6 +176,7 @@ class game_character_object{
       setTimeout(function() {
         if(!writing){terminal(gameTerminalText,deadname+" has killed "+target.name+".",false);}
     }, 700 );
+    GenerateTopBarHTMLElem("nocombat");
     var returnstring="killed";
     }
     //update combat GUI window
@@ -247,7 +248,8 @@ function UpdateScoreElementHTML(){
   //Update score html element content
   //scoreElem.innerHTML=score.toFixed(2)+"&#442";
   score_and_button_clicker_ASCII=`<div id="score">`+score.toFixed(2)+`&#442</div><button id="clicker">Click!</button>`;
-  GenerateTopBarHTMLElem();
+  topBarElem.innerHTML=score_and_button_clicker_ASCII;
+  //GenerateTopBarHTMLElem();
 }
 
 // 0 = Home, 1 = Inventory, 2 = Map
@@ -539,17 +541,26 @@ function GenerateHPBarsASCII(gameObject){
   return out;
 }
 
-function GenerateTopBarHTMLElem(targetObjHP){
-  var targetObjHP = targetObjHP || playerCharacterStats;
+function GenerateTopBarHTMLElem(targetObj){
+  var targetObj = targetObj || null;
+  score_and_button_clicker_ASCII=`<div id="score">`+score.toFixed(2)+`&#442</div>
+<button id="clicker">Click!</button>`;
+  if(targetObj==null){
+    //topBarElem.innerHTML=score_and_button_clicker_ASCII;
+    //return;
+  }
+  if(targetObj=="nocombat"){
+    topBarElem.innerHTML=score_and_button_clicker_ASCII;
+    console.log("combat ended");
+    return;
+  }
   combat_hp_bars_ASCII = `
 <div style="display:inline-block;">
   <span style="white-space: pre;">Player<br><span style="background-color:#00FF41;">`+GenerateHPBarsASCII(playerCharacterStats)[0]+`</span><span style="background-color:red;">`+GenerateHPBarsASCII(playerCharacterStats)[1]+`</span></span>
 </div>
 <div style="display:inline-block;">
-<span style="white-space: pre;">`+targetObjHP.name+targetObjHP.id+`<br><span style="background-color:#00FF41;">`+GenerateHPBarsASCII(targetObjHP)[0]+`</span><span style="background-color:red;">`+GenerateHPBarsASCII(targetObjHP)[1]+`</span></span>
+<span style="white-space: pre;">`+targetObj.name+targetObj.id+`<br><span style="background-color:#00FF41;">`+GenerateHPBarsASCII(targetObj)[0]+`</span><span style="background-color:red;">`+GenerateHPBarsASCII(targetObj)[1]+`</span></span>
 </div>`;
-  score_and_button_clicker_ASCII=`<div id="score">`+score.toFixed(2)+`&#442</div>
-<button id="clicker">Click!</button>`;
   top_bar_ASCII = combat_hp_bars_ASCII+" |  "+score_and_button_clicker_ASCII;
   topBarElem.innerHTML=top_bar_ASCII;
 }
