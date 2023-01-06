@@ -1,4 +1,13 @@
 //#region ASCII ART
+var combat_hp_bars_ASCII = `<div style="display:inline-block;">
+<span style="white-space: pre;">Player<br><span style="background-color:#00FF41;">`+"                    "+`</span><span style="background-color:red;"></span>`+""+`</span>
+</div>
+<div style="display:inline-block;"><span style="white-space: pre;">Combat Target<br><span style="background-color:#00FF41;">`+"          "+`</span><span style="background-color:red;">`+"          "+`</span></span>
+</div>`;
+var score_and_button_clicker_ASCII=`<div id="score">0.00&#442</div>
+<button id="clicker">Click!</button>`;
+var top_bar_ASCII = score_and_button_clicker_ASCII;
+
 var navbarASCII=`+--------------------------------------------+
 `+`|<span class="navbar-btn1">        </span>|`+`<span class="navbar-btn2">        </span>|`+`<span class="navbar-btn3">        </span>|`+`<span class="navbar-btn4">        </span>|`+`<span class="navbar-btn5">        </span>|`+`
 `+`|<span class="navbar-btn1">  Home  </span>|`+`<span class="navbar-btn2">  Inv   </span>|`+`<span class="navbar-btn3">  Map   </span>|`+`<span class="navbar-btn4">  Shop  </span>|`+`<span class="navbar-btn5">   ???  </span>|`+`
@@ -36,7 +45,11 @@ var clickerBtn=document.getElementById("clicker");
 var gameScreenElem = document.getElementById("div0");
 var gameTerminalText = document.getElementById("div1");
 
-// ~~* NAVBAR *~~\\
+// ~~* TOP BAR *~~ \\
+var topBarElem = document.getElementById("top-bar");
+topBarElem.innerHTML=top_bar_ASCII;
+
+// ~~* NAVBAR *~~ \\
 var navBar=document.getElementById("nav-bar");
 navBar.innerHTML=navbarASCII;
 var navbtn1List = document.querySelectorAll(".navbar-btn1");
@@ -139,6 +152,7 @@ class game_character_object{
     this.lore = lore;
     this.position = position;
     this.health = health;
+    this.max_health = health;
     this.attack = attack;
     this.defence = defence;
     this.equippedWeaponItem = {};
@@ -161,8 +175,12 @@ class game_character_object{
       target.Die();
       setTimeout(function() {
         if(!writing){terminal(gameTerminalText,deadname+" has killed "+target.name+".",false);}
-    }, 2000);
+    }, 700 );
+    var returnstring="killed";
     }
+    //update combat GUI window
+    GenerateTopBarHTMLElem(target);
+    return returnstring;
   }
   Die(){
     //find id in active game obj list
@@ -173,8 +191,11 @@ class game_character_object{
       if(gameObject.id == this.id){
         console.log("Destroying "+this.name+" GameObjID: "+this.id);
         active_game_objs.splice(active_game_objs.indexOf(gameObject.name),1);
+
         //spawn new one before destroying
         new game_character_object("Box",null,[0,0],15,0,1).SpawnGameObj();
+
+        RedrawGameScreen();
       }
 
     });
@@ -224,7 +245,9 @@ var gameScreenArray = Array2DConstructor();
 // #region Functions
 function UpdateScoreElementHTML(){
   //Update score html element content
-  scoreElem.innerHTML=score.toFixed(2)+"&#442";
+  //scoreElem.innerHTML=score.toFixed(2)+"&#442";
+  score_and_button_clicker_ASCII=`<div id="score">`+score.toFixed(2)+`&#442</div><button id="clicker">Click!</button>`;
+  GenerateTopBarHTMLElem();
 }
 
 // 0 = Home, 1 = Inventory, 2 = Map
@@ -241,6 +264,7 @@ function NavBarSelect(dest){
       // Write to gametext element
       terminal(gameTerminalText,"Home");
       gameScreenElem.innerHTML=GenerateGameDisplayFromArray(gameScreenArray);
+      gameScreenElem.onclick = function (){/* Do nothing */};
       //playanim
       //var anim1 = ASCIIAnimation(animArray1, 200, gameScreenElem);
       break;
@@ -278,7 +302,7 @@ function NavBarSelect(dest){
         UpdateScoreElementHTML();
       }
       else{
-        terminal(gameTerminalText,"You don't have enough mate, sorry.");
+        if(!writing) {terminal(gameTerminalText,"You don't have enough mate, sorry.");}
       }
     };
     break;
@@ -302,14 +326,13 @@ function NavBarSelect(dest){
 }
 
 var writing = false;
-var terminalbuffertxt = "";
 function terminal(gameTextElement, txt, printSpeed,clear) {
   var gameTextElement = gameTextElement || gameTerminalText;
   var clear = clear || true;
   if(clear){gameTextElement.innerHTML = "";}
   else{gameTextElement.innerHTML+="\n";}
   var txt = txt || [notes[0].intro, notes[0].que].join('\n').split('');
-  var printSpeed = printSpeed || 50;
+  var printSpeed = printSpeed || 20;
   var i = 0;
   (function display() {
     if(i < txt.length) {
@@ -463,35 +486,73 @@ function PlayerAction(){
       PlayMeleeAnim();
   }
 
-  //interact with item in range
+  //interact or Attack with item in range
   active_game_objs.forEach(gameObj => {
-    var attackposcoord = [playerCharacterStats.position[0],playerCharacterStats.position[1]+1];
-    if(attackposcoord[0] == gameObj.position[0] && attackposcoord[1] == gameObj.position[1]){
-      //attack gameObj
-      if(!writing){terminal(gameTerminalText, "You attack the "+gameObj.name+".\n"+gameObj.name+" Health:"+gameObj.health,false);}
-      else{terminalbuffertxt="You attack the "+gameObj.name+".\n"+gameObj.name+" Health:"+gameObj.health;}
-      console.log("You attack the "+gameObj.name+".\n"+gameObj.name+" Health:"+gameObj.health);
-      playerCharacterStats.AttackObject(gameObj);
-    }
+    //Interact
+
+    //Attack
+    var attackposcoords = [ [playerCharacterStats.position[0],playerCharacterStats.position[1]+1] , [playerCharacterStats.position[0],playerCharacterStats.position[1]-1]];
+    attackposcoords.forEach(hitbox => {
+      if(hitbox[0] == gameObj.position[0] && hitbox[1] == gameObj.position[1]){
+        //Target found, attack gameObj
+        if(playerCharacterStats.AttackObject(gameObj)=="killed"){
+          score+=10;
+        }
+        if(!writing){terminal(gameTerminalText, "You attack the "+gameObj.name+".\n"+gameObj.name+" Health:"+gameObj.health,20,false);}
+        console.log("You attack the "+gameObj.name+".\n"+gameObj.name+" Health:"+gameObj.health);
+      }
+    });
   });
 }
 
 function PlayMeleeAnim(){
   //get player coords
   var playerPosyx = playerCharacterStats.position;
+  //Store char behind melee anim to replace when done
+  var behindchar = gameScreenArray[playerPosyx[0]][playerPosyx[1]+1];
   //Display attacking symbol
   gameScreenArray[playerPosyx[0]][playerPosyx[1]+1]="/";
+  gameScreenArray[playerPosyx[0]][playerPosyx[1]-1]="\\";
   //Reset symbol back to background
   setTimeout(function(){
-    gameScreenArray[playerPosyx[0]][playerPosyx[1]+1]=medium_shade_block_ASCII_char;
-    gameScreenElem.innerHTML=GenerateGameDisplayFromArray(gameScreenArray);
+    //update screen
+    RedrawGameScreen();
   },500);
   gameScreenElem.innerHTML=GenerateGameDisplayFromArray(gameScreenArray);
-  //update screen
-  //RedrawGameScreen();
 }
 
 function NewGameObjIndex(){ActiveGameObjIndexCounter+=1;return ActiveGameObjIndexCounter-1;}
+
+function GenerateHPBarsASCII(gameObject){
+  var hpbarmaxlength=20;
+  var greenHPbartxt="";
+  //Generate hp bars
+  for(var i = 0;i<((gameObject.health/gameObject.max_health)*20).toFixed();i++){
+    greenHPbartxt+=" ";
+  }
+  var redHPbartxt="";
+  for(var i = 0;i<(hpbarmaxlength-((gameObject.health/gameObject.max_health)*20)).toFixed();i++){
+    redHPbartxt+=" ";
+  }
+  var out = [greenHPbartxt,redHPbartxt];
+  //console.log(gameObject.name,(gameObject.health/hpbarmaxlength).toFixed(),(hpbarmaxlength-gameObject.health).toFixed());
+  return out;
+}
+
+function GenerateTopBarHTMLElem(targetObjHP){
+  var targetObjHP = targetObjHP || playerCharacterStats;
+  combat_hp_bars_ASCII = `
+<div style="display:inline-block;">
+  <span style="white-space: pre;">Player<br><span style="background-color:#00FF41;">`+GenerateHPBarsASCII(playerCharacterStats)[0]+`</span><span style="background-color:red;">`+GenerateHPBarsASCII(playerCharacterStats)[1]+`</span></span>
+</div>
+<div style="display:inline-block;">
+<span style="white-space: pre;">`+targetObjHP.name+targetObjHP.id+`<br><span style="background-color:#00FF41;">`+GenerateHPBarsASCII(targetObjHP)[0]+`</span><span style="background-color:red;">`+GenerateHPBarsASCII(targetObjHP)[1]+`</span></span>
+</div>`;
+  score_and_button_clicker_ASCII=`<div id="score">`+score.toFixed(2)+`&#442</div>
+<button id="clicker">Click!</button>`;
+  top_bar_ASCII = combat_hp_bars_ASCII+" |  "+score_and_button_clicker_ASCII;
+  topBarElem.innerHTML=top_bar_ASCII;
+}
 
 //#endregion ~~~* End of functions *~~~
 

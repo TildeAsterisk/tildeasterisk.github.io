@@ -42,7 +42,8 @@ body::after{
   white-space: pre;
 }
 #nav-bar{
-  text-align: center;
+  /*text-align: center;*/
+  bottom:0px;
 }
 #score {
   font-size: 2em;
