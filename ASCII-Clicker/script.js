@@ -36,7 +36,7 @@ var medium_shade_block_ASCII_char = `&#9618;`;
 var game_character_symbol_dict = {
   // name : symbol
   "Player" : "o",
-  "Box" :  "&#9746;"
+  "Box" :  "&#128193;"
 };
 // #endregion
 
