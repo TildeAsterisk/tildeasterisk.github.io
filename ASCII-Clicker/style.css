@@ -37,8 +37,7 @@ body::after{
 }
 
 .ascii-art {
-  /*font-family: "Monaco Mono", monospace;*/
-  font-family: "Anonymous Pro",monospace;
+  font-family: "Anonymous Pro", monospace;
   white-space: pre;
 }
 #nav-bar{
@@ -77,7 +76,12 @@ body button{
 }
 
 #div1{
-  position: absolute;
-  bottom: 0;
+  /*position: absolute;
+  bottom: 0;*/
   margin:3%;
+}
+
+.specialchar {
+  display:inline-block;
+  width: 8.7px;  /* Find the right value */
 }
