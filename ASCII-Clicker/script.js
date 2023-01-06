@@ -36,7 +36,7 @@ var medium_shade_block_ASCII_char = `&#9618;`;
 var game_character_symbol_dict = {
   // name : symbol
   "Player" : "o",
-  "Box" :  "&#9635;"
+  "Box" :  "&#9746;"
 };
 // #endregion
 
@@ -461,15 +461,15 @@ function CharacterMovement(move_vector){
 function RedrawGameScreen(){
   //Draw Background
   for (var x = 0; x < yrange; x++) {
-    gameScreenArray[x].fill(medium_shade_block_ASCII_char); // make each element an array
+    gameScreenArray[x].fill("<span class='specialchar'>"+medium_shade_block_ASCII_char+"</span>"); // make each element an array
   }
   //Draw each active object
   active_game_objs.forEach(entity => {
     //draw entity at position
-    gameScreenArray[entity.position[0]] [entity.position[1]] = game_character_symbol_dict[entity.name];
+    gameScreenArray[entity.position[0]] [entity.position[1]] = "<span class='specialchar'>"+game_character_symbol_dict[entity.name]+"</span>";
     //draw character from object dict { name:"symbol" }
   });
-  //gameScreenArray[playerCharacterStats.position[0]] [playerCharacterStats.position[1]] = "o"; //stick figure &#129989;
+  //gameScreenArray[playerCharacterStats.position[0]] [playerCharacterStats.position[1]] = game_character_symbol_dict["Player"]; //stick figure &#129989;
   gameScreenElem.innerHTML=GenerateGameDisplayFromArray(gameScreenArray);
 }
 

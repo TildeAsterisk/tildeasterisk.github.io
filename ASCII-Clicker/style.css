@@ -83,5 +83,6 @@ body button{
 
 .specialchar {
   display:inline-block;
-  width: 8.7px;  /* Find the right value */
+  width: 10px;  /* Find the right value */
+  line-height: 100%;
 }
