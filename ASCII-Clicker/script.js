@@ -245,11 +245,9 @@ var gameScreenArray = Array2DConstructor();
 
 // #region Functions
 function UpdateScoreElementHTML(){
-  //Update score html element content
-  //scoreElem.innerHTML=score.toFixed(2)+"&#442";
-  score_and_button_clicker_ASCII=`<div id="score">`+score.toFixed(2)+`&#442</div><button id="clicker">Click!</button>`;
-  topBarElem.innerHTML=score_and_button_clicker_ASCII;
-  //GenerateTopBarHTMLElem();
+  //score_and_button_clicker_ASCII=`<div id="score">`+score.toFixed(2)+`&#442</div><button id="clicker">Click!</button>`;
+  //topBarElem.innerHTML=score_and_button_clicker_ASCII;
+  GenerateTopBarHTMLElem();
 }
 
 // 0 = Home, 1 = Inventory, 2 = Map
