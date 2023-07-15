@@ -8,13 +8,16 @@ var textOutputElem = document.getElementById("div1");
 var active_game_objs =[];
 var built_blocks=[];
 
-
+// Character as in (0-9,a-Z,*%&)
 class CharacterObject {
   //constructor default values
-  constructor(htmlCode,position,blockTypeID){
+  constructor(htmlCode,id,position,blockTypeID){
     this.htmlCode=htmlCode || AddSpanTags("?");
     this.position=position||[undefined,undefined];
     this.blockTypeID=blockTypeID||0;
+    this.id=id;
+
+    AddSpanTags(htmlCode)
   }
   SpawnGameObj(spawnpos){
     //Set random position
@@ -27,15 +30,30 @@ class CharacterObject {
     return this.position;
   }
   ActionCheck(){
+    //Check if in same position as any other active game object
     active_game_objs.forEach(gameObj => {
-      if(this.position==gameObj.position){
-        this.position = [this.position[0],this.position[1]];
+      if(this.position==gameObj.position && this != gameObj){
+        this.position = [this.position[0],this.position[1]+1];
         console.log("Object interraction between "+gameObj.htmlCode+"and ");
-        TextOutput("Action.");
+        TextOutput("Object interraction between "+gameObj.htmlCode+" and " + this.htmlCode);
       }
     });
   }
 }
+
+class ItemObject extends CharacterObject{
+  ActionCheck(){
+    active_game_objs.forEach(gameObj => {
+      if(this.position==gameObj.position && this != gameObj){
+        this.position = [this.position[0],this.position[1]];
+        console.log("Object interraction between "+gameObj.htmlCode+"and ");
+        TextOutput("Object interraction between "+gameObj.htmlCode+" and " + this.htmlCode);
+      }
+    });
+  }
+}
+
+
 
 function Array2DConstructor(){
   let arr = new Array(yrange); // create an empty array of length n
@@ -73,15 +91,29 @@ function GenerateGameDisplayFromArray(screenArray){
   return output_txt;
 }
 
+var span_count=0;
 function AddSpanTags(character){
-  return "<span class='interactable-char'>"+character+"</span>";
+  var charID = "charID-"+span_count;
+  var output= "<span class='interactable-char' id="+charID+">"+character+"</span>";
+  span_count++
+  return charID,output;
 }
 
 function TextOutput(text){
   textOutputElem.innerHTML=text;
 }
 
-new CharacterObject(AddSpanTags(">")).SpawnGameObj([1,3]);
+var selectedObj;
+document.addEventListener('click', function(event) {
+  if (event.target.tagName === 'SPAN' /*&& event.target.innerHTML!=="▒"*/) {
+      selectedObj = event.target.innerHTML;
+      console.log(event.target);
+      TextOutput("Selecting: '"+selectedObj+"' "+event.target.id);
+  }
+});
+
+
+/*new CharacterObject(AddSpanTags(">")).SpawnGameObj([1,3]);
 new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,4]);
 new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,5]);
 new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,6]);
@@ -93,10 +125,11 @@ new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,10]);
 new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,11]);
 new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,12]);
 new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,13]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,14]);
+new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,14]);*/
 new CharacterObject(AddSpanTags("X")).SpawnGameObj([1,15]);
-var firstCharObj = new CharacterObject(AddSpanTags("c"),null);
+var firstCharObj = new CharacterObject(AddSpanTags("c"));
 firstCharObj.SpawnGameObj([1,3]);
+new ItemObject(AddSpanTags("*")).SpawnGameObj([1,4]);
 
 RedrawGameScreen(medium_shade_block_ASCII_char);
 
