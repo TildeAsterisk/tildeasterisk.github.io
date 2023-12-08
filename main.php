@@ -26,7 +26,7 @@ else{
       <td><?php  echo '+'.$stats['mat_production'].'/ut' ?></td>
     </tr>
     <tr>
-    <td>Gold:</td>
+    <td>Currency:</td>
       <td><?php  echo $stats['currency'] ?></td>
       <td><?php  echo '+'.$stats['income'].'/ut' ?></td>
     </tr>
