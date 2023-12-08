@@ -21,7 +21,12 @@ if($num2 == $weapon['shield']){
     $defense = (10 * $unit['defender']);
 }
 */
+
+$attack = (10 * $unit['warrior']);
+$defense = (10 * $unit['defender']);
+
 $update_stats = mysqli_query($mysql,"UPDATE `stats` SET 
-                            `income`='".$income."',`farming`='".$farming."'
+                            `income`='".$income."',`farming`='".$farming."',
+                            `attack`='".$attack."',`defense`='".$defense."'
                             WHERE `id`='".$_SESSION['uid']."'") or die(mysqli_error($mysql));
 ?>

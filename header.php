@@ -25,9 +25,10 @@ include_once("connection.php");
           //echo $stats['points'];
         ?>
           &raquo; <a href="main.php">Your Stats</a><br />
-          &raquo; <a href="rankings.php">Battle Players</a><br />
+          &raquo; <a href="shop.php">Shop</a><br />
+          <!--&raquo; <a href="inventory.php">Inventory</a><br /-->
           &raquo; <a href="units.php">Your Units</a><br />
-          &raquo; <a href="inventory.php">Inventory</a><br />
+          &raquo; <a href="rankings.php">Battle Players</a><br />
           &raquo; <a href="logout.php">Log-Out</a>
         <?php
         }

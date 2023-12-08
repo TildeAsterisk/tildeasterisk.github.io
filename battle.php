@@ -7,7 +7,7 @@ if(!isset($_SESSION['uid'])){
   if(isset($_POST["points"])){
     $turns = protect($mysql,$_POST['turns']);
     //$turns=protect($mysql,1);
-    $id = protect($mysql,$_POST['id']);
+    $id = (int)protect($mysql,$_POST['id']);
     $user_check = mysqli_query($mysql,"SELECT * FROM `stats` WHERE `id`='".$id."'") or die(mysqli_error($mysql));
     if(mysqli_num_rows($user_check) == 0){
         output("There is no user with that ID!");
@@ -30,10 +30,11 @@ if(!isset($_SESSION['uid'])){
         if($attack_effect > $defense_effect){
             $ratio = ($attack_effect - $defense_effect)/$attack_effect * $turns;
             $ratio = min($ratio,1);
-            $gold_stolen = floor($ratio * $enemy_stats['points']);
+            $gold_stolen = (int)floor($ratio/2 * $enemy_stats['points']);
             echo "You won the battle! You stole " . $gold_stolen . " gold!";
             $battle1 = mysqli_query($mysql,"UPDATE `stats` SET `points`=`points`-'".$gold_stolen."' WHERE `id`='".$id."'") or die(mysqli_error($mysql));
-            $battle2 = mysqli_query($mysql,"UPDATE `stats` SET `points`=`points`+'".$gold_stolen."',`turns`=`turns`-'".$turns."' WHERE `id`='".$_SESSION['uid']."'") or die(mysqli_error($mysql));
+            //$battle2 = mysqli_query($mysql,"UPDATE `stats` SET `points`=`points`+'".$gold_stolen."',`turns`=`turns`-'".$turns."' WHERE `id`='".$_SESSION['uid']."'") or die(mysqli_error($mysql));
+            $battle2 = mysqli_query($mysql,"UPDATE `stats` SET `points`=`points`+'".$gold_stolen."' WHERE `id`='".$_SESSION['uid']."'") or die(mysqli_error($mysql));
             $battle3 = mysqli_query($mysql,"INSERT INTO `logs` (`attacker`,`defender`,`attacker_damage`,`defender_damage`,`points`,`food`,`time`) 
                                     VALUES ('".$_SESSION['uid']."','".$id."','".$attack_effect."','".$defense_effect."','".$gold_stolen."','0','".time()."')") or die(mysqli_error($mysql));
             $stats['points'] += $gold_stolen;

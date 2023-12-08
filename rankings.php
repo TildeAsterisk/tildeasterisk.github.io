@@ -11,10 +11,10 @@ if(!isset($_SESSION['uid'])){
         <tr>
             <td width="50px"><b>Rank</b></td>
             <td width="150px"><b>Username</b></td>
-            <td width="200px"><b>Gold</b></td>
+            <td width="200px"><b>Points</b></td>
         </tr>
         <?php
-        $get_users = mysqli_query($mysql,"SELECT `id`,`overall` FROM `ranking` WHERE `overall`>='0' ORDER BY `overall` ASC") or die(mysqli_error($mysql));
+        $get_users = mysqli_query($mysql,"SELECT `id`,`overall` FROM `ranking` WHERE `overall`>'0' ORDER BY `overall` ASC") or die(mysqli_error($mysql));
         while($row = mysqli_fetch_assoc($get_users)){
             echo "<tr>";
             echo "<td>" . $row['overall'] . "</td>";
