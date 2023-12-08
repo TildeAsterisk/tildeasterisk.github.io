@@ -17,10 +17,19 @@ include_once("connection.php");
 
   <div id="header">~* Strat Sim</div>
     <div id="container">
-      <div id="navigation"><div id="nav_div"><?php 
+      <div id="navigation"><div id="nav_div">
+        <?php 
         if(isset($_SESSION['uid'])){
           include("safe.php");
-          echo "Logged in.";
+          //echo "Logged in.";
+          //echo $stats['points'];
+        ?>
+          &raquo; <a href="main.php">Your Stats</a><br />
+          &raquo; <a href="rankings.php">Battle Players</a><br />
+          &raquo; <a href="units.php">Your Units</a><br />
+          &raquo; <a href="inventory.php">Inventory</a><br />
+          &raquo; <a href="logout.php">Log-Out</a>
+        <?php
         }
         else{
           ?>
