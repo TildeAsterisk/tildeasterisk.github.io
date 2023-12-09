@@ -12,4 +12,7 @@ while($user = mysqli_fetch_assoc($get_users)){
 
 }
 
+include("cron_rankings.php");
+include("cron_logs.php");
+
 ?>
