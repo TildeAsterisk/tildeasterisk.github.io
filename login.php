@@ -17,7 +17,14 @@ if (isset($_POST['login'])){
     else{
       $get_id=mysqli_fetch_assoc($login_check);
       $_SESSION['uid'] = $get_id['id'];
+
+      // Start output buffering
+      ob_start();
+
       header("Location: main.php");
+      
+      // End output buffering
+      ob_end_flush();
     }
   }
 }
