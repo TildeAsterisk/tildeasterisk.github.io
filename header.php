@@ -25,10 +25,20 @@ include_once("connection.php");
           //echo "Logged in.";
           //echo $stats['points'];
         ?>
+  <a href="main.php" class="tooltip">
+  <?php echo "<center><b><i><u>".$user['username']."</u></i></b></center>"; ?>
+  <center>
+  <?php echo $food_symbol."<b>".$stats['food']."</b>"; ?> : 
+  <?php echo $materials_symbol."<b>".$stats['materials']."</b>"; ?> : 
+  <?php echo $currency_symbol."<b>".$stats['currency']."</b>"; ?><br>
+  </center>
+  <span class="tooltiptext"><?php echo $food_symbol?>=Food,<?php echo $materials_symbol?>=Materials,<?php echo $currency_symbol?>=Currency</span>
+  </a><hr>
+
           &raquo; <a href="main.php">Your Stats</a><br />
           &raquo; <a href="shop.php">Shop</a><br />
           <!--&raquo; <a href="inventory.php">Inventory</a><br /-->
-          &raquo; <a href="units.php">Your Units</a><br />
+          <!--&raquo; <a href="units.php">Your Units</a><br /-->
           &raquo; <a href="rankings.php">Battle Players</a><br />
           &raquo; <a href="logout.php">Log-Out</a>
         <?php
