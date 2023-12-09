@@ -32,12 +32,15 @@ if(!isset($_SESSION['uid'])){
             $ratio = min($ratio,1);
             $gold_stolen = (int)floor($ratio/2 * $enemy_stats['points']);
             echo "You won the battle! You stole " . $gold_stolen . " gold!";
+            //Update subtract stolen gold from enemies current gold and update db
             $battle1 = mysqli_query($mysql,"UPDATE `stats` SET `points`=`points`-'".$gold_stolen."' WHERE `id`='".$id."'") or die(mysqli_error($mysql));
             //$battle2 = mysqli_query($mysql,"UPDATE `stats` SET `points`=`points`+'".$gold_stolen."',`turns`=`turns`-'".$turns."' WHERE `id`='".$_SESSION['uid']."'") or die(mysqli_error($mysql));
+            //Add gold stolen to user points and update db
             $battle2 = mysqli_query($mysql,"UPDATE `stats` SET `points`=`points`+'".$gold_stolen."' WHERE `id`='".$_SESSION['uid']."'") or die(mysqli_error($mysql));
+            $stats['points'] += $gold_stolen;
+            //Enter battle log into db
             $battle3 = mysqli_query($mysql,"INSERT INTO `logs` (`attacker`,`defender`,`attacker_damage`,`defender_damage`,`points`,`food`,`time`) 
                                     VALUES ('".$_SESSION['uid']."','".$id."','".$attack_effect."','".$defense_effect."','".$gold_stolen."','0','".time()."')") or die(mysqli_error($mysql));
-            $stats['points'] += $gold_stolen;
             //$stats['turns'] -= $turns;
         }else{
             echo "You lost the battle!";

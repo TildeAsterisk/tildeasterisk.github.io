@@ -41,7 +41,7 @@ if(!isset($_SESSION['uid'])){
       ?>
       Number of Turns (1-10): <input type="text" name="turns" /> 
       <input type="submit" name="points" value="Raid for Gold" />
-      <input type="submit" name="food" value="Raid for Food" />
+      <!--input type="submit" name="food" value="Raid for Food" /-->
       <input type="hidden" name="id" value="<?php echo $id; ?>"/>
       <?php
       }
