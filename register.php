@@ -1,4 +1,7 @@
 <?php
+// Start output buffering
+ob_start();
+
 session_start();
 include_once("header.php");
 
@@ -54,4 +57,7 @@ if(isset($_POST['register'])){
 
 <?php 
   include("footer.php");
+
+  // End output buffering
+  ob_end_flush();
 ?>
