@@ -68,3 +68,7 @@ body a {
     font-size: 12pt;
     border: 1px solid #000000;
 }
+
+html.body.div.a.img {
+    opacity:0.1;
+}

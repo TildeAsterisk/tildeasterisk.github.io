@@ -18,7 +18,6 @@ mysqli_query($mysql,"DELETE FROM `logs` WHERE `time`<'".(time()-86400)."'") or d
 
 //include("cron_rankings.php");
 // Rankings update every period time
-
 $get_attack = mysqli_query($mysql,"SELECT `id`,`attack` FROM `stats` ORDER BY `attack` DESC") or die(mysqli_error($mysql));
 $i = 1;
 $rank = array();

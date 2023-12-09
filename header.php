@@ -12,6 +12,7 @@ include_once("connection.php");
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TildeAsterisk.com</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="icon" type="image/x-icon" href="tabIcon.ico">
 </head>
 <body>
 
