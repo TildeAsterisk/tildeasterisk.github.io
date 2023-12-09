@@ -24,31 +24,31 @@ else{
       <td>Materials:</td>
       <td><?php  echo $stats['materials'].$materials_symbol ?></td>
       <td><?php  echo '+'.$stats['mat_production'].$materials_symbol.'/ut' ?></td>
-      <td><div class="tooltip">?<span class="tooltiptext">Materials <?php echo $materials_symbol;?>Gained from workers.</span></div></td>
+      <td><div class="tooltip">?<span class="tooltiptext">Materials<?php echo $materials_symbol;?>, Gained from (lumberjacks/miners? coming soon).</span></div></td>
     </tr>
     <tr>
     <td>Currency:</td>
       <td><?php  echo $stats['currency'].$currency_symbol ?></td>
       <td><?php  echo '+'.$stats['income'].$currency_symbol.'/ut' ?></td>
-      <td><div class="tooltip">?<span class="tooltiptext">Currency <?php echo $currency_symbol;?>Gained from workers.</span></div></td>
+      <td><div class="tooltip">?<span class="tooltiptext">Currency<?php echo $currency_symbol;?>, Gained from workers.</span></div></td>
     </tr>
     <tr>
       <td>Food:</td>
       <td><?php  echo $stats['food'].$food_symbol ?></td>
       <td><?php  echo '+'.$stats['farming'].$food_symbol.'/ut' ?></td>
-      <td><div class="tooltip">?<span class="tooltiptext">Food <?php echo $food_symbol;?>Gained from farmers.</span></div></td>
+      <td><div class="tooltip">?<span class="tooltiptext">Food<?php echo $food_symbol;?>, Gained from farmers.</span></div></td>
     </tr>
     <tr>
       <td>Attack:</td>
       <td><?php  echo $stats['attack'].$attack_symbol ?></td>
       <td></td>
-      <td><div class="tooltip">?<span class="tooltiptext">Attack <?php echo $attack_symbol;?>Gained from warriors.</span></div></td>
+      <td><div class="tooltip">?<span class="tooltiptext">Attack<?php echo $attack_symbol;?>, Gained from warriors.</span></div></td>
     </tr>
     <tr>
       <td>Defense:</td>
       <td><?php  echo $stats['defense'].$defense_symbol ?></td>
       <td></td>
-      <td><div class="tooltip">?<span class="tooltiptext">Defense <?php echo $defense_symbol;?>Gained from defenders.</span></div></td>
+      <td><div class="tooltip">?<span class="tooltiptext">Defense<?php echo $defense_symbol;?>, Gained from defenders.</span></div></td>
     </tr>
     <td></td>
     <td></td>

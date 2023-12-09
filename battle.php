@@ -4,7 +4,7 @@ include("header.php");
 if(!isset($_SESSION['uid'])){
     echo "You must be logged in to view this page!";
 }else{
-  if(isset($_POST["points"])){
+  if(isset($_POST["battle"])){
     $turns = protect($mysql,$_POST['turns']);
     //$turns=protect($mysql,1);
     $id = (int)protect($mysql,$_POST['id']);
@@ -30,16 +30,16 @@ if(!isset($_SESSION['uid'])){
         if($attack_effect > $defense_effect){
             $ratio = ($attack_effect - $defense_effect)/$attack_effect * $turns;
             $ratio = min($ratio,1);
-            $gold_stolen = (int)floor($ratio/2 * $enemy_stats['points']);
+            $gold_stolen = (int)floor($ratio/2 * $enemy_stats['currency']);
             echo "You won the battle! You stole " . $gold_stolen . " gold!";
             //Update subtract stolen gold from enemies current gold and update db
-            $battle1 = mysqli_query($mysql,"UPDATE `stats` SET `points`=`points`-'".$gold_stolen."' WHERE `id`='".$id."'") or die(mysqli_error($mysql));
+            $battle1 = mysqli_query($mysql,"UPDATE `stats` SET `currency`=`currency`-'".$gold_stolen."' WHERE `id`='".$id."'") or die(mysqli_error($mysql));
             //$battle2 = mysqli_query($mysql,"UPDATE `stats` SET `points`=`points`+'".$gold_stolen."',`turns`=`turns`-'".$turns."' WHERE `id`='".$_SESSION['uid']."'") or die(mysqli_error($mysql));
             //Add gold stolen to user points and update db
-            $battle2 = mysqli_query($mysql,"UPDATE `stats` SET `points`=`points`+'".$gold_stolen."' WHERE `id`='".$_SESSION['uid']."'") or die(mysqli_error($mysql));
-            $stats['points'] += $gold_stolen;
+            $battle2 = mysqli_query($mysql,"UPDATE `stats` SET `currency`=`currency`+'".$gold_stolen."' WHERE `id`='".$_SESSION['uid']."'") or die(mysqli_error($mysql));
+            $stats['currency'] += $gold_stolen;
             //Enter battle log into db
-            $battle3 = mysqli_query($mysql,"INSERT INTO `logs` (`attacker`,`defender`,`attacker_damage`,`defender_damage`,`points`,`food`,`time`) 
+            $battle3 = mysqli_query($mysql,"INSERT INTO `logs` (`attacker`,`defender`,`attacker_damage`,`defender_damage`,`currency`,`food`,`time`) 
                                     VALUES ('".$_SESSION['uid']."','".$id."','".$attack_effect."','".$defense_effect."','".$gold_stolen."','0','".time()."')") or die(mysqli_error($mysql));
             //$stats['turns'] -= $turns;
         }else{

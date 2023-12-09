@@ -28,6 +28,8 @@ if(!isset($_SESSION['uid'])){
       <br /><br />
       <b>Rank: <?php echo $s_rank['overall']; ?></b> 
       <br />
+      <b>Gold: <?php echo $s_stats['currency']; ?></b> 
+      <br />
       <b>Points: <?php echo number_format($s_stats['points']); ?></b>
       <br />
       <br />
@@ -40,7 +42,7 @@ if(!isset($_SESSION['uid'])){
       if(mysqli_num_rows($attacks_check) < 5){
       ?>
       Number of Turns (1-10): <input type="text" name="turns" /> 
-      <input type="submit" name="points" value="Raid for Gold" />
+      <input type="submit" name="battle" value="Raid for Gold" />
       <!--input type="submit" name="food" value="Raid for Food" /-->
       <input type="hidden" name="id" value="<?php echo $id; ?>"/>
       <?php
