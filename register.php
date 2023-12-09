@@ -32,6 +32,7 @@ if(isset($_POST['register'])){
       $ins3=mysqli_query($mysql,"INSERT INTO `user`  (`username`,`password`,`email`) VALUES ('$username','".md5($password)."','$email')") or die(mysqli_error($mysql));
       $ins4=mysqli_query($mysql,"INSERT INTO `ranking` (`attack`,`defense`,`overall`) VALUES(0,0,0)") or die(mysqli_error($mysql));
       echo "Thank you for registering with Tilde Asterisk ~*";
+      include("update_stats.php");
     }
   }
 }

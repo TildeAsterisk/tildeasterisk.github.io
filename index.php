@@ -1,11 +1,8 @@
 <?php
 session_start();
 include("header.php");
-if(isset($_SESSION['uid'])){
-    echo "You're logged in.";
-}else{
     ?>
-    <center><h2>Battle Players</h2></center>
+    <center><h2>Rankings</h2></center>
     <br />
     <table cellpadding="2" cellspacing="2">
         <tr>
@@ -29,6 +26,6 @@ if(isset($_SESSION['uid'])){
         ?>
     </table>
     <?php
-}
+
 include("footer.php");
 ?>
