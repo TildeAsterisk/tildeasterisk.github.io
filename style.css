@@ -128,3 +128,7 @@ html body div a img {
     visibility: visible;
     opacity: 1;
   }
+
+  #ASCIIAnimDiv{
+    /*text-align: center;*/
+  }

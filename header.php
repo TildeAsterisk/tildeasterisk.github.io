@@ -16,7 +16,7 @@ include_once("connection.php");
 </head>
 <body>
 
-  <div id="header"><h5 style="margin:5px 10px;"><a style="text-decoration:none;" href="index.php">~*</a></h5></div>
+  <div id="header"><h5 style="margin:5px 10px;"><a style="text-decoration:none;" href="index.php">~* ASCII Strategy MMO *~</a></h5></div>
     <div id="container">
       <div id="navigation"><div id="nav_div">
         <?php 
@@ -55,3 +55,6 @@ include_once("connection.php");
       ?>
       </div></div>
       <div id="content"><div id="con_div">
+      <div id="graphics">
+        
+      </div>
