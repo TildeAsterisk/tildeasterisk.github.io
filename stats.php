@@ -26,11 +26,11 @@ if(!isset($_SESSION['uid'])){
     echo $s_user['username'];
       ?>
       <br /><br />
-      <b>Rank: <?php echo $s_rank['overall']; ?></b> 
+      <b>Power Level: <?php echo $s_rank['overall']; ?></b> 
       <br />
       <b>Gold: <?php echo $s_stats['currency']; ?></b> 
-      <br />
-      <b>Points: <?php echo number_format($s_stats['points']); ?></b>
+      <!--br />
+      <b>Points: <?php echo number_format($s_stats['points']); ?></b-->
       <br />
       <br />
       <form action="battle.php" method="post">

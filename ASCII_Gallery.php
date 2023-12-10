@@ -1,60 +1,60 @@
 <div style="display:none;">
 kata -- Tai Chi: Yang Form 1
-<pre id="kata_tai_chi:yang_form_1.f1">
+<div id="kata_tai_chi:yang_form_1.f1">
  o 
 <|>   
 ( )
-</pre>
-<pre id="kata_tai_chi:yang_form_1.f2">
+</div>
+<div id="kata_tai_chi:yang_form_1.f2">
 .o.
 `|'
-[ ]
-</pre>
-<pre id="kata_tai_chi:yang_form_1.f3">
+[ ] 
+</div>
+<div id="kata_tai_chi:yang_form_1.f3">
  o 
 (|)
-[ ]
-</pre>
-<pre id="kata_tai_chi:yang_form_1.f4">
+[ ] 
+</div>
+<div id="kata_tai_chi:yang_form_1.f4">
  o
 `|
-/< 
-</pre>
-<pre id="kata_tai_chi:yang_form_1.f5">
+/<  
+</div>
+<div id="kata_tai_chi:yang_form_1.f5">
 .o
 `|
-{<
-</pre>
-<pre id="kata_tai_chi:yang_form_1.f6">
+{< 
+</div>
+<div id="kata_tai_chi:yang_form_1.f6">
  o_
 <| 
 / }
-</pre>
-<pre id="kata_tai_chi:yang_form_1.f7">
+</div>
+<div id="kata_tai_chi:yang_form_1.f7">
  o.
  |'
  >\  
-</pre>
-<pre id="kata_tai_chi:yang_form_1.f8">
+</div>
+<div id="kata_tai_chi:yang_form_1.f8">
  o 
  |'
  >}
-</pre>
-<pre id="kata_tai_chi:yang_form_1.f9">
+</div>
+<div id="kata_tai_chi:yang_form_1.f9">
 _o
  |>
 { \
-</pre>
+</div>
 
 dancing in the rain by jgs
-<pre id="dancing_in_the_rain_by_jgs">
+<div id="dancing_in_the_rain_by_jgs">
 _O/                   ,
  \                  /           \O_
  /\_             `\_\        ,/\/
  \  `       ,        \         /
  `       O/ /       /O\        \
          /\|/\.                `
-</pre>
+</div>
 
 
 </div>

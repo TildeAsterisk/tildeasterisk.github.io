@@ -39,7 +39,7 @@ include_once("connection.php");
   </a><hr>
 
           &raquo; <a href="main.php">Your Stats</a><br />
-          &raquo; <a href="shop.php">Shop</a><br />
+          &raquo; <a href="shop.php">Command</a><br />
           <!--&raquo; <a href="inventory.php">Inventory</a><br /-->
           <!--&raquo; <a href="units.php">Your Units</a><br /-->
           &raquo; <a href="rankings.php">Battle Players</a><br />
@@ -59,5 +59,4 @@ include_once("connection.php");
       </div></div>
       <div id="content"><div id="con_div">
       <div id="graphics">
-        
       </div>

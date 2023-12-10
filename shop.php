@@ -74,7 +74,18 @@ else{
   }
   
   ?>
-<center><h2 style="margin:0;padding:0;">Shop</h2></center><br>
+<!--center><h2 style="margin:0;padding:0;">Shop</h2></center><br-->
+<h2 style="margin-top:0;">Build</h2>
+<input type="submit" name="untrain" value="Set-up
+Camp"  disabled="disabled"/>
+<input type="submit" name="untrain" value="Build
+Farm"   disabled="disabled"/>
+<input type="submit" name="untrain" value="Build
+Lumber Camp" disabled="disabled"/>
+<input type="submit" name="untrain" value="Build
+Market" disabled="disabled"/>
+<br><br><hr>
+<h2>Manage Units</h2>
 You can train and untrain your units here.
 
 <form action="shop.php" method="post">
@@ -117,6 +128,7 @@ You can train and untrain your units here.
   </tr>
 </table>
 </form>
+<!--
 <hr>
 <form action="shop.php" method="post">
 <table cellpadding="5" cellspacing="5">
@@ -157,6 +169,7 @@ You can train and untrain your units here.
     <td><input type="submit" name="untrain" value="Untrain"/></td>
   </tr>
 </table>
+-->
 </form>
   <?php
 }
