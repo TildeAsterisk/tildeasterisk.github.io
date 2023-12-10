@@ -130,8 +130,8 @@ html body div a img {
   }
 
   #ASCIIAnimDiv{
-    position:absolute;
-    bottom:0;
+    /*position:absolute;
+    bottom:0;*/
     margin: 20px;
     padding:0px;
     font-weight: 1000;
