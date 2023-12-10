@@ -16,7 +16,7 @@ include_once("connection.php");
 </head>
 <body>
 
-  <div id="header">~* Strat Sim</div>
+  <div id="header"><h5 style="margin:5px 10px;"><a style="text-decoration:none;" href="index.php">~*</a></h5></div>
     <div id="container">
       <div id="navigation"><div id="nav_div">
         <?php 
@@ -46,8 +46,8 @@ include_once("connection.php");
         else{
           ?>
           <form action="login.php" method="post">
-          Username:<input type="text" name="username"/><br />
-          Password:<input type="password" name="password"/><br />
+          Username:<input style="width:95%;" type="text" name="username"/><br />
+          Password:<input style="width:95%;" type="password" name="password"/><br /><br/>
           <input type="submit" name="login" value="Log-in"/>
           </form>
           <?php
