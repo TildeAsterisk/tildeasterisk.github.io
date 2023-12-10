@@ -77,7 +77,7 @@ else{
 <center><h2 style="margin:0;padding:0;">Shop</h2></center><br>
 You can train and untrain your units here.
 
-<form action="units.php" method="post">
+<form action="shop.php" method="post">
 <table cellpadding="5" cellspacing="5">
   <tr>
     <td><b>Unit Type</b></td>
@@ -118,7 +118,7 @@ You can train and untrain your units here.
 </table>
 </form>
 <hr>
-<form action="units.php" method="post">
+<form action="shop.php" method="post">
 <table cellpadding="5" cellspacing="5">
   <tr>
     <td><b>Unit Type</b></td>
