@@ -18,6 +18,7 @@ mysqli_query($mysql,"DELETE FROM `logs` WHERE `time`<'".(time()-86400)."'") or d
 
 //include("cron_rankings.php");
 // Rankings update every period time
+//Update Rankings, global leaderboard
 $get_attack = mysqli_query($mysql,"SELECT `id`,`attack` FROM `stats` ORDER BY `attack` DESC") or die(mysqli_error($mysql));
 $i = 1;
 $rank = array();
@@ -33,14 +34,19 @@ while($defense = mysqli_fetch_assoc($get_defense)){
     $rank[$defense['id']] += $defense['defense'];
     mysqli_query($mysql,"UPDATE `ranking` SET `defense`='".$i."' WHERE `id`='".$defense['id']."'") or die(mysqli_error($mysql));
     $i++;
+    //Set overall power level for each ranked user
+    mysqli_query($mysql,"UPDATE `ranking` SET `overall`='".$rank[$defense['id']]."' WHERE `id`='".$defense['id']."'") or die(mysqli_error($mysql));
 }
 
 asort($rank);
 $rank2 = array_reverse($rank,true);
 $i = 1;
+//for each ranked user set overall to new rank
 foreach($rank2 as $key => $val){
-    mysqli_query($mysql,"UPDATE `ranking` SET `overall`='".$i."' WHERE `id`='".$key."'") or die(mysqli_error($mysql));
+    mysqli_query($mysql,"UPDATE `ranking` SET `rank`='".$i."' WHERE `id`='".$key."'") or die(mysqli_error($mysql));
     $i++;
 }
+
+
 
 ?>
