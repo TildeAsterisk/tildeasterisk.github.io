@@ -1,3 +1,6 @@
+
+
+
 /*	
 	usage: ASCIIAnimation(param1, param2, param3)
 	
@@ -12,6 +15,7 @@ function ASCIIAnimation(animArray, speed) {
   var DOMtarget=document.getElementById("ASCIIAnimDiv");
   var currentFrame = 0;
 	for(var i = 0; i < animArray.length; i++) {
+    //if(animArray[i]!=null){}
 		animArray[i] = animArray[i].replace(/ /g,"&nbsp;");
 		animArray[i] = "<pre>" + animArray[i] + "</pre>";
 	}
@@ -37,104 +41,20 @@ function ASCIIAnimation(animArray, speed) {
     return tmpdiv; }
   function bodyAppend(element) { document.body.appendChild(element); }
 
-  var animArray1 = [
-      ">   ", 
-      " >  ", 
-      "  > ", 
-      "   >", 
-      "   <", 
-      "  < ", 
-      " <  ",
-      "<   "
-  ];
-  var animArray2 = ["///","|||","\\\\\\","|||"];
-  var animArray3 = [".(^-^)'","-(^-^)-","'(^-^).","-(^o^)-",".(^-^)'","-(^-^)-","'(^-^).","-(^-^)-"];
-  var animArray4 = [
-      "[>    ]",
-      "[>>   ]",
-      "[>>>  ]",
-      "[ >>> ]",
-      "[  >>>]",
-      "[   >>]",
-      "[    >]",
-      "[     ]"
-  ];
-  var animArray5 = [
-      "+--+\n" + 
-      "|> |\n" +
-      "|  |\n" +
-      "+--+",
-      "+--+\n" + 
-      "| >|\n" +
-      "|  |\n" +
-      "+--+",
-      "+--+\n" + 
-      "| v|\n" +
-      "|  |\n" +
-      "+--+",
-      "+--+\n" + 
-      "|  |\n" +
-      "| v|\n" +
-      "+--+",
-      "+--+\n" + 
-      "|  |\n" +
-      "| <|\n" +
-      "+--+",
-      "+--+\n" + 
-      "|  |\n" +
-      "|< |\n" +
-      "+--+",
-      "+--+\n" + 
-      "|  |\n" +
-      "|^ |\n" +
-      "+--+",
-      "+--+\n" + 
-      "|^ |\n" +
-      "|  |\n" +
-      "+--+",
-  ];
-var dancing_in_the_rain_by_jgs=[
-/*`
-   _O/                   ,
-     \                  /           \O_
-     /\_             `\_\        ,/\/
-     \  `       ,        \         /
-     `       O/ /       /O\        \
-             /\|/\.                `
-`,*/
- `
-    _O/  
-      \\    
-      /\\_ 
-      \\  \`
-      \`
- 
- `,
- `
-    
-     
-      
-     , 
- O/ /  
-/\\|/\\.
-`,
-`
-    ,
-    /     
- \`\\_\\    
-      \\ 
-    /O\\  
-   
- `,
- `
- 
-   \\O_
-,/\\/
-  /
-  \\
-  \`
- `
+var tai_chi=[
+document.getElementById("kata_tai_chi:yang_form_1.f1").textContent,
+document.getElementById("kata_tai_chi:yang_form_1.f2").textContent,
+document.getElementById("kata_tai_chi:yang_form_1.f3").textContent,
+document.getElementById("kata_tai_chi:yang_form_1.f4").textContent,
+document.getElementById("kata_tai_chi:yang_form_1.f5").textContent,
+document.getElementById("kata_tai_chi:yang_form_1.f6").textContent,
+document.getElementById("kata_tai_chi:yang_form_1.f7").textContent,
+document.getElementById("kata_tai_chi:yang_form_1.f8").textContent,
+document.getElementById("kata_tai_chi:yang_form_1.f9").textContent,
+];
 
-]
 
-  var myAnimation = new ASCIIAnimation(dancing_in_the_rain_by_jgs, 500);
+var myAnimation = new ASCIIAnimation(tai_chi, 500);
+
+
+

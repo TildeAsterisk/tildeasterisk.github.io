@@ -13,8 +13,11 @@ include_once("connection.php");
   <title>~* MMO</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <link rel="icon" type="image/x-icon" href="tabIcon.ico">
+  <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script-->
 </head>
 <body>
+  <?php include("ASCII_Gallery.php"); ?>
+<!--iframe id="ASCII_Gallery" src="ASCII_Gallery.html" frameborder="0" style="display: none;"></iframe-->
 
   <div id="header"><h5 style="margin:5px 10px;"><a style="text-decoration:none;" href="index.php">~* ASCII Strategy MMO</a></h5></div>
     <div id="container">
