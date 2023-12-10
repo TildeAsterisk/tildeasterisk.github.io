@@ -49,15 +49,15 @@ if(!isset($_SESSION['uid'])){
       <table>
         <tr>
           <td>Send Warriors:</td>
-          <td><input type="range" name="turns" min="0" max=<?php echo $s_units["warrior"]; ?> value="1" step="1" oninput="this.nextElementSibling.value = this.value+' Unit(s)' " /><output>1 Unit(s)</output></td>
+          <td><input type="range" name="turns" min="0" max="10" value="1" step="1" oninput="this.nextElementSibling.value = this.value+' Unit(s)' " /><output>1 Unit(s)</output></td>
           <td></td>
         </tr>
 
-        <tr>
+        <!--tr>
           <td>Send Scouts:</td>
           <td><input type="range" name="turns" min="0" max="10" value="1" step="1" oninput="this.nextElementSibling.value = this.value+' Unit(s)' " disabled="disabled" /><output>1 Unit(s)</output></td>
           <td></td>
-        </tr>
+        </tr-->
       </table>
 
       
