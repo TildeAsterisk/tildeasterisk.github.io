@@ -10,6 +10,7 @@ include_once("connection.php");
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title>~* MMO</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <link rel="icon" type="image/x-icon" href="tabIcon.ico">
@@ -58,5 +59,4 @@ include_once("connection.php");
       ?>
       </div></div>
       <div id="content"><div id="con_div">
-      <div id="graphics">
       </div>

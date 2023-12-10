@@ -9,7 +9,13 @@
   <br><br>
 </div>
 
+  <canvas style="border: 1px solid black;" id="myCanvas" width="400" height="200"></canvas>
   <div id="ASCIIAnimDiv"><pre>ascii anim hjere</pre></div>
+
+
+
+  
       <script src="client.js"></script>
+      <script src="client_game.js"></script>
 </body>
 </html>

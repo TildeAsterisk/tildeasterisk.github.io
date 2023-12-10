@@ -55,6 +55,3 @@ document.getElementById("kata_tai_chi:yang_form_1.f9").textContent,
 
 
 var myAnimation = new ASCIIAnimation(tai_chi, 300);
-
-
-
