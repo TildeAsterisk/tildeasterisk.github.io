@@ -10,13 +10,13 @@ include_once("connection.php");
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TildeAsterisk.com</title>
+  <title>~* MMO</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <link rel="icon" type="image/x-icon" href="tabIcon.ico">
 </head>
 <body>
 
-  <div id="header"><h5 style="margin:5px 10px;"><a style="text-decoration:none;" href="index.php">~* ASCII Strategy MMO *~</a></h5></div>
+  <div id="header"><h5 style="margin:5px 10px;"><a style="text-decoration:none;" href="index.php">~* ASCII Strategy MMO</a></h5></div>
     <div id="container">
       <div id="navigation"><div id="nav_div">
         <?php 
