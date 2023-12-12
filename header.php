@@ -32,8 +32,7 @@ include_once("connection.php");
   <?php echo "<center><b><i><u>".$user['username']."</u></i></b></center>"; ?>
   <center>
   <?php echo $food_symbol."<b>".$stats['food']."</b>"; ?> : 
-  <?php echo $materials_symbol."<b>".$stats['materials']."</b>"; ?> : 
-  <?php echo $currency_symbol."<b>".$stats['currency']."</b>"; ?><br>
+  <?php echo $materials_symbol."<b>".$stats['materials']."</b>"; ?> : <?php echo $currency_symbol."<b>".$stats['currency']."</b>"; ?><br>
   </center>
   <span class="tooltiptext"><?php echo $food_symbol?>=Food,<?php echo $materials_symbol?>=Materials,<?php echo $currency_symbol?>=Currency</span>
   </a><hr>
