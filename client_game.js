@@ -10,11 +10,7 @@ class Character {
 		this.defence=10;
 		this.atkspd=1;
 
-<<<<<<< Updated upstream
-		this.colour="grey";
-=======
 		this.colour=colour;
->>>>>>> Stashed changes
 	}
 
 	// Move the character toward a target point
@@ -61,17 +57,12 @@ const ctx = canvas.getContext("2d");
 
 // Main game loop (simulate movement and attack)
 function gameLoop() {
-<<<<<<< Updated upstream
-	// For each spawned character that is alive...
-    for (const character of activeCharacters) {
-=======
 	// Clear canvas
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	// For each spawned character that is alive...
 	for (const character of activeCharacters) {
 
->>>>>>> Stashed changes
 		//set target
 		const target={x:200,y:50};
 		//target=activeCharacters[0];
@@ -92,18 +83,8 @@ function gameLoop() {
 			character.moveToward(midX, midY, character.speed); // Adjust speed as needed
 			character.moveToward(midX, midY, character.speed);
 		}
-<<<<<<< Updated upstream
-    }
-
-	// Clear canvas
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-	//Draw each character
-	for (const character of activeCharacters) {
-=======
 
 		//Draw each character
->>>>>>> Stashed changes
 		ctx.fillStyle = character.colour;
 		ctx.fillRect(character.x, character.y, 10, 10);
 	}

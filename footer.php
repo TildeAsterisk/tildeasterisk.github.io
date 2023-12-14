@@ -9,12 +9,8 @@
   <br><br>
 </div>
 
-<<<<<<< Updated upstream
-  <canvas style="border: 1px solid black;" id="myCanvas" width="400" height="200"></canvas>
-=======
   <canvas style="border: 1px solid black;width:100%;" id="myCanvas"></canvas>
 
->>>>>>> Stashed changes
   <div id="ASCIIAnimDiv"><pre>ascii anim hjere</pre></div>
 
 
