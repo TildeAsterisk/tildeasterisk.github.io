@@ -20,7 +20,9 @@ if(!isset($_SESSION['uid'])){
     elseif($id == $_SESSION['uid']){
         output("You cannot attack yourself!");
     }else{
+        //Fetch enemy stats from db
         $enemy_stats = mysqli_fetch_assoc($user_check);
+        //Attack Effect is = some factor * attack
         $attack_effect = $turns * 0.1 * $stats['attack'];
         $defense_effect = $enemy_stats['defense'];
         
