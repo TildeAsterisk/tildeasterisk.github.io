@@ -86,7 +86,11 @@ function gameLoop() {
 
 		//Draw each character
 		ctx.fillStyle = character.colour;
-		ctx.fillRect(character.x, character.y, 10, 10);
+		ctx.fillRect(character.x, character.y, 5, 5);
+
+		//Draw Base
+		ctx.fillStyle = "yellow";
+		ctx.fillRect(target.x, target.y, 10, 10);
 	}
 
 	// Repeat the loop (requestAnimationFrame or setInterval)
@@ -94,4 +98,4 @@ function gameLoop() {
 }
 
 // Start the game loop
-gameLoop();
+//gameLoop();
