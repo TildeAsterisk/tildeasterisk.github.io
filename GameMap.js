@@ -11,13 +11,14 @@ var built_blocks=[];
 // Character as in (0-9,a-Z,*%&)
 class CharacterObject {
   //constructor default values
-  constructor(htmlCode,id,position,blockTypeID){
+  constructor(htmlCode,position,blockTypeID){
     this.htmlCode=htmlCode || AddSpanTags("?");
     this.position=position||[undefined,undefined];
     this.blockTypeID=blockTypeID||0;
-    this.id=id;
+    this.id=htmlCode.split("=")[2].split(">")[0];
 
     AddSpanTags(htmlCode)
+    this.SpawnGameObj(position);
   }
   SpawnGameObj(spawnpos){
     //Set random position
@@ -29,16 +30,38 @@ class CharacterObject {
     //console.log("Spawning Game Object:\n"+this.name+this.id+"\nPos: "+this.position);
     return this.position;
   }
+
   ActionCheck(){
-    //Check if in same position as any other active game object
-    active_game_objs.forEach(gameObj => {
-      if(this.position==gameObj.position && this != gameObj){
-        this.position = [this.position[0],this.position[1]+1];
-        console.log("Object interraction between "+gameObj.htmlCode+"and ");
-        TextOutput("Object interraction between "+gameObj.htmlCode+" and " + this.htmlCode);
-      }
-    });
+  
+    //Move Character in random direction
+    var randintx= Math.floor(Math.random() * 3) - 1;
+    var randinty= Math.floor(Math.random() * 3) - 1;
+    var nextPosition =[this.position[0]+randinty, this.position[1]+randintx];
+    //Check if next position is on screen
+    if (nextPosition[0] < yrange && nextPosition[0] > 0 && nextPosition[1] < xrange && nextPosition[1] > 0){
+      this.position=nextPosition; 
+      // for each other gameObject
+      active_game_objs.forEach(gameObj => {
+        if (this != gameObj){
+          //Check if next position same as any other active game object
+          if(this.position[0]==gameObj.position[0] && this.position[1]==gameObj.position[1]){
+            //this.position = [this.position[0],this.position[1]+1];
+            console.log("Object interraction between "+gameObj.id+"and "+ this.id);
+            TextOutput("Object interraction between "+gameObj.htmlCode+" and " + this.htmlCode);
+            var randactx=Math.round(Math.random()) * 2 - 1;
+            this.position=[gameObj.position[0],gameObj.position[1]+randactx];
+            return
+          }
+          else{
+            console.log(this.position+","+gameObj.position);
+          }
+        }
+      });
+
+    }
+
   }
+
 }
 
 class ItemObject extends CharacterObject{
@@ -108,33 +131,32 @@ document.addEventListener('click', function(event) {
   if (event.target.tagName === 'SPAN' /*&& event.target.innerHTML!=="▒"*/) {
       selectedObj = event.target.innerHTML;
       console.log(event.target);
-      TextOutput("Selecting: '"+selectedObj+"' "+event.target.id);
+      TextOutput("Selecting: '"+selectedObj+"', "+event.target.id);
   }
 });
 
 
-/*new CharacterObject(AddSpanTags(">")).SpawnGameObj([1,3]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,4]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,5]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,6]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,7]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,7]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,8]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,9]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,10]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,11]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,12]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,13]);
-new CharacterObject(AddSpanTags("=")).SpawnGameObj([1,14]);*/
-new CharacterObject(AddSpanTags("X")).SpawnGameObj([1,15]);
-var firstCharObj = new CharacterObject(AddSpanTags("c"));
-firstCharObj.SpawnGameObj([1,3]);
-new ItemObject(AddSpanTags("*")).SpawnGameObj([1,4]);
+
+
+
+//SPAWN CHARACTER
+var firstCharObj = new CharacterObject(AddSpanTags("O"),[10,30]);
+//firstCharObj.SpawnGameObj();
+new CharacterObject(AddSpanTags("o"),[10,30]);
+new CharacterObject(AddSpanTags("q"),);
+new CharacterObject(AddSpanTags("w"),);
+new CharacterObject(AddSpanTags("e"),);
+new CharacterObject(AddSpanTags("r"),);
+new CharacterObject(AddSpanTags("t"),);
+new CharacterObject(AddSpanTags("y"),);
+new CharacterObject(AddSpanTags("u"),);
+new CharacterObject(AddSpanTags("i"),);
+new CharacterObject(AddSpanTags("o"),);
 
 RedrawGameScreen(medium_shade_block_ASCII_char);
 
 // will execture function once every tdelay ms
-var tdelay = 1000;
+var tdelay = 500;
 window.setInterval(function(){Main()}, tdelay);
 
 function Main(){
