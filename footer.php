@@ -9,7 +9,14 @@
   <br><br>
 </div>
 
+  <!--canvas style="border: 1px solid black;" id="myCanvas" width="900" height="300"></canvas-->
+
   <div id="ASCIIAnimDiv"><pre>ascii anim hjere</pre></div>
+
+
+
+  
       <script src="client.js"></script>
+      <!--script src="client_game.js"></script-->
 </body>
 </html>

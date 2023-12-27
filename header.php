@@ -10,6 +10,7 @@ include_once("connection.php");
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title>~* MMO</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <link rel="icon" type="image/x-icon" href="tabIcon.ico">
@@ -31,8 +32,8 @@ include_once("connection.php");
   <a href="main.php" class="tooltip">
   <?php echo "<center><b><i><u>".$user['username']."</u></i></b></center>"; ?>
   <center>
-  <?php echo $food_symbol."<b>".$stats['food']."</b>"; ?> : 
-  <?php echo $materials_symbol."<b>".$stats['materials']."</b>"; ?> : 
+  <?php echo $food_symbol."<b>".$stats['food']."</b>"; ?>   
+  <?php echo $materials_symbol."<b>".$stats['materials']."</b>"; ?>   
   <?php echo $currency_symbol."<b>".$stats['currency']."</b>"; ?><br>
   </center>
   <span class="tooltiptext"><?php echo $food_symbol?>=Food,<?php echo $materials_symbol?>=Materials,<?php echo $currency_symbol?>=Currency</span>
@@ -58,5 +59,4 @@ include_once("connection.php");
       ?>
       </div></div>
       <div id="content"><div id="con_div">
-      <div id="graphics">
       </div>

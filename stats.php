@@ -62,10 +62,13 @@ if(!isset($_SESSION['uid'])){
 
       
 
-      <br><input type="submit" name="battle" value="Send
+      <br>
+      <input type="submit" name="trade" value="Trade
+Units" disabled="disabled" />
+<input type="submit" name="battle" value="Send
 Attackers" />
 <input type="submit" name="scout" value="Send
-Scouts" disabled="disabled" /><br>
+Scouts" disabled="disabled" />
       <!--input type="submit" name="food" value="Raid for Food" /-->
       <input type="hidden" name="id" value="<?php echo $id; ?>"/>
 
