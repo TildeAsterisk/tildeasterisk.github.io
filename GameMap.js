@@ -1,48 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!--link href="style.css" rel="stylesheet" type="text/css" /-->
-</head>
-<body>
-    <div id="game-screen" class="ascii-art"></div>
-    <div id="div1" ></div>
-
-    <style>
-        .ascii-art {
-  font-family: "Roboto Mono", monospace;
-  white-space: pre;
-  line-height:1em;
-}
-
-.interactable-char {
-  cursor:crosshair;
-}
-
-.interactable-char:hover {
-  background-color: lightgray;
-}
-
-body{
-  /*font-family: "Monaco Mono", monospace;*/
-  font-family: "Anonymous Pro",monospace;
-  background-color: #1f1f1f;
-  color:#00FF41;
-  text-shadow: 0 0 4px #8dffa8;
-  margin:1%;
-  overflow: hidden; /* No scrolling*/
-}
-    </style>
-
-    <script>
-        const yrange = 20;
-const xrange = 80;
+const yrange = 20;
+const xrange = 69;
 var gameScreenArray = Array2DConstructor();
-var medium_shade_block_ASCII_char = `&#9618;`;
+var medium_shade_block_ASCII_char = `&nbsp;`  //`&#9618;`;
 var gameScreenElem = document.getElementById("game-screen");
-var textOutputElem = document.getElementById("div1");
+var textOutputElem = document.getElementById("TextMessageWindow1");
 
 var active_game_objs =[];
 var built_blocks=[];
@@ -182,7 +143,6 @@ function Main(){
   active_game_objs.forEach(element => {
     element.ActionCheck();
   });
+
+  //If UI button selected. change to build-on-click mode
 }
-    </script>
-</body>
-</html>
