@@ -147,6 +147,16 @@ class Character {
 
     
   }
+  generateRandomDestinationWithinRange() {
+    const randomAngle = Math.random() * 2 * Math.PI;
+    const randomDistance = Math.random() * this.range;
+
+    // Calculate the random position within the specified radius
+    const destinationX = this.position[0] + randomDistance * Math.cos(randomAngle);
+    const destinationY = this.position[1] + randomDistance * Math.sin(randomAngle);
+
+    return [destinationX, destinationY];
+  }
   //#endregion
   Movement_MoveToTarget(target) {
     if (!target) {
@@ -167,6 +177,9 @@ class Character {
     if (distanceToTarget < (this.size[0]+5) ) {
       // The character is close enough to the target, consider it reached
       console.log(`${this.name} reached ${this.focus.name}! Distance: ${distanceToTarget}`);
+      if(this.focus.name.includes("Random Desination")){
+        this.focus=undefined;
+      }
       
       //Interract with target
       //this.Interact(target);
@@ -182,11 +195,19 @@ class Character {
   UpdatePosition(){
     if(this.focus){
       //move to target#
-      //console.log("Moving to target.");
+      //console.log("Moving to target "+this.focus.name);
+      //console.log(this.focus);
       this.Movement_MoveToTarget(this.focus);
     }
     else{
-      this.Movement_wanderRandomly();
+      //set temp desination focus
+
+      var randomPos = this.generateRandomDestinationWithinRange();
+      var tmpDestFocus = new Focus("Random Desination", [randomPos[0], randomPos[1]]);
+      this.focus=tmpDestFocus;
+      //console.log(this.focus);
+      //console.log("moving to random");
+      this.Movement_MoveToTarget(tmpDestFocus);
     }
     //this.Movement_DVDBounce();
     
@@ -200,7 +221,7 @@ class Character {
       }
       //if enemytypes do not match exclude
       if (!target.name.includes(this.enemyTypes))  {
-        console.log(target.name," is within range but not ",this.enemyTypes);
+        //console.log(target.name," is within range but not ",this.enemyTypes);
         return false;
       }
 
@@ -222,6 +243,14 @@ class Character {
     //if enemy then attack, if ally then group up
   }
 
+  //END OF CHARACTER CLASS
+}
+
+class Focus {
+  constructor(name, position) {
+    this.name = name;
+    this.position = position;
+  }
 }
 
 function RandomSpawnPoint(){
