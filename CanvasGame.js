@@ -125,31 +125,9 @@ class Character {
       this.direction = -this.direction;
     }
   }
-  Movement_wanderRandomly() {
-    //Random decision to tak
-    if( [Math.round(Math.random()*3)] != 1){
-      return;
-    }
-    const randomAngle = Math.random() * 2 * Math.PI; // Generate a random angle in radians
-    const wanderSpeed = this.speed * 10; // Adjust the wander speed as needed
-
-    // Update position based on the random angle and wander speed
-    this.position[0] += wanderSpeed * Math.cos(randomAngle);
-    this.position[1] += wanderSpeed * Math.sin(randomAngle);
-
-    // Bounce off walls (similar to your existing logic)
-    if (this.position[0] < 0 || this.position[0] > canvas.width - this.size[0]) {
-      this.position[0] = Math.max(0, Math.min(this.position[0], canvas.width - this.size[0]));
-    }
-    if (this.position[1] < 0 || this.position[1] > canvas.height - this.size[1]) {
-      this.position[1] = Math.max(0, Math.min(this.position[1], canvas.height - this.size[1]));
-    }
-
-    
-  }
   generateRandomDestinationWithinRange() {
     const randomAngle = Math.random() * 2 * Math.PI;
-    const randomDistance = Math.random() * this.range;
+    const randomDistance = Math.random() * this.range * 2;
 
     // Calculate the random position within the specified radius
     const destinationX = this.position[0] + randomDistance * Math.cos(randomAngle);
@@ -165,34 +143,49 @@ class Character {
       return;
     }
 
-    const angleToTarget = Math.atan2(target.position[1] - this.position[1], target.position[0] - this.position[0]);
-
-    // Calculate the movement components
-    const dx = this.speed * 2 * Math.cos(angleToTarget);
-    const dy = this.speed * 2 * Math.sin(angleToTarget);
-
-    // Optionally, you can add a check to see if the character has reached the target
+    // First, check to see if the character has reached the target
     const distanceToTarget = Math.sqrt(Math.pow(target.position[0] - this.position[0], 2) + Math.pow(target.position[1] - this.position[1], 2));
-
     if (distanceToTarget < (this.size[0]+5) ) {
       // The character is close enough to the target, consider it reached
       console.log(`${this.name} reached ${this.focus.name}! Distance: ${distanceToTarget}`);
+      //if Character Focus is a random destination (wandering), reset focus
       if(this.focus.name.includes("Random Desination")){
         this.focus=undefined;
       }
-      
       //Interract with target
       //this.Interact(target);
-
       return;
     }
 
-    // Update the character's position towards target
-    this.position[0] += dx;
-    this.position[1] += dy;
+    //Move to Target
+    const angleToTarget = Math.atan2(target.position[1] - this.position[1], target.position[0] - this.position[0]);
+    // Calculate the movement components
+    const dx = this.speed * Math.cos(angleToTarget);
+    const dy = this.speed * Math.sin(angleToTarget);
+    // Calculate the new position
+    const newPositionX = this.position[0] + dx;
+    const newPositionY = this.position[1] + dy;
+
+    // Check if the new position is within the canvas boundaries
+    if (isPositionOnCanvas(newPositionX, newPositionY)) {
+      // Update the character's position towards target
+      this.position[0] = newPositionX;
+      this.position[1] = newPositionY;
+    } else {
+      // Optionally handle the case where the new position is outside the canvas
+      console.log("Character cannot move outside the canvas.");
+      //reset focus
+      this.focus=undefined;
+    }
+
   }
 
   UpdatePosition(){
+    // Check for nearby targets and set character focus
+    if(this.focus=== undefined){
+      this.focus = this.FindTargetInRange();
+    }
+
     if(this.focus){
       //move to target#
       //console.log("Moving to target "+this.focus.name);
@@ -201,7 +194,10 @@ class Character {
     }
     else{
       //set temp desination focus
-
+      //Random decision to tak
+      if( [Math.round(Math.random()*5)] != 1){
+        return;
+      }
       var randomPos = this.generateRandomDestinationWithinRange();
       var tmpDestFocus = new Focus("Random Desination", [randomPos[0], randomPos[1]]);
       this.focus=tmpDestFocus;
@@ -209,7 +205,6 @@ class Character {
       //console.log("moving to random");
       this.Movement_MoveToTarget(tmpDestFocus);
     }
-    //this.Movement_DVDBounce();
     
   }
 
@@ -221,7 +216,6 @@ class Character {
       }
       //if enemytypes do not match exclude
       if (!target.name.includes(this.enemyTypes))  {
-        //console.log(target.name," is within range but not ",this.enemyTypes);
         return false;
       }
 
@@ -283,6 +277,10 @@ function spawnCharacterOnClick(event) {
   newCharacter.SpawnCharacter();
 }
 
+function isPositionOnCanvas(x, y) {
+  return x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height;
+}
+
 const basicStats = {
   health    : 100,
   attack    : 10,
@@ -328,40 +326,60 @@ new Character("Ally1", basicStats.health, basicStats.attack, basicStats.defense,
 new Character("Ally2", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
 new Character("Ally3", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
 new Character("Ally4", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
+new Character("Ally1", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
+new Character("Ally2", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
+new Character("Ally3", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
+new Character("Ally4", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
 
 new Character("Enemy1", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
 new Character("Enemy2", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
 new Character("Enemy3", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
 new Character("Enemy4", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy1", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy2", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy3", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy4", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
 
-// will execture function once every tdelay ms
+/* will execture function once every tdelay ms
 var tdelay = 100;
-window.setInterval(function(){Main()}, tdelay);
+window.setInterval(function(){Main()}, tdelay);*/
 
 function Main(){
   DrawFloor(); //Draw background
 
   //For each active character in game...
   ActiveCharactersArray.forEach(char => {
+    //Update each character logic
+    char.UpdatePosition();
+
     //Draw each character on screen
     char.DrawCharacter();
-
-    // Check for nearby targets and set character focus
-    char.focus = char.FindTargetInRange();
-    
-    /*
-    if (char.focus) {
-      console.log(char.focus);
-      console.log(`${char.name} is targeting ${char.focus.name}.`);
-      Add your logic to handle the interaction with the target
-
-    }
-    */
-
-    char.UpdatePosition();
   });
 
 }
+
+
+var lastTime = performance.now();
+var deltaTime = 0;
+var interval = 16; // 60 fps
+
+function gameLoop() {
+  var now = performance.now();
+  deltaTime += now - lastTime;
+  lastTime = now;
+
+  while (deltaTime >= interval) {
+    // update the game state
+    deltaTime -= interval;
+  }
+
+  Main();
+
+  // render the game graphics
+  requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);
 
 /* TO DO LIST: *\
 - Character Combat
