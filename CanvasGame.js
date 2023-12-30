@@ -5,7 +5,7 @@ canvas.style.backgroundColor = "black";
 var ctx = canvas.getContext("2d");
 
 function DrawFloor(){
-  ctx.fillStyle = "lightgrey";
+  ctx.fillStyle = "darkgrey";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -170,12 +170,37 @@ function RandomSpawnPoint(){
   return randomSpawn=[(Math.random()*canvas.width), (Math.random()*canvas.height)];
 }
 
+// Function to spawn a character at the clicked position
+function spawnCharacterOnClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  const mouseX = event.clientX - rect.left;
+  const mouseY = event.clientY - rect.top;
+
+  // Create a new character at the clicked position
+  const newCharacter = new Character(
+    "NewCharacter",
+    basicStats.health,
+    basicStats.attack,
+    basicStats.defense,
+    basicStats.speed,
+    basicStats.range,
+    [mouseX, mouseY], // Set position to the clicked coordinates
+    basicStats.size,
+    basicStats.direction,
+    basicStats.colour,
+    basicStats.text
+  );
+
+  // Spawn the new character
+  newCharacter.SpawnCharacter();
+}
+
 const basicStats = {
   health    : 100,
   attack    : 10,
   defense   : 5,
   speed     : 50,
-  range     : 25,
+  range     : 50,
   position  : [50,50],
   size      : [15,15],
   direction : 1,
@@ -187,7 +212,7 @@ const enemybasicStats = {
   attack    : 10,
   defense   : 2,
   speed     : 50,
-  range     : 25,
+  range     : 50,
   position  : RandomSpawnPoint(),
   size      : [15,15],
   direction : 2,
@@ -202,15 +227,17 @@ const UserData={
 
 //====~* START HERE *~====\\
 var ActiveCharactersArray = [];
+// Add a click event listener to the canvas to spawn a character on click
+canvas.addEventListener("click", spawnCharacterOnClick);
+
 //Spawn Characters
 const player = new Character("Player", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, basicStats.position, basicStats.size, basicStats.direction, basicStats.colour,basicStats.text);
 player.SpawnCharacter();
 
+new Character("Ally1", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text).SpawnCharacter();
+
 const enemy = new Character("Enemy1", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, enemybasicStats.position, enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text);
 enemy.SpawnCharacter();
-
-new Character("Enemy2", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text).SpawnCharacter();
-new Character("Enemy3", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text).SpawnCharacter();
 
 // will execture function once every tdelay ms
 var tdelay = 100;
@@ -232,3 +259,9 @@ function Main(){
   });
 
 }
+
+/* TO DO LIST: *\
+- CLICK TO SPAWN UNITS
+- AUTO COMBAT
+
+*/
