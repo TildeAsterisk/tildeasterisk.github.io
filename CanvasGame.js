@@ -147,13 +147,17 @@ class Character {
     const distanceToTarget = Math.sqrt(Math.pow(target.position[0] - this.position[0], 2) + Math.pow(target.position[1] - this.position[1], 2));
     if (distanceToTarget < (this.size[0]+5) ) {
       // The character is close enough to the target, consider it reached
-      console.log(`${this.name} reached ${this.focus.name}! Distance: ${distanceToTarget}`);
+      //console.log(`${this.name} reached ${this.focus.name}! Distance: ${distanceToTarget}`);
+
       //if Character Focus is a random destination (wandering), reset focus
       if(this.focus.name.includes("Random Desination")){
         this.focus=undefined;
+        return;
       }
+
       //Interract with target
       //this.Interact(target);
+      this.AttackTarget(this.focus);
       return;
     }
 
@@ -173,7 +177,7 @@ class Character {
       this.position[1] = newPositionY;
     } else {
       // Optionally handle the case where the new position is outside the canvas
-      console.log("Character cannot move outside the canvas.");
+      //console.log("Character cannot move outside the canvas.");
       //reset focus
       this.focus=undefined;
     }
@@ -234,7 +238,43 @@ class Character {
   }
 
   Interact(target){
-    //if enemy then attack, if ally then group up
+    //non combat interraction
+
+  }
+
+  AttackTarget(target){
+    // For example, decrease the target's health
+    target.health -= this.attack;
+
+    //console.log(`${target.name} health: ${target.health}`);
+    if(target.health<=0){
+      target.Die();
+      this.focus=undefined;
+    }
+  }
+
+  Die() {
+    //set to skull emoji
+    this.text="💀";
+
+    // Find the index of the character in the ActiveCharactersArray
+    const index = ActiveCharactersArray.indexOf(this);
+
+    if (index !== -1) {
+      // Remove the character from the array
+      ActiveCharactersArray.splice(index, 1);
+
+      // Optionally, perform additional cleanup or animations
+      console.log(`${this.name} has been killed.`);
+
+      // Remove HTML elements or perform other cleanup if needed
+
+      // If you want to remove the associated HTML elements, assuming you have a reference to the element
+      // const characterElement = document.getElementById(this.name);
+      // characterElement.parentNode.removeChild(characterElement);
+    } else {
+      console.log(`${this.name} not found in ActiveCharactersArray.`);
+    }
   }
 
   //END OF CHARACTER CLASS
@@ -283,7 +323,7 @@ function isPositionOnCanvas(x, y) {
 
 const basicStats = {
   health    : 100,
-  attack    : 10,
+  attack    : 1,
   defense   : 5,
   speed     : 1,
   range     : 70,
@@ -296,7 +336,7 @@ const basicStats = {
 };
 const enemybasicStats = {
   health    : 100,
-  attack    : 10,
+  attack    : 0.5,
   defense   : 2,
   speed     : 1,
   range     : 70,
@@ -335,10 +375,18 @@ new Character("Enemy1", enemybasicStats.health, enemybasicStats.attack, enemybas
 new Character("Enemy2", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
 new Character("Enemy3", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
 new Character("Enemy4", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy5", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy6", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy7", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy8", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
 new Character("Enemy1", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
 new Character("Enemy2", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
 new Character("Enemy3", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
 new Character("Enemy4", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy5", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy6", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy7", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy8", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
 
 /* will execture function once every tdelay ms
 var tdelay = 100;
