@@ -26,6 +26,7 @@ class Character {
     this.colour         = colour;
     this.defaultColour  = this.colour;
     this.direction      = direction;
+    this.focus          = undefined;
   }
 
   DrawCharacter(){
@@ -75,7 +76,7 @@ class Character {
       const mouseY = event.clientY - rect.top;
 
       if (this.isMouseOver(mouseX, mouseY)) {
-        console.log("Mouse is over the character!");
+        //console.log("Mouse is over the character!");
         this.colour="lightgreen";
         this.DrawCharacter();
       }
@@ -138,12 +139,46 @@ class Character {
     }
   }
   //#endregion
-  UpdatePosition(){
-    //this.Movement_DVDBounce();
-    this.Movement_wanderRandomly();
+  Movement_MoveToTarget(target) {
+    if (!target) {
+      // No target, do nothing
+      console.log("No Target to move to.");
+      return;
+    }
+
+    const angleToTarget = Math.atan2(target.position[1] - this.position[1], target.position[0] - this.position[0]);
+
+    // Calculate the movement components
+    const dx = this.speed * Math.cos(angleToTarget);
+    const dy = this.speed * Math.sin(angleToTarget);
+
+    // Update the character's position
+    this.position[0] += dx;
+    this.position[1] += dy;
+
+    // Optionally, you can add a check to see if the character has reached the target
+    const distanceToTarget = Math.sqrt(Math.pow(target.position[0] - this.position[0], 2) + Math.pow(target.position[1] - this.position[1], 2));
+
+    if (distanceToTarget < this.speed) {
+      // The character is close enough to the target, consider it reached
+      //console.log(`${this.name} reached the target!`);
+    }
   }
 
-  findTargetInRange() {
+  UpdatePosition(){
+    if(this.focus){
+      //move to target#
+      //console.log("Moving to target.");
+      this.Movement_MoveToTarget(this);
+    }
+    else{
+      //this.Movement_wanderRandomly();
+    }
+    //this.Movement_DVDBounce();
+    
+  }
+
+  FindTargetInRange() {
     const targets = ActiveCharactersArray.filter((target) => {
       // Exclude self
       if (target === this) {
@@ -199,7 +234,7 @@ const basicStats = {
   health    : 100,
   attack    : 10,
   defense   : 5,
-  speed     : 50,
+  speed     : 1,
   range     : 50,
   position  : [50,50],
   size      : [15,15],
@@ -211,7 +246,7 @@ const enemybasicStats = {
   health    : 100,
   attack    : 10,
   defense   : 2,
-  speed     : 50,
+  speed     : 1,
   range     : 50,
   position  : RandomSpawnPoint(),
   size      : [15,15],
@@ -242,26 +277,31 @@ enemy.SpawnCharacter();
 // will execture function once every tdelay ms
 var tdelay = 100;
 window.setInterval(function(){Main()}, tdelay);
+
 function Main(){
   DrawFloor(); //Draw background
 
   //Draw each character on screen
   ActiveCharactersArray.forEach(char => {
-    char.UpdatePosition();
     char.DrawCharacter();
 
     // Check for nearby targets and perform actions
-    const target = char.findTargetInRange();
+    const target = char.FindTargetInRange();
+    
     if (target) {
-      console.log(`${char.name} found target ${target.name} within range.`);
+      char.focus=target;
+      //console.log(this.focus);
+      console.log(`${char.name} is targeting ${target.name}.`);
       // Add your logic to handle the interaction with the target
+      char.UpdatePosition();
     }
+
+    //char.UpdatePosition();
   });
 
 }
 
 /* TO DO LIST: *\
-- CLICK TO SPAWN UNITS
-- AUTO COMBAT
+- Character Combat
 
 */
