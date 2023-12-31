@@ -78,15 +78,20 @@ class Character {
 
       if (this.isMouseOver(mouseX, mouseY)) {
         //console.log("Mouse is over the character!");
-        this.colour="lightgreen";
-        this.DrawCharacter();
+        //this.colour="lightgreen";
+        //this.DrawCharacter();
+        this.size=[30,30];
       }
       else{
-        this.colour=this.defaultColour;
-        player.DrawCharacter(); 
+        //this.colour=this.defaultColour;
+        //this.size=[basicStats.size,basicStats.size];
+        //player.DrawCharacter(); 
+        this.size=[15,15];
       }
     });
+    
 
+    //===~* Character OnClick event *~===\\
     canvas.addEventListener("click", (event) => {
       const rect   = canvas.getBoundingClientRect();
       const mouseX = event.clientX - rect.left;
@@ -97,9 +102,13 @@ class Character {
         UserData.selected=this;
         this.colour="lightgreen";
         player.DrawCharacter(); 
+
+        //change html
+        document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}`;
       }
       else{
         console.log("Nothing Selected.");
+        document.getElementById("GameTxtMsg1").innerHTML="Nothing selected";
         UserData.selected=undefined;
         this.colour=this.defaultColour;
         player.DrawCharacter(); 
@@ -256,6 +265,7 @@ class Character {
   Die() {
     //set to skull emoji
     this.text="💀";
+    this.DrawCharacter();
 
     // Find the index of the character in the ActiveCharactersArray
     const index = ActiveCharactersArray.indexOf(this);
@@ -273,7 +283,7 @@ class Character {
       // const characterElement = document.getElementById(this.name);
       // characterElement.parentNode.removeChild(characterElement);
     } else {
-      console.log(`${this.name} not found in ActiveCharactersArray.`);
+      //console.log(`${this.name} not found in ActiveCharactersArray.`);
     }
   }
 
@@ -317,6 +327,20 @@ function spawnCharacterOnClick(event) {
   newCharacter.SpawnCharacter();
 }
 
+function OnPlayerClick(event){
+  switch(UserData.mode) {
+    case "Inspecting":
+      //Each Character has their own onclick event listener...
+      break;
+    case "Spawn Character":
+      console.log("Spawning characetr");
+      spawnCharacterOnClick(event);
+      break;
+    default:
+      //Do Nothing
+  }
+}
+
 function isPositionOnCanvas(x, y) {
   return x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height;
 }
@@ -350,16 +374,35 @@ const enemybasicStats = {
 
 const UserData={
   selected:undefined,
-  building:false
+  building:false,
+  mode:undefined
+}
+
+function ChangePlayerMode(userMode){
+  UserData.mode=userMode;
+
+  switch(UserData.mode) {
+    case "Inspecting":
+      canvas.style.cursor = "crosshair";
+      break;
+    case "Spawn Character":
+      canvas.style.cursor = "copy";
+      break;
+    default:
+      canvas.style.cursor = "cell";
+  }
 }
 
 //====~* START HERE *~====\\
 var ActiveCharactersArray = [];
-// Add a click event listener to the canvas to spawn a character on click
-canvas.addEventListener("click", spawnCharacterOnClick);
+
+ChangePlayerMode('Inspecting')
+
+// Add a click event listener to( the canvas to spawn a character on click
+canvas.addEventListener("click", OnPlayerClick);
 
 //Spawn Characters
-const player = new Character("Player", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, basicStats.position, basicStats.size, basicStats.direction, basicStats.colour,basicStats.text);
+const player = new Character("Player", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, basicStats.position, basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes);
 player.SpawnCharacter();
 
 new Character("Ally1", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
@@ -428,8 +471,3 @@ function gameLoop() {
 }
 
 requestAnimationFrame(gameLoop);
-
-/* TO DO LIST: *\
-- Character Combat
-
-*/

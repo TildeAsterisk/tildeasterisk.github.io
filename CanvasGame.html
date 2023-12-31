@@ -12,10 +12,23 @@
         canvas {
             display: block;
         }
+        #controlpanel{
+            position:absolute;
+            top:0;
+            left:0;
+            margin:10px;
+            font-family: "Monaco Mono", monospace;
+        }
     </style>
     
 </head>
 <body>
+    <div id="controlpanel">
+        <button onclick="ChangePlayerMode('Inspecting')">Select</button>
+        <button onclick="ChangePlayerMode('Spawn Character')">Spawn Character</button>
+        <button onclick="ChangePlayerMode('Build Structure')">Build</button>
+        <div id="GameTxtMsg1">Spawn Character on Click</div>
+    </div>
     <canvas id="myCanvas"></canvas>
     
 
