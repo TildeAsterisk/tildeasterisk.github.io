@@ -58,11 +58,12 @@ class Character {
   }
 
   isMouseOver(mouseX, mouseY) {
+    var mouseHitBox=10;
     return (
-      mouseX >= (this.position[0] - 5) &&
-      mouseX <= this.position[0] + this.size[0] + 5 &&
-      mouseY >= (this.position[1] - 5) &&
-      mouseY <= this.position[1] + this.size[1] + 5
+      mouseX >= (this.position[0] - (mouseHitBox)) &&
+      mouseX <= this.position[0] + this.size[0] + mouseHitBox &&
+      mouseY >= (this.position[1] - mouseHitBox) &&
+      mouseY <= this.position[1] + this.size[1] + mouseHitBox
     );
   }
 
