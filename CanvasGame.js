@@ -59,10 +59,10 @@ class Character {
 
   isMouseOver(mouseX, mouseY) {
     return (
-      mouseX >= this.position[0] &&
-      mouseX <= this.position[0] + this.size[0] &&
-      mouseY >= this.position[1] &&
-      mouseY <= this.position[1] + this.size[1]
+      mouseX >= (this.position[0] - 5) &&
+      mouseX <= this.position[0] + this.size[0] + 5 &&
+      mouseY >= (this.position[1] - 5) &&
+      mouseY <= this.position[1] + this.size[1] + 5
     );
   }
 
@@ -77,16 +77,16 @@ class Character {
       const mouseY = event.clientY - rect.top;
 
       if (this.isMouseOver(mouseX, mouseY)) {
-        //console.log("Mouse is over the character!");
+        console.log("Mouse is over character "+this.name);
         //this.colour="lightgreen";
         //this.DrawCharacter();
-        this.size=[30,30];
+        //this.size=[30,30];
       }
       else{
         //this.colour=this.defaultColour;
         //this.size=[basicStats.size,basicStats.size];
         //player.DrawCharacter(); 
-        this.size=[15,15];
+        //this.size=[15,15];
       }
     });
     
@@ -100,18 +100,19 @@ class Character {
       if (this.isMouseOver(mouseX, mouseY)) {
         console.log("Mouse clicked on a character named "+this.name+".");
         UserData.selected=this;
-        this.colour="lightgreen";
-        player.DrawCharacter(); 
 
         //change html
-        document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}`;
+        ChangeSelectedUnit(this);
+        //this.colour="lightgreen";
+        //player.DrawCharacter(); 
+        
       }
       else{
-        console.log("Nothing Selected.");
-        document.getElementById("GameTxtMsg1").innerHTML="Nothing selected";
-        UserData.selected=undefined;
-        this.colour=this.defaultColour;
-        player.DrawCharacter(); 
+        //console.log("Nothing Selected.");
+        //ChangeSelectedUnit(undefined);
+        //UserData.selected=undefined;
+        //this.colour=this.defaultColour;
+        //player.DrawCharacter(); 
       }
     });
 
@@ -378,12 +379,27 @@ const UserData={
   mode:undefined
 }
 
+function ChangeSelectedUnit(unit){
+  if(unit === undefined){
+      UserData.selected = undefined;
+      document.getElementById("GameTxtMsg1").innerHTML="Nothing selected";
+      return;
+  }
+
+  UserData.selected = unit;
+  document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}`;
+}
+
 function ChangePlayerMode(userMode){
   UserData.mode=userMode;
 
   switch(UserData.mode) {
     case "Inspecting":
       canvas.style.cursor = "crosshair";
+      if(UserData.selected!=undefined){
+        UserData.selected = undefined;
+        document.getElementById("GameTxtMsg1").innerHTML="Nothing selected";
+      }
       break;
     case "Spawn Character":
       canvas.style.cursor = "copy";
