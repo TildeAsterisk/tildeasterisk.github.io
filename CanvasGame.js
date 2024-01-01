@@ -13,32 +13,26 @@ function DrawFloor(){
 DrawFloor();
 
 class Character {
-  constructor(name, health, attack, defense, speed, range, position, size, direction, colour, text, enemyTypes) {
+  constructor(name,statsObj,position=RandomSpawnPoint()) { //health, attack, defense, speed, range, position, size, direction, colour, text, enemyTypes
     this.name           = name;
-    this.text           = text;
-    this.health         = health;
-    this.attack         = attack;
-    this.defense        = defense;
-    this.speed          = speed;
-    this.range          = range;
-    this.position       = [position[0],position[1]];
-    this.size           = size;
-    this.colour         = colour;
+    this.text           = statsObj.text;
+    this.health         = statsObj.health;
+    this.attack         = statsObj.attack;
+    this.defense        = statsObj.defense;
+    this.speed          = statsObj.speed;
+    this.range          = statsObj.range;
+    this.position       = position;
+    this.size           = statsObj.size;
+    this.colour         = statsObj.colour;
     this.defaultColour  = this.colour;
-    this.direction      = direction;
+    this.defaultSize    = this.size;
+    this.direction      = statsObj.direction;
     this.focus          = undefined;
-    this.enemyTypes     = enemyTypes;
+    this.enemyTypes     = statsObj.enemyTypes;
+    this.type           = "Character";
   }
 
-  DrawCharacter(){
-    //Check if selected.
-    if (UserData.selected==this){
-      ctx.fillStyle = "lightgreen";
-    }
-    else{
-      ctx.fillStyle = this.colour;
-    }
-
+  DrawCharacter(){ 
     // Set font size and type
     const fontSize = this.size[0];
     ctx.font = `${fontSize}px Arial`;
@@ -49,6 +43,15 @@ class Character {
 
     const centerX = this.position[0] + (this.size[0] - textWidth) / 2;
     const centerY = this.position[1] + (this.size[1] + textHeight) / 2;
+
+    //Check if user selected.
+    if (UserData.selected==this){
+      ctx.fillStyle = "lightgreen";
+      ctx.fillRect(centerX, centerY-textHeight, textWidth,textHeight+3.5);
+
+      //Change (Size)
+      //this.size=[ this.defaultSize[0]*1.5 , this.defaultSize[1]*1.5 ];
+    }
 
     // Use fillText to display emoji
     ctx.fillText(this.text, centerX, centerY);
@@ -291,6 +294,34 @@ class Character {
 
   //END OF CHARACTER CLASS
 }
+//===~* BEGINNING OF STRUCTURE CLASS *~===\\
+class Structure extends Character{
+  constructor(name, statsObj){
+    //Call base constructure with super()
+    super(
+      name,
+      statsObj
+    );
+    //set type
+    this.type           = "Structure";
+  }
+  UpdatePosition(){
+    //Do Nothing. Structures don't move. (But vehicles will though....)
+  }
+  DrawCharacter(){
+    //Check if user selected.
+    if (UserData.selected==this){
+      ctx.fillStyle = "lightgreen";
+      ctx.fillRect(this.position[0]-(this.size[0]*0.1), this.position[1]-(this.size[0]*0.1), this.size[0]*1.2, this.size[1]*1.2);
+
+      //Change (Size)
+      //this.size=[ this.defaultSize[0]*1.5 , this.defaultSize[1]*1.5 ];
+    }
+
+    ctx.fillStyle = "grey";
+    ctx.fillRect(this.position[0], this.position[1], this.size[0], this.size[1]);
+  }
+}
 
 class Focus {
   constructor(name, position) {
@@ -312,21 +343,29 @@ function spawnCharacterOnClick(event) {
   // Create a new character at the clicked position
   const newCharacter = new Character(
     "Ally",
-    basicStats.health,
-    basicStats.attack,
-    basicStats.defense,
-    basicStats.speed,
-    basicStats.range,
-    [mouseX, mouseY], // Set position to the clicked coordinates
-    basicStats.size,
-    basicStats.direction,
-    basicStats.colour,
-    basicStats.text,
-    basicStats.enemyTypes
+    basicStats
   );
+  newCharacter.position=[mouseX-(newCharacter.size[0]/2), mouseY-(newCharacter.size[1]/2)];
 
   // Spawn the new character
   newCharacter.SpawnCharacter();
+}
+
+function SpawnStructureOnClick(event) {
+  const rect = canvas.getBoundingClientRect();
+  const mouseX = event.clientX - rect.left;
+  const mouseY = event.clientY - rect.top;
+
+  // Create a new character at the clicked position
+  const newStructure = new Structure(
+    "Basic Structure",
+    basicStructureStats
+  );
+
+  newStructure.position=[mouseX-(newStructure.size[0]/2),mouseY-(newStructure.size[1]/2)]
+
+  // Spawn the new character
+  newStructure.SpawnCharacter();
 }
 
 function OnPlayerClick(event){
@@ -335,8 +374,12 @@ function OnPlayerClick(event){
       //Each Character has their own onclick event listener...
       break;
     case "Spawn Character":
-      console.log("Spawning characetr");
+      console.log("Spawning character");
       spawnCharacterOnClick(event);
+      break;
+    case "Build Structure":
+      console.log("Spawning Structure.");
+      SpawnStructureOnClick(event);
       break;
     default:
       //Do Nothing
@@ -353,7 +396,7 @@ const basicStats = {
   defense   : 5,
   speed     : 1,
   range     : 70,
-  position  : [50,50],
+  position  : undefined,
   size      : [15,15],
   direction : 1,
   colour    : "black",
@@ -366,12 +409,25 @@ const enemybasicStats = {
   defense   : 2,
   speed     : 1,
   range     : 70,
-  position  : RandomSpawnPoint(),
+  position  : undefined,
   size      : [15,15],
   direction : 2,
   colour    : "darkred",
   text      : "😈",
   enemyTypes: "Ally"
+};
+const basicStructureStats = {
+  health    : 100,
+  attack    : 0,
+  defense   : 5,
+  speed     : undefined,
+  range     : 70,
+  position  : undefined,
+  size      : [40,40],
+  direction : undefined,
+  colour    : "blue",
+  text      : "X",
+  enemyTypes: "Enemy"
 };
 
 const UserData={
@@ -388,7 +444,10 @@ function ChangeSelectedUnit(unit){
   }
 
   UserData.selected = unit;
-  document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}`;
+  document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}<br>
+  HP : ${UserData.selected.health}<br>
+  ATK: ${UserData.selected.attack}<br>
+  DEF: ${UserData.selected.defense}<br>`;
 }
 
 function ChangePlayerMode(userMode){
@@ -405,8 +464,11 @@ function ChangePlayerMode(userMode){
     case "Spawn Character":
       canvas.style.cursor = "copy";
       break;
-    default:
+    case "Build Structure":
       canvas.style.cursor = "cell";
+      break;
+    default:
+      canvas.style.cursor = "pointer";
   }
 }
 
@@ -419,34 +481,34 @@ ChangePlayerMode('Inspecting')
 canvas.addEventListener("click", OnPlayerClick);
 
 //Spawn Characters
-const player = new Character("Player", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, basicStats.position, basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes);
+const player = new Character("Player", basicStats);
 player.SpawnCharacter();
 
-new Character("Ally1", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
-new Character("Ally2", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
-new Character("Ally3", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
-new Character("Ally4", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
-new Character("Ally1", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
-new Character("Ally2", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
-new Character("Ally3", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
-new Character("Ally4", basicStats.health, basicStats.attack, basicStats.defense, basicStats.speed, basicStats.range, RandomSpawnPoint(), basicStats.size, basicStats.direction, basicStats.colour,basicStats.text, basicStats.enemyTypes).SpawnCharacter();
+new Character("Ally1", basicStats).SpawnCharacter();
+new Character("Ally2", basicStats).SpawnCharacter();
+new Character("Ally3", basicStats).SpawnCharacter();
 
-new Character("Enemy1", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy2", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy3", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy4", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy5", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy6", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy7", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy8", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy1", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy2", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy3", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy4", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy5", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy6", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy7", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
-new Character("Enemy8", enemybasicStats.health, enemybasicStats.attack, enemybasicStats.defense, enemybasicStats.speed, enemybasicStats.range, RandomSpawnPoint(), enemybasicStats.size, enemybasicStats.direction, enemybasicStats.colour, enemybasicStats.text,enemybasicStats.enemyTypes).SpawnCharacter();
+new Character("Enemy1",  enemybasicStats).SpawnCharacter();
+new Character("Enemy2",  enemybasicStats).SpawnCharacter();
+new Character("Enemy3",  enemybasicStats).SpawnCharacter();
+new Character("Enemy4",  enemybasicStats).SpawnCharacter();
+new Character("Enemy5",  enemybasicStats).SpawnCharacter();
+new Character("Enemy6",  enemybasicStats).SpawnCharacter();
+new Character("Enemy7",  enemybasicStats).SpawnCharacter();
+new Character("Enemy8",  enemybasicStats).SpawnCharacter();
+new Character("Enemy1",  enemybasicStats).SpawnCharacter();
+new Character("Enemy2",  enemybasicStats).SpawnCharacter();
+new Character("Enemy3",  enemybasicStats).SpawnCharacter();
+new Character("Enemy4",  enemybasicStats).SpawnCharacter();
+new Character("Enemy5",  enemybasicStats).SpawnCharacter();
+new Character("Enemy6",  enemybasicStats).SpawnCharacter();
+new Character("Enemy7",  enemybasicStats).SpawnCharacter();
+new Character("Enemy8",  enemybasicStats).SpawnCharacter();
+new Character("Enemy9",  enemybasicStats).SpawnCharacter();
+new Character("Enemy10", enemybasicStats).SpawnCharacter();
+new Character("Enemy11", enemybasicStats).SpawnCharacter();
+new Character("Enemy12", enemybasicStats).SpawnCharacter();
+new Character("Enemy13", enemybasicStats).SpawnCharacter();
 
 /* will execture function once every tdelay ms
 var tdelay = 100;
