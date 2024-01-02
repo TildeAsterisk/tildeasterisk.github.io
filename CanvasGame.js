@@ -29,7 +29,7 @@ class Character {
     this.direction      = statsObj.direction;
     this.focus          = undefined;
     this.enemyTypes     = statsObj.enemyTypes;
-    this.type           = "Character";
+    this.type           = statsObj.type;
     this.isIndoors        = false;
   }
 
@@ -75,7 +75,7 @@ class Character {
     // Initialization code here
     this.DrawCharacter();
 
-    //Add isMouseOver event listener
+    /*Add isMouseOver event listener
     canvas.addEventListener("mousemove", (event) => {
       const rect = canvas.getBoundingClientRect();
       const mouseX = event.clientX - rect.left;
@@ -83,43 +83,19 @@ class Character {
 
       if (this.isMouseOver(mouseX, mouseY)) {
         console.log("Mouse is over character "+this.name);
+        //ChangeSelectedUnit(this);
         //this.colour="lightgreen";
         //this.DrawCharacter();
         //this.size=[30,30];
       }
       else{
+        //ChangeSelectedUnit(undefined);
         //this.colour=this.defaultColour;
         //this.size=[basicStats.size,basicStats.size];
         //player.DrawCharacter(); 
         //this.size=[15,15];
       }
-    });
-    
-
-    //===~* Character OnClick event *~===\\
-    canvas.addEventListener("click", (event) => {
-      const rect   = canvas.getBoundingClientRect();
-      const mouseX = event.clientX - rect.left;
-      const mouseY = event.clientY - rect.top;
-
-      if (this.isMouseOver(mouseX, mouseY)) {
-        console.log("Mouse clicked on a character named "+this.name+".");
-        UserData.selected=this;
-
-        //change html
-        ChangeSelectedUnit(this);
-        //this.colour="lightgreen";
-        //player.DrawCharacter(); 
-        
-      }
-      else{
-        //console.log("Nothing Selected.");
-        //ChangeSelectedUnit(undefined);
-        //UserData.selected=undefined;
-        //this.colour=this.defaultColour;
-        //player.DrawCharacter(); 
-      }
-    });
+    }); */
 
     //Push character to active spawned character list
     ActiveCharactersArray.push(this);
@@ -165,14 +141,14 @@ class Character {
       //console.log(`${this.name} reached ${this.focus.name}! Distance: ${distanceToTarget}`);
 
       //if Character Focus is a random destination (wandering), reset focus
-      if(this.focus.name.includes("Random Desination")){
+      if("Random Desination".includes(this.focus.name)){
         this.focus=undefined;
         return;
       }
 
       //Interract with target
-      //this.Interact(target);
-      this.AttackTarget(this.focus);
+      this.Interact(target);
+      //this.AttackTarget(target);
       return;
     }
 
@@ -233,8 +209,8 @@ class Character {
       if (target === this)  {
         return false;
       }
-      //if enemytypes do not match exclude
-      if (!target.name.includes(this.enemyTypes))  {
+      //if enemytypes do not match exclude and if not structure
+      if (!this.enemyTypes.includes(target.type))  {
         return false;
       }
 
@@ -253,6 +229,24 @@ class Character {
   }
 
   Interact(target){
+    switch (target.type){
+      case "Enemy":
+      case "Ally":
+        //Attack if enemy
+        if(this.enemyTypes.includes(target.type)){
+          //console.log("Attacking Target: "+this.focus.name);
+          this.AttackTarget(target);
+        }
+        break;
+      case "Structure":
+        //Enter if non enemy structure
+        if(!target.enemyTypes.includes(this.type)){
+          target.ToggleCharacterInsideStructure(this);
+        }
+        break;
+      default:
+        break;
+    }
     //non combat interraction
 
   }
@@ -292,6 +286,7 @@ class Character {
       //console.log(`${this.name} not found in ActiveCharactersArray.`);
     }
 
+    //canvas.removeEventListener("click", event);
     delete this;
   }
 
@@ -318,9 +313,18 @@ class Structure extends Character{
     this.type           = "Structure";
     this.capacity       = 10;
     this.indoorCount    = 0;
+    this.contents       =[];
   }
   UpdatePosition(){
-    //Do Nothing. Structures don't move. (But vehicles will though....)
+    // Check for nearby targets and set character focus
+    if(this.focus=== undefined){
+      this.focus = this.FindTargetInRange();
+    }
+    else{
+      //this.ToggleCharacterInsideStructure(this.focus);
+      //Deploy unit to combat enemy
+      console.log("Enemy detected near structure");
+    }
   }
   DrawCharacter(){
     //Check if user selected.
@@ -334,6 +338,27 @@ class Structure extends Character{
 
     ctx.fillStyle = "grey";
     ctx.fillRect(this.position[0], this.position[1], this.size[0], this.size[1]);
+  }
+  ToggleCharacterInsideStructure(char){
+    if(char.isIndoors){
+      //Exit character from Structure
+      this.contents.pop(char);
+      this.indoorCount-=1;
+      char.isIndoors=false;
+    }
+    else{
+      //check capacity
+      if (this.indoorCount>=this.capacity){
+        char.focus=undefined;
+        return;
+      } 
+      //Enter character inside
+      this.contents.push(char);
+      this.indoorCount+=1;
+      char.isIndoors=true;
+      console.log(char.name+" has entered a structure "+this.name);
+    }
+    
   }
 }
 
@@ -386,6 +411,23 @@ function OnPlayerClick(event){
   switch(UserData.mode) {
     case "Inspecting":
       //Each Character has their own onclick event listener...
+      const rect   = canvas.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left;
+      const mouseY = event.clientY - rect.top;
+      //foreach character check if ismouseover
+      ActiveCharactersArray.forEach(char => {
+        if (char.isMouseOver(mouseX, mouseY)) {
+          console.log("Mouse clicked on a character named "+char.name+".");
+          UserData.selected=char;
+          //change html
+          ChangeSelectedUnit(char);
+          
+        }
+        else{
+          //console.log("Nothing Selected.");
+          //ChangeSelectedUnit(undefined);
+        }
+      });
       break;
     case "Spawn Character":
       console.log("Spawning character");
@@ -415,7 +457,8 @@ const basicStats = {
   direction : 1,
   colour    : "black",
   text      : "😐",
-  enemyTypes: "Enemy"
+  type      : "Ally",
+  enemyTypes: "Enemy,Structure"
 };
 const enemybasicStats = {
   health    : 100,
@@ -425,9 +468,10 @@ const enemybasicStats = {
   range     : 70,
   position  : undefined,
   size      : [15,15],
-  direction : 2,
+  direction : 1,
   colour    : "darkred",
   text      : "😈",
+  type      : "Enemy",
   enemyTypes: "Ally"
 };
 const basicStructureStats = {
@@ -441,6 +485,7 @@ const basicStructureStats = {
   direction : undefined,
   colour    : "blue",
   text      : "X",
+  type      : "Structure",
   enemyTypes: "Enemy"
 };
 
@@ -461,10 +506,22 @@ function ChangeSelectedUnit(unit){
   UpdateUnitStatsHTML();
 }
 function UpdateUnitStatsHTML(){
-  document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}<br>
-  HP : ${UserData.selected.health}<br>
-  ATK: ${UserData.selected.attack}<br>
-  DEF: ${UserData.selected.defense}<br>`;
+  //console.log(type);
+  switch (UserData.selected.type){
+    case "Structure":
+      document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}<br>
+      HP : ${UserData.selected.health}<br>
+      DEF: ${UserData.selected.defense}<br>
+      Contains: ${UserData.selected.indoorCount} Units`;
+      break;
+    default:
+      //console.log(type);
+      document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}<br>
+      HP : ${UserData.selected.health}<br>
+      ATK: ${UserData.selected.attack}<br>
+      DEF: ${UserData.selected.defense}`;
+      break;
+  }
 }
 
 function ChangePlayerMode(userMode){
@@ -497,9 +554,8 @@ ChangePlayerMode('Inspecting')
 // Add a click event listener to( the canvas to spawn a character on click
 canvas.addEventListener("click", OnPlayerClick);
 
-/*Spawn Characters
-const player = new Character("Player", basicStats);
-player.SpawnCharacter();*/
+//Spawn Characters
+new Structure("Structure1", basicStructureStats).SpawnCharacter();
 
 new Character("Ally1", basicStats).SpawnCharacter();
 new Character("Ally2", basicStats).SpawnCharacter();
