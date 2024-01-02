@@ -30,6 +30,7 @@ class Character {
     this.focus          = undefined;
     this.enemyTypes     = statsObj.enemyTypes;
     this.type           = "Character";
+    this.isIndoors        = false;
   }
 
   DrawCharacter(){ 
@@ -290,6 +291,20 @@ class Character {
     } else {
       //console.log(`${this.name} not found in ActiveCharactersArray.`);
     }
+
+    delete this;
+  }
+
+  EnterStructure(targetStructure){
+    //Enter a target structure
+    //Increase structure count
+    //don't draw character untill it leaves
+    this.isIndoors=true;
+    targetStructure.indoorCount+=1;
+  }
+  LeaveStructure(targetStructure){
+    this.isIndoors=false;
+    targetStructure.indoorCount-=1;
   }
 
   //END OF CHARACTER CLASS
@@ -298,12 +313,11 @@ class Character {
 class Structure extends Character{
   constructor(name, statsObj){
     //Call base constructure with super()
-    super(
-      name,
-      statsObj
-    );
+    super(name,statsObj);
     //set type
     this.type           = "Structure";
+    this.capacity       = 10;
+    this.indoorCount    = 0;
   }
   UpdatePosition(){
     //Do Nothing. Structures don't move. (But vehicles will though....)
@@ -444,6 +458,9 @@ function ChangeSelectedUnit(unit){
   }
 
   UserData.selected = unit;
+  UpdateUnitStatsHTML();
+}
+function UpdateUnitStatsHTML(){
   document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}<br>
   HP : ${UserData.selected.health}<br>
   ATK: ${UserData.selected.attack}<br>
@@ -480,9 +497,9 @@ ChangePlayerMode('Inspecting')
 // Add a click event listener to( the canvas to spawn a character on click
 canvas.addEventListener("click", OnPlayerClick);
 
-//Spawn Characters
+/*Spawn Characters
 const player = new Character("Player", basicStats);
-player.SpawnCharacter();
+player.SpawnCharacter();*/
 
 new Character("Ally1", basicStats).SpawnCharacter();
 new Character("Ally2", basicStats).SpawnCharacter();
@@ -519,12 +536,19 @@ function Main(){
 
   //For each active character in game...
   ActiveCharactersArray.forEach(char => {
-    //Update each character logic
-    char.UpdatePosition();
+    if (!char.isIndoors){
+      //Update each character logic
+      char.UpdatePosition();
 
-    //Draw each character on screen
-    char.DrawCharacter();
+      //Draw each character on screen
+      char.DrawCharacter();
+    }
+
   });
+
+  if(UserData.selected!=undefined){
+    UpdateUnitStatsHTML();
+  }
 
 }
 
