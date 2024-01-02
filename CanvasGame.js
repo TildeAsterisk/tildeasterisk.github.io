@@ -345,6 +345,9 @@ class Structure extends Character{
       this.contents.pop(char);
       this.indoorCount-=1;
       char.isIndoors=false;
+      char.focus=undefined;
+      console.log(char.name+" has exited a structure "+this.name);
+      //AS SOON AS THEY EXIT THEY JUST ENTER AGAIN!!!
     }
     else{
       //check capacity
@@ -356,6 +359,7 @@ class Structure extends Character{
       this.contents.push(char);
       this.indoorCount+=1;
       char.isIndoors=true;
+      char.focus=this;
       console.log(char.name+" has entered a structure "+this.name);
     }
     
@@ -598,6 +602,12 @@ function Main(){
 
       //Draw each character on screen
       char.DrawCharacter();
+    }
+    else{
+      //Is indoors, randomly chooose to leave
+      if( [Math.round(Math.random()*50)] != 1){
+        char.focus.ToggleCharacterInsideStructure(char);
+      }
     }
 
   });
