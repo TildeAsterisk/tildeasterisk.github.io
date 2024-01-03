@@ -30,7 +30,8 @@ class Character {
     this.focus          = undefined;
     this.enemyTypes     = statsObj.enemyTypes;
     this.type           = statsObj.type;
-    this.isIndoors        = false;
+    this.isIndoors      = false;
+    this.isAlive        = true;
   }
 
   DrawCharacter(){ 
@@ -209,8 +210,8 @@ class Character {
       if (target === this)  {
         return false;
       }
-      //if enemytypes do not match exclude and if not structure
-      if (!this.enemyTypes.includes(target.type))  {
+      //exclude if enemytypes do not match and if taret us indoors and if target is dead
+      if (!this.enemyTypes.includes(target.type) || target.isIndoors || !target.isAlive)  {
         return false;
       }
 
@@ -266,6 +267,7 @@ class Character {
     //set to skull emoji
     this.text="💀";
     this.DrawCharacter();
+    this.isAlive=false;
 
     // Find the index of the character in the ActiveCharactersArray
     const index = ActiveCharactersArray.indexOf(this);
@@ -317,13 +319,22 @@ class Structure extends Character{
   }
   UpdatePosition(){
     // Check for nearby targets and set character focus
-    if(this.focus=== undefined){
+    if(this.focus == undefined){
       this.focus = this.FindTargetInRange();
     }
-    else{
-      //this.ToggleCharacterInsideStructure(this.focus);
+    else if(this.focus != undefined && this.focus){
       //Deploy unit to combat enemy
-      console.log("Enemy detected near structure");
+      //console.log("Enemy detected near structure");
+      //Set deploy unit and set its focus to enemy
+      
+      var nonUndefinedElement = this.contents.find((element) => element !== undefined);
+      if(this.contents.length>0 && nonUndefinedElement!=undefined ){
+        //Set focus of char in contents before exiting from structure. Reference pops from contents array
+        nonUndefinedElement.focus = this.focus;
+        this.ToggleCharacterInsideStructure(nonUndefinedElement, this.focus);
+        console.log("Defense unit deployed from "+this.name+" with focus "+this.focus.name);
+      }
+      
     }
   }
   DrawCharacter(){
@@ -339,15 +350,15 @@ class Structure extends Character{
     ctx.fillStyle = "grey";
     ctx.fillRect(this.position[0], this.position[1], this.size[0], this.size[1]);
   }
-  ToggleCharacterInsideStructure(char){
+  ToggleCharacterInsideStructure(char, newFocus=undefined){
     if(char.isIndoors){
       //Exit character from Structure
       this.contents.pop(char);
       this.indoorCount-=1;
       char.isIndoors=false;
-      char.focus=undefined;
+      char.focus=newFocus;
       console.log(char.name+" has exited a structure "+this.name);
-      //AS SOON AS THEY EXIT THEY JUST ENTER AGAIN!!!
+      //AS SOON AS THEY EXIT THEY JUST ENTER AGAIN!!! Changing structure type
     }
     else{
       //check capacity
@@ -604,10 +615,11 @@ function Main(){
       char.DrawCharacter();
     }
     else{
-      //Is indoors, randomly chooose to leave
-      if( [Math.round(Math.random()*50)] != 1){
+      /*Is indoors, randomly chooose to leave
+      if( [Math.round(Math.random()*50)] == 1){
         char.focus.ToggleCharacterInsideStructure(char);
       }
+      */
     }
 
   });
