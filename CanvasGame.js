@@ -433,8 +433,8 @@ class Structure extends Character{
       //this.contents.pop(char);
       this.indoorCount-=1;
       char.isIndoors=false;
-      //char.position=this.generateRandomDestinationWithinRange();
-      char.position=[this.position[0],this.position[1]];
+      char.position=GenerateRandomPositionInRange(this.position,25);
+      //char.position=[this.position[0],this.position[1]];
       char.SetFocus(newFocus);
       console.log(char.name+" enters "+this.name);
     }
@@ -639,6 +639,17 @@ function ChangePlayerMode(userMode){
     default:
       canvas.style.cursor = "pointer";
   }
+}
+
+function GenerateRandomPositionInRange(centrePos,range) {
+  var randomAngle = Math.random() * 2 * Math.PI;
+  var randomDistance = Math.random() * range * 2;
+
+  // Calculate the random position within the specified radius
+  var destinationX = centrePos[0] + randomDistance * Math.cos(randomAngle);
+  var destinationY = centrePos[1] + randomDistance * Math.sin(randomAngle);
+
+  return [destinationX, destinationY];
 }
 
 //====~* START HERE *~====\\
