@@ -199,11 +199,11 @@ class Character {
        return;
       }
 
-      var distanceToTarget = Math.sqrt(Math.pow(this.focus.position[0] - this.position[0], 2) + Math.pow(this.focus.position[1] - this.focus.position[1], 2));
+      /*var distanceToTarget = Math.sqrt(Math.pow(this.focus.position[0] - this.position[0], 2) + Math.pow(this.focus.position[1] - this.focus.position[1], 2));
       if(distanceToTarget>this.range){
         this.SetFocus(undefined);
         return;
-      }
+      }*/
       
       this.Movement_MoveToTarget(this.focus);
     }
@@ -354,7 +354,7 @@ class Structure extends Character{
     super(name,statsObj);
     //set type
     this.type           = "Structure";
-    this.capacity       = 10;
+    this.capacity       = 15;
     this.indoorCount    = 0;
     this.contents       = [];
   }
@@ -564,9 +564,9 @@ const basicStructureStats = {
   attack    : 0,
   defense   : 10,
   speed     : undefined,
-  range     : 80,
+  range     : 100,
   position  : [50,50],
-  size      : [40,40],
+  size      : [70,70],
   direction : undefined,
   colour    : "blue",
   text      : "X",
