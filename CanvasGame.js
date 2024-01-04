@@ -33,6 +33,10 @@ class Character {
     this.type           = statsObj.type;
     this.isIndoors      = false;
     this.isAlive        = true;
+    
+    if(!this.position){
+      this.position=this.generateRandomDestinationWithinRange();
+    }
   }
 
   DrawCharacter(){ 
@@ -122,12 +126,12 @@ class Character {
     }
   }
   generateRandomDestinationWithinRange() {
-    const randomAngle = Math.random() * 2 * Math.PI;
-    const randomDistance = Math.random() * this.range * 2;
+    var randomAngle = Math.random() * 2 * Math.PI;
+    var randomDistance = Math.random() * this.range * 2;
 
     // Calculate the random position within the specified radius
-    const destinationX = this.position[0] + randomDistance * Math.cos(randomAngle);
-    const destinationY = this.position[1] + randomDistance * Math.sin(randomAngle);
+    var destinationX = this.position[0] + randomDistance * Math.cos(randomAngle);
+    var destinationY = this.position[1] + randomDistance * Math.sin(randomAngle);
 
     return [destinationX, destinationY];
   }
@@ -189,10 +193,18 @@ class Character {
 
     //if focus is now set move to focus
     if (this.focus){
-      //check if focus is dead
-      if(!this.focus.isAlive && this.focus.name!="Random Destination"){
-        this.SetFocus(undefined);
+      if(!this.focus.isAlive /*&& this.focus.name!="Random Destination"*/){
+        //check if focus is dead
+       this.SetFocus(undefined);
+       return;
       }
+
+      var distanceToTarget = Math.sqrt(Math.pow(this.focus.position[0] - this.position[0], 2) + Math.pow(this.focus.position[1] - this.focus.position[1], 2));
+      if(distanceToTarget>this.range){
+        this.SetFocus(undefined);
+        return;
+      }
+      
       this.Movement_MoveToTarget(this.focus);
     }
     else{ //if focus is not set, set random destination
@@ -207,7 +219,7 @@ class Character {
       this.SetFocus(tmpDestFocus);
       //console.log(this.focus);
       //console.log("moving to random");
-      this.Movement_MoveToTarget(tmpDestFocus);
+      this.Movement_MoveToTarget(this.focus);
     }
     
   }
@@ -279,6 +291,10 @@ class Character {
         if(!target.enemyTypes.includes(this.type)){
           target.EnterCharacterIntoStructure(this);
         }
+        else{
+          //Structure is hostile to this character
+          this.AttackTarget(target);
+        }
         break;
       default:
         break;
@@ -345,7 +361,7 @@ class Structure extends Character{
   UpdatePosition(){
     // Check for nearby targets and set character focus
     if(!this.focus){
-      this.focus = this.FindTargetInRange("isAlive");
+      this.SetFocus(this.FindTargetInRange("isAlive"));
     }
     else {
       //calcukate distance
@@ -377,14 +393,14 @@ class Structure extends Character{
     //Check if user selected.
     if (UserData.selected==this){
       ctx.fillStyle = "lightgreen";
-      ctx.fillRect(this.position[0]-(this.size[0]*0.1), this.position[1]-(this.size[0]*0.1), this.size[0]*1.2, this.size[1]*1.2);
+      ctx.fillRect(this.position[0]-(this.size[0]/2)-(this.size[0]*0.1), this.position[1]-(this.size[1]/2)-(this.size[1]*0.1), this.size[0]*1.2, this.size[1]*1.2);
 
       //Change (Size)
       //this.size=[ this.defaultSize[0]*1.5 , this.defaultSize[1]*1.5 ];
     }
 
     ctx.fillStyle = "grey";
-    ctx.fillRect(this.position[0], this.position[1], this.size[0], this.size[1]);
+    ctx.fillRect(this.position[0]-(this.size[0]/2), this.position[1]-(this.size[1]/2), this.size[0], this.size[1]);
   }
   
 
@@ -404,7 +420,7 @@ class Structure extends Character{
     this.indoorCount+=1;
     char.isIndoors=true;
     char.SetFocus(this);
-    console.log(char.name+" has entered a structure "+this.name);
+    console.log(char.name+" exits "+this.name);
   }
   ExitCharacterFromStructure(char, newFocus=undefined){
     if (!this.contents.includes(char)){
@@ -417,8 +433,9 @@ class Structure extends Character{
       //this.contents.pop(char);
       this.indoorCount-=1;
       char.isIndoors=false;
+      char.position=this.generateRandomDestinationWithinRange();
       char.SetFocus(newFocus);
-      console.log(char.name+" has exited a structure "+this.name);
+      console.log(char.name+" enters "+this.name);
     }
     
   }
@@ -428,6 +445,7 @@ class Focus {
   constructor(name, position) {
     this.name = name;
     this.position = position;
+    this.isAlive=true;
   }
 }
 
@@ -484,6 +502,7 @@ function OnPlayerClick(event){
       ActiveCharactersArray.forEach(char => {
         if (char.isMouseOver(mouseX, mouseY)) {
           console.log("Mouse clicked on a character named "+char.name+".");
+          console.log(char);
           UserData.selected=char;
           //change html
           ChangeSelectedUnit(char);
@@ -514,7 +533,7 @@ function isPositionOnCanvas(x, y) {
 
 const basicStats = {
   health    : 100,
-  attack    : 5,
+  attack    : 1,
   defense   : 5,
   speed     : 1,
   range     : 70,
@@ -528,7 +547,7 @@ const basicStats = {
 };
 const enemybasicStats = {
   health    : 100,
-  attack    : 1,
+  attack    : 0.5,
   defense   : 2,
   speed     : 1,
   range     : 70,
@@ -538,14 +557,14 @@ const enemybasicStats = {
   colour    : "darkred",
   text      : "😈",
   type      : "Enemy",
-  enemyTypes: "Ally"
+  enemyTypes: "Ally,Structure"
 };
 const basicStructureStats = {
-  health    : 100,
+  health    : 250,
   attack    : 0,
-  defense   : 5,
+  defense   : 10,
   speed     : undefined,
-  range     : 70,
+  range     : 80,
   position  : [50,50],
   size      : [40,40],
   direction : undefined,
@@ -630,33 +649,62 @@ ChangePlayerMode('Inspecting')
 canvas.addEventListener("click", OnPlayerClick);
 
 //Spawn Characters
-new Structure("Structure1", basicStructureStats).SpawnCharacter();
+var playerBase = new Structure("Structure", basicStructureStats);
+playerBase.SpawnCharacter();
+playerBase.position=[canvas.width/2,canvas.height/2];
 
-new Character("Ally1", basicStats).SpawnCharacter();
-//new Character("Ally2", basicStats).SpawnCharacter();
-//new Character("Ally3", basicStats).SpawnCharacter();
-/*
-new Character("Enemy1",  enemybasicStats).SpawnCharacter();
-new Character("Enemy2",  enemybasicStats).SpawnCharacter();
-new Character("Enemy3",  enemybasicStats).SpawnCharacter();
-new Character("Enemy4",  enemybasicStats).SpawnCharacter();
-new Character("Enemy5",  enemybasicStats).SpawnCharacter();
-new Character("Enemy6",  enemybasicStats).SpawnCharacter();
-new Character("Enemy7",  enemybasicStats).SpawnCharacter();
-new Character("Enemy8",  enemybasicStats).SpawnCharacter();
-new Character("Enemy1",  enemybasicStats).SpawnCharacter();
-new Character("Enemy2",  enemybasicStats).SpawnCharacter();
-new Character("Enemy3",  enemybasicStats).SpawnCharacter();
-new Character("Enemy4",  enemybasicStats).SpawnCharacter();
-new Character("Enemy5",  enemybasicStats).SpawnCharacter();
-new Character("Enemy6",  enemybasicStats).SpawnCharacter();
-new Character("Enemy7",  enemybasicStats).SpawnCharacter();
-new Character("Enemy8",  enemybasicStats).SpawnCharacter();
-new Character("Enemy9",  enemybasicStats).SpawnCharacter();
-new Character("Enemy10", enemybasicStats).SpawnCharacter();
-new Character("Enemy11", enemybasicStats).SpawnCharacter();
-new Character("Enemy12", enemybasicStats).SpawnCharacter();
-new Character("Enemy13", enemybasicStats).SpawnCharacter();*/
+var basepos=[playerBase.position[0]+1,playerBase.position[1]-1];
+var a1=new Character("Ally",  basicStats,basepos);
+a1.SpawnCharacter()
+playerBase.EnterCharacterIntoStructure(a1);
+var a2=new Character("Ally",  basicStats,basepos);
+a2.SpawnCharacter()
+playerBase.EnterCharacterIntoStructure(a2);
+var a3=new Character("Ally",  basicStats,basepos);
+a3.SpawnCharacter();
+playerBase.EnterCharacterIntoStructure(a3);
+var a4=new Character("Ally",  basicStats,basepos);
+a4.SpawnCharacter();
+playerBase.EnterCharacterIntoStructure(a4);
+var a5=new Character("Ally",  basicStats,basepos);
+a5.SpawnCharacter();
+playerBase.EnterCharacterIntoStructure(a5);
+var a6=new Character("Ally",  basicStats,basepos);
+a6.SpawnCharacter();
+playerBase.EnterCharacterIntoStructure(a6);
+var a7=new Character("Ally",  basicStats,basepos);
+a7.SpawnCharacter();
+playerBase.EnterCharacterIntoStructure(a7);
+var a8=new Character("Ally",  basicStats,basepos);
+a8.SpawnCharacter();
+playerBase.EnterCharacterIntoStructure(a8);
+var a9=new Character("Ally",  basicStats,basepos);
+a9.SpawnCharacter();
+playerBase.EnterCharacterIntoStructure(a9);
+var a10=new Character("Ally",  basicStats,basepos);
+a10.SpawnCharacter();
+playerBase.EnterCharacterIntoStructure(a10);
+
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
+new Character("Enemy",  enemybasicStats).SpawnCharacter();
 
 /* will execture function once every tdelay ms
 var tdelay = 100;
