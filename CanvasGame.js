@@ -433,7 +433,8 @@ class Structure extends Character{
       //this.contents.pop(char);
       this.indoorCount-=1;
       char.isIndoors=false;
-      char.position=this.generateRandomDestinationWithinRange();
+      //char.position=this.generateRandomDestinationWithinRange();
+      char.position=[this.position[0],this.position[1]];
       char.SetFocus(newFocus);
       console.log(char.name+" enters "+this.name);
     }
