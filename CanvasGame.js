@@ -354,7 +354,7 @@ class Structure extends Character{
         Math.pow(this.focus.position[1] - this.position[1], 2)
       );
       //if has focus AND (focus is dead OR focus is out of range), reset focus
-      if(!this.focus.isAlive || distance > this.range){ //&& distance > this.range
+      if(!this.focus.isAlive || distance > this.range){
         this.SetFocus(undefined);
         return;
       }
@@ -363,10 +363,10 @@ class Structure extends Character{
       //Set deploy unit and set its focus to enemy
       
       var nonUndefinedElement = this.contents.find((element) => element !== undefined);
-      if(this.contents.length>0 && nonUndefinedElement!=undefined && this.contents.includes(nonUndefinedElement)){
+      if(this.contents.length>0 && this.contents.includes(nonUndefinedElement)){
         //Set focus of char in contents before exiting from structure. Reference pops from contents array
         //nonUndefinedElement.SetFocus( this.focus);
-        nonUndefinedElement.SetFocus(this.focus);
+        //nonUndefinedElement.SetFocus(this.focus);
         this.ExitCharacterFromStructure(nonUndefinedElement, this.focus);
         //console.log("Defense unit "+nonUndefinedElement.name+" deployed from "+this.name+" with focus "+nonUndefinedElement.focus.name);
       }
@@ -412,7 +412,9 @@ class Structure extends Character{
       return;
     }
     if(this.contents.length>0){
-      this.contents.pop(char);
+      var index = this.contents.indexOf(char);
+      this.contents.splice(index, 1);
+      //this.contents.pop(char);
       this.indoorCount-=1;
       char.isIndoors=false;
       char.SetFocus(newFocus);
