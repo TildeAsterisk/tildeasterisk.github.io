@@ -12,6 +12,7 @@ function DrawFloor(){
 // Draw something on the canvas
 DrawFloor();
 
+var charCount=0;
 class Character {
   constructor(name,statsObj,position=RandomSpawnPoint()) { //health, attack, defense, speed, range, position, size, direction, colour, text, enemyTypes
     this.name           = name;
@@ -63,6 +64,7 @@ class Character {
   }
 
   isMouseOver(mouseX, mouseY) {
+    if(this.isIndoors){return false;}
     var mouseHitBox=10;
     return (
       mouseX >= (this.position[0] - (mouseHitBox)) &&
@@ -99,6 +101,8 @@ class Character {
     }); */
 
     //Push character to active spawned character list
+    charCount+=1;
+    this.name=this.name+charCount;
     ActiveCharactersArray.push(this);
     //console.log("Character "+this.name+" initialized.");
   }
@@ -131,19 +135,19 @@ class Character {
   Movement_MoveToTarget(target) {
     if (!target) {
       // No target, do nothing
-      console.log("No Target to move to.");
+      //console.log("No Target to move to.");
       return;
     }
 
     // First, check to see if the character has reached the target
     const distanceToTarget = Math.sqrt(Math.pow(target.position[0] - this.position[0], 2) + Math.pow(target.position[1] - this.position[1], 2));
-    if (distanceToTarget < (this.size[0]+5) ) {
+    if (distanceToTarget < (this.size[0]+5) && this.focus) {
       // The character is close enough to the target, consider it reached
       //console.log(`${this.name} reached ${this.focus.name}! Distance: ${distanceToTarget}`);
 
       //if Character Focus is a random destination (wandering), reset focus
-      if("Random Desination".includes(this.focus.name)){
-        this.focus=undefined;
+      if("Random Destination" == this.focus.name){
+        this.SetFocus(undefined);
         return;
       }
 
@@ -171,32 +175,36 @@ class Character {
       // Optionally handle the case where the new position is outside the canvas
       //console.log("Character cannot move outside the canvas.");
       //reset focus
-      this.focus=undefined;
+      this.SetFocus(undefined);
     }
 
   }
 
   UpdatePosition(){
-    // Check for nearby targets and set character focus
-    if(this.focus=== undefined){
-      this.focus = this.FindTargetInRange();
+    /* Check if no focus then search for nearby viable targets and set character focus
+    if(!this.focus){
+      this.focus = this.FindTargetInRange("isAlive,Structure");
     }
+    */
 
-    if(this.focus){
-      //move to target#
-      //console.log("Moving to target "+this.focus.name);
-      //console.log(this.focus);
+    //if focus is now set move to focus
+    if (this.focus){
+      //check if focus is dead
+      if(!this.focus.isAlive && this.focus.name!="Random Destination"){
+        this.SetFocus(undefined);
+      }
       this.Movement_MoveToTarget(this.focus);
     }
-    else{
+    else{ //if focus is not set, set random destination
+      this.SetFocus(this.FindTargetInRange("isAlive,Structure"));
       //set temp desination focus
-      //Random decision to tak
+      //Random decision to walk
       if( [Math.round(Math.random()*5)] != 1){
         return;
       }
       var randomPos = this.generateRandomDestinationWithinRange();
-      var tmpDestFocus = new Focus("Random Desination", [randomPos[0], randomPos[1]]);
-      this.focus=tmpDestFocus;
+      var tmpDestFocus = new Focus("Random Destination", [randomPos[0], randomPos[1]]);
+      this.SetFocus(tmpDestFocus);
       //console.log(this.focus);
       //console.log("moving to random");
       this.Movement_MoveToTarget(tmpDestFocus);
@@ -204,16 +212,43 @@ class Character {
     
   }
 
-  FindTargetInRange() {
+  SetFocus(target){
+    if (target == undefined){
+      //console.log(this.name+" cannot set focus.");
+      this.focus = undefined;
+      return;
+    }
+
+    if(target.isAlive || target.name=="Random Destination"){
+      //console.log(this.name+" is targeting "+target.name);
+      this.focus = target;
+    }
+  }
+
+  FindTargetInRange(filter=undefined) {
     const targets = ActiveCharactersArray.filter((target) => {
       // Exclude self
-      if (target === this)  {
+      if (target == this)  {
         return false;
       }
       //exclude if enemytypes do not match and if taret us indoors and if target is dead
-      if (!this.enemyTypes.includes(target.type) || target.isIndoors || !target.isAlive)  {
+      if (!this.enemyTypes.includes(target.type) || target.isIndoors)  {
         return false;
       }
+
+      if(filter!=undefined){
+        switch (filter){
+          case filter.includes("isAlive"):
+            if(!target.isAlive){return false;}
+          case filter.includes("Structure"):
+            if(target.type=="Structure"){return false;}
+
+            break;
+          default:
+            break;
+        }
+      }
+
 
       // Calculate distance between characters
       const distance = Math.sqrt(
@@ -234,7 +269,7 @@ class Character {
       case "Enemy":
       case "Ally":
         //Attack if enemy
-        if(this.enemyTypes.includes(target.type)){
+        if(this.enemyTypes.includes(target.type) && target.isAlive){
           //console.log("Attacking Target: "+this.focus.name);
           this.AttackTarget(target);
         }
@@ -242,7 +277,7 @@ class Character {
       case "Structure":
         //Enter if non enemy structure
         if(!target.enemyTypes.includes(this.type)){
-          target.ToggleCharacterInsideStructure(this);
+          target.EnterCharacterIntoStructure(this);
         }
         break;
       default:
@@ -258,8 +293,9 @@ class Character {
 
     //console.log(`${target.name} health: ${target.health}`);
     if(target.health<=0){
+      console.log(`${this.name} has killed ${target.name}.`);
       target.Die();
-      this.focus=undefined;
+      this.SetFocus(undefined);
     }
   }
 
@@ -277,7 +313,7 @@ class Character {
       ActiveCharactersArray.splice(index, 1);
 
       // Optionally, perform additional cleanup or animations
-      console.log(`${this.name} has been killed.`);
+      //console.log(`${this.name} has been killed.`);
 
       // Remove HTML elements or perform other cleanup if needed
 
@@ -292,20 +328,9 @@ class Character {
     delete this;
   }
 
-  EnterStructure(targetStructure){
-    //Enter a target structure
-    //Increase structure count
-    //don't draw character untill it leaves
-    this.isIndoors=true;
-    targetStructure.indoorCount+=1;
-  }
-  LeaveStructure(targetStructure){
-    this.isIndoors=false;
-    targetStructure.indoorCount-=1;
-  }
-
   //END OF CHARACTER CLASS
 }
+
 //===~* BEGINNING OF STRUCTURE CLASS *~===\\
 class Structure extends Character{
   constructor(name, statsObj){
@@ -315,24 +340,35 @@ class Structure extends Character{
     this.type           = "Structure";
     this.capacity       = 10;
     this.indoorCount    = 0;
-    this.contents       =[];
+    this.contents       = [];
   }
   UpdatePosition(){
     // Check for nearby targets and set character focus
-    if(this.focus == undefined){
-      this.focus = this.FindTargetInRange();
+    if(!this.focus){
+      this.focus = this.FindTargetInRange("isAlive");
     }
-    else if(this.focus != undefined && this.focus){
+    else {
+      //calcukate distance
+      const distance = Math.sqrt(
+        Math.pow(this.focus.position[0] - this.position[0], 2) +
+        Math.pow(this.focus.position[1] - this.position[1], 2)
+      );
+      //if has focus AND (focus is dead OR focus is out of range), reset focus
+      if(!this.focus.isAlive || distance > this.range){ //&& distance > this.range
+        this.SetFocus(undefined);
+        return;
+      }
       //Deploy unit to combat enemy
-      //console.log("Enemy detected near structure");
+      //console.log(this.focus.name+" detected near structure");
       //Set deploy unit and set its focus to enemy
       
       var nonUndefinedElement = this.contents.find((element) => element !== undefined);
-      if(this.contents.length>0 && nonUndefinedElement!=undefined ){
+      if(this.contents.length>0 && nonUndefinedElement!=undefined && this.contents.includes(nonUndefinedElement)){
         //Set focus of char in contents before exiting from structure. Reference pops from contents array
-        nonUndefinedElement.focus = this.focus;
-        this.ToggleCharacterInsideStructure(nonUndefinedElement, this.focus);
-        console.log("Defense unit deployed from "+this.name+" with focus "+this.focus.name);
+        //nonUndefinedElement.SetFocus( this.focus);
+        nonUndefinedElement.SetFocus(this.focus);
+        this.ExitCharacterFromStructure(nonUndefinedElement, this.focus);
+        //console.log("Defense unit "+nonUndefinedElement.name+" deployed from "+this.name+" with focus "+nonUndefinedElement.focus.name);
       }
       
     }
@@ -350,28 +386,37 @@ class Structure extends Character{
     ctx.fillStyle = "grey";
     ctx.fillRect(this.position[0], this.position[1], this.size[0], this.size[1]);
   }
-  ToggleCharacterInsideStructure(char, newFocus=undefined){
-    if(char.isIndoors){
-      //Exit character from Structure
+  
+
+  EnterCharacterIntoStructure(char){
+    if (this.contents.includes(char)){
+      //Character is already inside structure
+      console.log("character is already inside structure");
+      return;
+    }
+    //check capacity
+    if (this.indoorCount>=this.capacity){
+      char.SetFocus(undefined);
+      return;
+    } 
+    //Enter character inside
+    this.contents.push(char);
+    this.indoorCount+=1;
+    char.isIndoors=true;
+    char.SetFocus(this);
+    console.log(char.name+" has entered a structure "+this.name);
+  }
+  ExitCharacterFromStructure(char, newFocus=undefined){
+    if (!this.contents.includes(char)){
+      console.log("Cannot exit "+char.name+" because they aren't inside structure "+this.name);
+      return;
+    }
+    if(this.contents.length>0){
       this.contents.pop(char);
       this.indoorCount-=1;
       char.isIndoors=false;
-      char.focus=newFocus;
+      char.SetFocus(newFocus);
       console.log(char.name+" has exited a structure "+this.name);
-      //AS SOON AS THEY EXIT THEY JUST ENTER AGAIN!!! Changing structure type
-    }
-    else{
-      //check capacity
-      if (this.indoorCount>=this.capacity){
-        char.focus=undefined;
-        return;
-      } 
-      //Enter character inside
-      this.contents.push(char);
-      this.indoorCount+=1;
-      char.isIndoors=true;
-      char.focus=this;
-      console.log(char.name+" has entered a structure "+this.name);
     }
     
   }
@@ -394,11 +439,15 @@ function spawnCharacterOnClick(event) {
   const mouseX = event.clientX - rect.left;
   const mouseY = event.clientY - rect.top;
 
+  var newCharacter = new Character("Ally",basicStats);
   // Create a new character at the clicked position
-  const newCharacter = new Character(
-    "Ally",
-    basicStats
-  );
+  if( [Math.round(Math.random())] != 1){
+    newCharacter = new Character("Enemy",enemybasicStats);
+  }
+  else{
+    //still ally
+  }
+  
   newCharacter.position=[mouseX-(newCharacter.size[0]/2), mouseY-(newCharacter.size[1]/2)];
 
   // Spawn the new character
@@ -463,7 +512,7 @@ function isPositionOnCanvas(x, y) {
 
 const basicStats = {
   health    : 100,
-  attack    : 1,
+  attack    : 5,
   defense   : 5,
   speed     : 1,
   range     : 70,
@@ -477,7 +526,7 @@ const basicStats = {
 };
 const enemybasicStats = {
   health    : 100,
-  attack    : 0.5,
+  attack    : 1,
   defense   : 2,
   speed     : 1,
   range     : 70,
@@ -495,7 +544,7 @@ const basicStructureStats = {
   defense   : 5,
   speed     : undefined,
   range     : 70,
-  position  : undefined,
+  position  : [50,50],
   size      : [40,40],
   direction : undefined,
   colour    : "blue",
@@ -531,10 +580,19 @@ function UpdateUnitStatsHTML(){
       break;
     default:
       //console.log(type);
-      document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}<br>
-      HP : ${UserData.selected.health}<br>
-      ATK: ${UserData.selected.attack}<br>
-      DEF: ${UserData.selected.defense}`;
+      if(!UserData.selected.focus){
+        document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}<br>
+        HP : ${UserData.selected.health}<br>
+        ATK: ${UserData.selected.attack}<br>
+        DEF: ${UserData.selected.defense}`;
+      }
+      else{
+        document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}<br>
+        HP : ${UserData.selected.health}<br>
+        ATK: ${UserData.selected.attack}<br>
+        DEF: ${UserData.selected.defense}<br>
+        FCS: ${UserData.selected.focus.name}`;
+      }
       break;
   }
 }
@@ -573,9 +631,9 @@ canvas.addEventListener("click", OnPlayerClick);
 new Structure("Structure1", basicStructureStats).SpawnCharacter();
 
 new Character("Ally1", basicStats).SpawnCharacter();
-new Character("Ally2", basicStats).SpawnCharacter();
-new Character("Ally3", basicStats).SpawnCharacter();
-
+//new Character("Ally2", basicStats).SpawnCharacter();
+//new Character("Ally3", basicStats).SpawnCharacter();
+/*
 new Character("Enemy1",  enemybasicStats).SpawnCharacter();
 new Character("Enemy2",  enemybasicStats).SpawnCharacter();
 new Character("Enemy3",  enemybasicStats).SpawnCharacter();
@@ -596,7 +654,7 @@ new Character("Enemy9",  enemybasicStats).SpawnCharacter();
 new Character("Enemy10", enemybasicStats).SpawnCharacter();
 new Character("Enemy11", enemybasicStats).SpawnCharacter();
 new Character("Enemy12", enemybasicStats).SpawnCharacter();
-new Character("Enemy13", enemybasicStats).SpawnCharacter();
+new Character("Enemy13", enemybasicStats).SpawnCharacter();*/
 
 /* will execture function once every tdelay ms
 var tdelay = 100;
@@ -607,10 +665,11 @@ function Main(){
 
   //For each active character in game...
   ActiveCharactersArray.forEach(char => {
+    
     if (!char.isIndoors){
       //Update each character logic
       char.UpdatePosition();
-
+      
       //Draw each character on screen
       char.DrawCharacter();
     }
