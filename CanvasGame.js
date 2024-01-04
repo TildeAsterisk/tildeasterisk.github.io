@@ -82,28 +82,6 @@ class Character {
     // Initialization code here
     this.DrawCharacter();
 
-    /*Add isMouseOver event listener
-    canvas.addEventListener("mousemove", (event) => {
-      const rect = canvas.getBoundingClientRect();
-      const mouseX = event.clientX - rect.left;
-      const mouseY = event.clientY - rect.top;
-
-      if (this.isMouseOver(mouseX, mouseY)) {
-        console.log("Mouse is over character "+this.name);
-        //ChangeSelectedUnit(this);
-        //this.colour="lightgreen";
-        //this.DrawCharacter();
-        //this.size=[30,30];
-      }
-      else{
-        //ChangeSelectedUnit(undefined);
-        //this.colour=this.defaultColour;
-        //this.size=[basicStats.size,basicStats.size];
-        //player.DrawCharacter(); 
-        //this.size=[15,15];
-      }
-    }); */
-
     //Push character to active spawned character list
     charCount+=1;
     this.name=this.name+charCount;
@@ -527,6 +505,33 @@ function OnPlayerClick(event){
       //Do Nothing
   }
 }
+
+/*
+function OnMouseOverCharacter(event){
+  //Add isMouseOver event listener
+  const rect = canvas.getBoundingClientRect();
+  const mouseX = event.clientX - rect.left;
+  const mouseY = event.clientY - rect.top;
+
+  //foreach character check if ismouseover
+  ActiveCharactersArray.forEach(char => {
+    if (char.isMouseOver(mouseX, mouseY)) {
+      console.log("Mouse is over character "+char.name);
+      //ChangeSelectedUnit(this);
+      //this.colour="lightgreen";
+      //this.DrawCharacter();
+      //this.size=[30,30];
+    }
+    else{
+      //ChangeSelectedUnit(undefined);
+      //this.colour=this.defaultColour;
+      //this.size=[basicStats.size,basicStats.size];
+      //player.DrawCharacter(); 
+      //this.size=[15,15];
+    }
+  });
+}
+*/
 
 function isPositionOnCanvas(x, y) {
   return x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height;
