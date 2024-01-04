@@ -548,7 +548,7 @@ const basicStats = {
 };
 const enemybasicStats = {
   health    : 100,
-  attack    : 0.5,
+  attack    : 1,
   defense   : 2,
   speed     : 1,
   range     : 70,
