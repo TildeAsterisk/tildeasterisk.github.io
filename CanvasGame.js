@@ -13,6 +13,15 @@ function DrawFloor(){
 DrawFloor();
 
 var charCount=0;
+/*
+   _____ _                          _            
+  / ____| |                        | |           
+ | |    | |__   __ _ _ __ __ _  ___| |_ ___ _ __ 
+ | |    | '_ \ / _` | '__/ _` |/ __| __/ _ \ '__|
+ | |____| | | | (_| | | | (_| | (__| ||  __/ |   
+  \_____|_| |_|\__,_|_|  \__,_|\___|\__\___|_|
+
+*/
 class Character {
   constructor(name,statsObj,position=RandomSpawnPoint()) { //health, attack, defense, speed, range, position, size, direction, colour, text, enemyTypes
     this.name           = name;
@@ -52,7 +61,7 @@ class Character {
     const centerY = this.position[1] + (this.size[1] + textHeight) / 2;
 
     //Check if user selected.
-    if (UserData.selected==this){
+    if (PlayerObj.selected==this){
       ctx.fillStyle = "lightgreen";
       ctx.fillRect(centerX, centerY-textHeight, textWidth,textHeight+3.5);
 
@@ -325,7 +334,15 @@ class Character {
   //END OF CHARACTER CLASS
 }
 
-//===~* BEGINNING OF STRUCTURE CLASS *~===\\
+/*
+   _____ _                   _                  
+  / ____| |                 | |                 
+ | (___ | |_ _ __ _   _  ___| |_ _   _ _ __ ___ 
+  \___ \| __| '__| | | |/ __| __| | | | '__/ _ \
+  ____) | |_| |  | |_| | (__| |_| |_| | | |  __/
+ |_____/ \__|_|   \__,_|\___|\__|\__,_|_|  \___|
+
+*/
 class Structure extends Character{
   constructor(name, statsObj){
     //Call base constructure with super()
@@ -369,7 +386,7 @@ class Structure extends Character{
   }
   DrawCharacter(){
     //Check if user selected.
-    if (UserData.selected==this){
+    if (PlayerObj.selected==this){
       ctx.fillStyle = "lightgreen";
       ctx.fillRect(this.position[0]-(this.size[0]/2)-(this.size[0]*0.1), this.position[1]-(this.size[1]/2)-(this.size[1]*0.1), this.size[0]*1.2, this.size[1]*1.2);
 
@@ -428,6 +445,87 @@ class Focus {
   }
 }
 
+/*
+  _____  _                       
+ |  __ \| |                      
+ | |__) | | __ _ _   _  ___ _ __ 
+ |  ___/| |/ _` | | | |/ _ \ '__|
+ | |    | | (_| | |_| |  __/ |   
+ |_|    |_|\__,_|\__, |\___|_|   
+                  __/ |          
+                 |___/           
+
+*/
+
+class Player{
+  constructor(){
+    this.selected = undefined;
+    this.building = false;
+    this.mode     = undefined;
+  }
+
+  ChangeSelectedUnit(unit){
+    if(unit === undefined){
+        this.selected = undefined;
+        gameTxtMsg1Elem.innerHTML="Nothing selected";
+        return;
+    }
+  
+    this.selected = unit;
+    //unit.selected=true;
+    this.UpdateUnitStatsHTML();
+  }
+
+  UpdateUnitStatsHTML(){
+    //console.log(type);
+    switch (this.selected.type){
+      case "Structure":
+        gameTxtMsg1Elem.innerHTML=`Selected: ${this.selected.name} ${this.selected.text}<br>
+        HP : ${this.selected.health}<br>
+        DEF: ${this.selected.defense}<br>
+        Contains: ${this.selected.indoorCount} Units`;
+        break;
+      default:
+        //console.log(type);
+        if(!this.selected.focus){
+          gameTxtMsg1Elem.innerHTML=`Selected: ${this.selected.name} ${this.selected.text}<br>
+          HP : ${this.selected.health}<br>
+          ATK: ${this.selected.attack}<br>
+          DEF: ${this.selected.defense}`;
+        }
+        else{
+          gameTxtMsg1Elem.innerHTML=`Selected: ${this.selected.name} ${this.selected.text}<br>
+          HP : ${this.selected.health}<br>
+          ATK: ${this.selected.attack}<br>
+          DEF: ${this.selected.defense}<br>
+          FCS: ${this.selected.focus.name}`;
+        }
+        break;
+    }
+  }
+  
+  GenerateControlPanelHTML(){
+    //controlPanelElem.innerHTML = controlPanelElem.innerHTML+" <button> </button> ";
+    var buildMenuHTML=`
+    <label for="build-selection">Item List:</label>
+    <select id="build-selection" name="build-selection">
+        <option value="Wall"    >Wall</option>
+        <option value="Shelter" >Shelter</option>
+    </select>
+    <button onclick="UpdatePlayerMode('Build Mode')">Build</button>
+    `;
+    var playerModeButtonsHTML = `
+    <button onclick="UpdatePlayerMode('Inspecting')">    Select<br>&nbsp;&nbsp;Unit&nbsp;&nbsp;&nbsp;</button>
+    <button onclick="UpdatePlayerMode('Spawn Character')">Spawn<br>Character</button>
+    <button onclick="UpdatePlayerMode('Build Structure')">Build<br>Structure</button>
+    `;
+    var gameTxtElem=`<div id="GameTxtMsg1">Select Mode</div>`;
+    return playerModeButtonsHTML+buildMenuHTML+gameTxtElem;
+  }
+
+}
+
+//Generate random spawn point on canvas
 function RandomSpawnPoint(){
   return randomSpawn=[(Math.random()*canvas.width), (Math.random()*canvas.height)];
 }
@@ -453,7 +551,7 @@ function spawnCharacterOnClick(event) {
   newCharacter.SpawnCharacter();
 }
 
-function SpawnStructureOnClick(event) {
+/* function SpawnStructureOnClick(event) {
   const rect = canvas.getBoundingClientRect();
   const mouseX = event.clientX - rect.left;
   const mouseY = event.clientY - rect.top;
@@ -469,50 +567,126 @@ function SpawnStructureOnClick(event) {
   // Spawn the new character
   newStructure.SpawnCharacter();
 }
+*/
 
-function OnPlayerClick(event){
-  switch(UserData.mode) {
+function UpdatePlayerMode(userMode=undefined){
+  if(userMode){
+    PlayerObj.mode=userMode;
+  }
+  else{
+    userMode=PlayerObj.mode;
+  }
+
+  switch(PlayerObj.mode) {
     case "Inspecting":
-      //Each Character has their own onclick event listener...
-      const rect   = canvas.getBoundingClientRect();
-      const mouseX = event.clientX - rect.left;
-      const mouseY = event.clientY - rect.top;
-      //foreach character check if ismouseover
-      ActiveCharactersArray.forEach(char => {
-        if (char.isMouseOver(mouseX, mouseY)) {
-          console.log("Mouse clicked on a character named "+char.name+".");
-          console.log(char);
-          UserData.selected=char;
-          //change html
-          ChangeSelectedUnit(char);
-          
-        }
-        else{
-          //console.log("Nothing Selected.");
-          //ChangeSelectedUnit(undefined);
-        }
-      });
+      canvas.style.cursor = "crosshair";
+      if(PlayerObj.selected!=undefined){
+        PlayerObj.selected = undefined;
+        document.getElementById("GameTxtMsg1").innerHTML="Nothing selected";
+      }
       break;
     case "Spawn Character":
-      console.log("Spawning character");
-      spawnCharacterOnClick(event);
+      canvas.style.cursor = "copy";
       break;
     case "Build Structure":
-      console.log("Spawning Structure.");
-      SpawnStructureOnClick(event);
+      canvas.style.cursor = "cell";
+      break;
+    case "Build Mode":
+      canvas.style.cursor = "none";
+      //Set build mode, GenerateBuildMenu
+      //GenerateBuildMenu();
+
+      //Get Selected Build
+      selectElement = document.querySelector('#build-selection');
+      PlayerObj.buildItemSelection = selectElement.value;
+      //document.querySelector('.output').textContent = buildItemSelection;
+      var buildGuideSize = [10,10];
+      switch (PlayerObj.buildItemSelection){
+        case "Wall":
+          //Display highlited object at mouse
+          console.log("Building Wall");
+          buildGuideSize=[wallBuildStats.size[0],wallBuildStats.size[1]]
+          break;
+        case "Shelter":
+          //buildGuideSize=[25,25];
+          break;
+        default:
+          break;
+      }
+      //Draw Selected Object
+      ctx.fillStyle = "lightgreen";
+      ctx.fillRect(PlayerObj.mouseX, PlayerObj.mouseY, buildGuideSize[0],buildGuideSize[1]);
+
       break;
     default:
-      //Do Nothing
+      canvas.style.cursor = "pointer";
   }
+  gameTxtMsg1Elem.innerHTML = "Mode: "+PlayerObj.mode;
 }
 
-/*
-function OnMouseOverCharacter(event){
+  // OnClick Event Listener Function
+  function OnPlayerClick(event){
+    //console.log("Click!");
+    switch(PlayerObj.mode) {
+      case "Inspecting":
+        const rect   = canvas.getBoundingClientRect();
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
+        //foreach character check if ismouseover
+        ActiveCharactersArray.forEach(char => {
+          if (char.isMouseOver(mouseX, mouseY)) {
+            console.log("Mouse clicked on a character named "+char.name+".");
+            console.log(char);
+            PlayerObj.selected=char;
+            //change html
+            PlayerObj.ChangeSelectedUnit(char);
+            
+          }
+          else{
+            //console.log("Nothing Selected.");
+            //ChangeSelectedUnit(undefined);
+          }
+        });
+        break;
+      case "Spawn Character":
+        console.log("Spawning character on click");
+        spawnCharacterOnClick(event);
+        break;
+      case "Build Mode":
+        console.log("Spawn build object: "+PlayerObj.buildItemSelection);
+        break;
+      case "Build Structure":
+        console.log("Spawning Structure on click.");
+        //SpawnStructureOnClick(event);
+        break;
+      default:
+        //Do Nothing
+    }
+  }
+
+  //Event listener for when the Player is in Build mode
+  function BuildModeUI(event){
+    //Add isMouseOver event listener
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+  
+    //Get selected Build Object
+    //Get selected object
+    //Show highlited positions
+    //on click build position
+  }
+
+
+function UpdatePlayerMousePos(event){
   //Add isMouseOver event listener
   const rect = canvas.getBoundingClientRect();
   const mouseX = event.clientX - rect.left;
   const mouseY = event.clientY - rect.top;
 
+  PlayerObj.mouseX=mouseX;
+  PlayerObj.mouseY=mouseY;
+  /*
   //foreach character check if ismouseover
   ActiveCharactersArray.forEach(char => {
     if (char.isMouseOver(mouseX, mouseY)) {
@@ -530,13 +704,28 @@ function OnMouseOverCharacter(event){
       //this.size=[15,15];
     }
   });
+  */
 }
-*/
+
+
 
 function isPositionOnCanvas(x, y) {
   return x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height;
 }
 
+function GenerateRandomPositionInRange(centrePos,range) {
+  var randomAngle = Math.random() * 2 * Math.PI;
+  var randomDistance = Math.random() * range * 2;
+
+  // Calculate the random position within the specified radius
+  var destinationX = centrePos[0] + randomDistance * Math.cos(randomAngle);
+  var destinationY = centrePos[1] + randomDistance * Math.sin(randomAngle);
+
+  return [destinationX, destinationY];
+}
+
+//===*~ STATS *~===\\
+//#region stats Objects
 const basicStats = {
   health    : 100,
   attack    : 1,
@@ -580,91 +769,35 @@ const basicStructureStats = {
   enemyTypes: "Enemy",
   capacity  : 3
 };
-
-const UserData={
-  selected:undefined,
-  building:false,
-  mode:undefined
+const wallBuildStats = {
+  health : 10,
+  size      : [40,10],
 }
+//#endregion
 
-function ChangeSelectedUnit(unit){
-  if(unit === undefined){
-      UserData.selected = undefined;
-      document.getElementById("GameTxtMsg1").innerHTML="Nothing selected";
-      return;
-  }
+/*
+   _____                         _____ _             _   
+  / ____|                       / ____| |           | |  
+ | |  __  __ _ _ __ ___   ___  | (___ | |_ __ _ _ __| |_ 
+ | | |_ |/ _` | '_ ` _ \ / _ \  \___ \| __/ _` | '__| __|
+ | |__| | (_| | | | | | |  __/  ____) | || (_| | |  | |_ 
+  \_____|\__,_|_| |_| |_|\___| |_____/ \__\__,_|_|   \__|
 
-  UserData.selected = unit;
-  UpdateUnitStatsHTML();
-}
-function UpdateUnitStatsHTML(){
-  //console.log(type);
-  switch (UserData.selected.type){
-    case "Structure":
-      document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}<br>
-      HP : ${UserData.selected.health}<br>
-      DEF: ${UserData.selected.defense}<br>
-      Contains: ${UserData.selected.indoorCount} Units`;
-      break;
-    default:
-      //console.log(type);
-      if(!UserData.selected.focus){
-        document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}<br>
-        HP : ${UserData.selected.health}<br>
-        ATK: ${UserData.selected.attack}<br>
-        DEF: ${UserData.selected.defense}`;
-      }
-      else{
-        document.getElementById("GameTxtMsg1").innerHTML=`Selected: ${UserData.selected.name} ${UserData.selected.text}<br>
-        HP : ${UserData.selected.health}<br>
-        ATK: ${UserData.selected.attack}<br>
-        DEF: ${UserData.selected.defense}<br>
-        FCS: ${UserData.selected.focus.name}`;
-      }
-      break;
-  }
-}
+*/
+const PlayerObj = new Player(); //There must only be one
 
-function ChangePlayerMode(userMode){
-  UserData.mode=userMode;
+//Get html elements at start
+const controlPanelElem=document.getElementById("controlpanel");
+controlPanelElem.innerHTML=PlayerObj.GenerateControlPanelHTML();
+const gameTxtMsg1Elem=document.getElementById("GameTxtMsg1");
 
-  switch(UserData.mode) {
-    case "Inspecting":
-      canvas.style.cursor = "crosshair";
-      if(UserData.selected!=undefined){
-        UserData.selected = undefined;
-        document.getElementById("GameTxtMsg1").innerHTML="Nothing selected";
-      }
-      break;
-    case "Spawn Character":
-      canvas.style.cursor = "copy";
-      break;
-    case "Build Structure":
-      canvas.style.cursor = "cell";
-      break;
-    default:
-      canvas.style.cursor = "pointer";
-  }
-}
-
-function GenerateRandomPositionInRange(centrePos,range) {
-  var randomAngle = Math.random() * 2 * Math.PI;
-  var randomDistance = Math.random() * range * 2;
-
-  // Calculate the random position within the specified radius
-  var destinationX = centrePos[0] + randomDistance * Math.cos(randomAngle);
-  var destinationY = centrePos[1] + randomDistance * Math.sin(randomAngle);
-
-  return [destinationX, destinationY];
-}
-
-//====~* START HERE *~====\\
 var ActiveCharactersArray = [];
 
-ChangePlayerMode('Inspecting')
+UpdatePlayerMode('Inspecting')
 
 // Add a click event listener to( the canvas to spawn a character on click
 canvas.addEventListener("click", OnPlayerClick);
+canvas.addEventListener("mousemove", UpdatePlayerMousePos);
 
 //Spawn Characters
 var playerBase = new Structure("Tent", basicStructureStats);
@@ -708,27 +841,7 @@ playerBase.EnterCharacterIntoStructure(a10);
 new Character("Enemy",  enemybasicStats).SpawnCharacter();
 new Character("Enemy",  enemybasicStats).SpawnCharacter();
 new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
-new Character("Enemy",  enemybasicStats).SpawnCharacter();
 
-/* will execture function once every tdelay ms
-var tdelay = 100;
-window.setInterval(function(){Main()}, tdelay);*/
 
 function Main(){
   DrawFloor(); //Draw background
@@ -753,8 +866,14 @@ function Main(){
 
   });
 
-  if(UserData.selected!=undefined){
-    UpdateUnitStatsHTML();
+  //Update Player UI
+  if(PlayerObj.selected!=undefined){
+    PlayerObj.UpdateUnitStatsHTML();
+  }
+
+  if(PlayerObj.mode=="Build Mode"){
+    //highlight build object in mouse place
+    UpdatePlayerMode();
   }
 
 }
