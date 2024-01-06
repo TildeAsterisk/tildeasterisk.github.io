@@ -332,7 +332,7 @@ class Structure extends Character{
     super(name,statsObj);
     //set type
     this.type           = "Structure";
-    this.capacity       = 15;
+    this.capacity       = statsObj.capacity;
     this.indoorCount    = 0;
     this.contents       = [];
   }
@@ -411,7 +411,7 @@ class Structure extends Character{
       //this.contents.pop(char);
       this.indoorCount-=1;
       char.isIndoors=false;
-      char.position=GenerateRandomPositionInRange(this.position,25);
+      char.position=GenerateRandomPositionInRange(this.position,20);
       //char.position=[this.position[0],this.position[1]];
       char.SetFocus(newFocus);
       console.log(char.name+" enters "+this.name);
@@ -570,14 +570,15 @@ const basicStructureStats = {
   attack    : 0,
   defense   : 10,
   speed     : undefined,
-  range     : 100,
+  range     : 50,
   position  : [50,50],
-  size      : [70,70],
+  size      : [40,40],
   direction : undefined,
   colour    : "blue",
   text      : "X",
   type      : "Structure",
-  enemyTypes: "Enemy"
+  enemyTypes: "Enemy",
+  capacity  : 3
 };
 
 const UserData={
@@ -666,7 +667,7 @@ ChangePlayerMode('Inspecting')
 canvas.addEventListener("click", OnPlayerClick);
 
 //Spawn Characters
-var playerBase = new Structure("Structure", basicStructureStats);
+var playerBase = new Structure("Tent", basicStructureStats);
 playerBase.SpawnCharacter();
 playerBase.position=[canvas.width/2,canvas.height/2];
 
@@ -680,6 +681,7 @@ playerBase.EnterCharacterIntoStructure(a2);
 var a3=new Character("Ally",  basicStats,basepos);
 a3.SpawnCharacter();
 playerBase.EnterCharacterIntoStructure(a3);
+/*
 var a4=new Character("Ally",  basicStats,basepos);
 a4.SpawnCharacter();
 playerBase.EnterCharacterIntoStructure(a4);
@@ -701,6 +703,7 @@ playerBase.EnterCharacterIntoStructure(a9);
 var a10=new Character("Ally",  basicStats,basepos);
 a10.SpawnCharacter();
 playerBase.EnterCharacterIntoStructure(a10);
+*/
 
 new Character("Enemy",  enemybasicStats).SpawnCharacter();
 new Character("Enemy",  enemybasicStats).SpawnCharacter();
