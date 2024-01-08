@@ -592,36 +592,41 @@ function UpdatePlayerMode(userMode=undefined){
       canvas.style.cursor = "cell";
       break;
     case "Build Mode":
-      canvas.style.cursor = "none";
-      //Set build mode, GenerateBuildMenu
-      //GenerateBuildMenu();
-
-      //Get Selected Build
-      selectElement = document.querySelector('#build-selection');
-      PlayerObj.buildItemSelection = selectElement.value;
-      //document.querySelector('.output').textContent = buildItemSelection;
-      var buildGuideSize = [10,10];
-      switch (PlayerObj.buildItemSelection){
-        case "Wall":
-          //Display highlited object at mouse
-          console.log("Building Wall");
-          buildGuideSize=[wallBuildStats.size[0],wallBuildStats.size[1]]
-          break;
-        case "Shelter":
-          //buildGuideSize=[25,25];
-          break;
-        default:
-          break;
-      }
-      //Draw Selected Object
-      ctx.fillStyle = "lightgreen";
-      ctx.fillRect(PlayerObj.mouseX, PlayerObj.mouseY, buildGuideSize[0],buildGuideSize[1]);
-
+      canvas.style.cursor = "all-scroll";
+      BuildModeUI();
       break;
     default:
       canvas.style.cursor = "pointer";
   }
   gameTxtMsg1Elem.innerHTML = "Mode: "+PlayerObj.mode;
+}
+
+function CanvasToGridPos(pointX, pointY, cellSize) {
+  // Calculate the number of cells in both dimensions
+  const numCellsX = Math.floor(canvas.width / cellSize);
+  const numCellsY = Math.floor(canvas.height / cellSize);
+
+  // Calculate the grid position by rounding to the nearest cell
+  const gridPosX = Math.round(pointX / cellSize);
+  const gridPosY = Math.round(pointY / cellSize);
+
+  // Ensure the grid position is within the valid range
+  const clampedGridPosX = Math.max(0, Math.min(numCellsX - 1, gridPosX));
+  const clampedGridPosY = Math.max(0, Math.min(numCellsY - 1, gridPosY));
+
+  // Calculate the final coordinates of the closest cell
+  const closestCellX = clampedGridPosX * cellSize;
+  const closestCellY = clampedGridPosY * cellSize;
+
+  /* Return the result as an object
+  return {
+      x: closestCellX,
+      y: closestCellY,
+      gridPosX: clampedGridPosX,
+      gridPosY: clampedGridPosY,
+  };
+  */
+ return [closestCellX,closestCellY];
 }
 
   // OnClick Event Listener Function
@@ -646,7 +651,7 @@ function UpdatePlayerMode(userMode=undefined){
             //console.log("Nothing Selected.");
             //ChangeSelectedUnit(undefined);
           }
-        });
+        })
         break;
       case "Spawn Character":
         console.log("Spawning character on click");
@@ -664,17 +669,45 @@ function UpdatePlayerMode(userMode=undefined){
     }
   }
 
-  //Event listener for when the Player is in Build mode
-  function BuildModeUI(event){
-    //Add isMouseOver event listener
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
-  
-    //Get selected Build Object
-    //Get selected object
-    //Show highlited positions
-    //on click build position
+  /*
+  ____        _ _     _   __  __           _      
+ |  _ \      (_) |   | | |  \/  |         | |     
+ | |_) |_   _ _| | __| | | \  / | ___   __| | ___ 
+ |  _ <| | | | | |/ _` | | |\/| |/ _ \ / _` |/ _ \
+ | |_) | |_| | | | (_| | | |  | | (_) | (_| |  __/
+ |____/ \__,_|_|_|\__,_| |_|  |_|\___/ \__,_|\___|
+
+  */
+
+  //Every frame when build mode is selected
+  function BuildModeUI(){
+    //Set build mode, GenerateBuildMenu
+    //GenerateBuildMenu();
+
+    //Get Selected Build
+    selectElement = document.querySelector('#build-selection');
+    PlayerObj.buildItemSelection = selectElement.value;
+    //document.querySelector('.output').textContent = buildItemSelection;
+    switch (PlayerObj.buildItemSelection){
+      case "Wall":
+        //Display highlited object at mouse
+        //console.log("Building Wall");
+        //buildGuideSize=[wallBuildStats.size[0],wallBuildStats.size[1]];
+        break;
+      case "Shelter":
+        //buildGuideSize=[25,25];
+        break;
+      default:
+        console.log("Building "+PlayerObj.buildItemSelection);
+        //buildGuideSize=[wallBuildStats.size[0],wallBuildStats.size[1]];
+        break;
+    }
+    //Draw Selected Object
+    ctx.fillStyle = "lightgreen";
+    //only place along grid
+    var gridCellSize = 25;
+    var buildGridPos=CanvasToGridPos(PlayerObj.mouseX, PlayerObj.mouseY, gridCellSize);
+    ctx.fillRect(buildGridPos[0],buildGridPos[1], gridCellSize,gridCellSize);
   }
 
 
@@ -723,6 +756,8 @@ function GenerateRandomPositionInRange(centrePos,range) {
 
   return [destinationX, destinationY];
 }
+
+
 
 //===*~ STATS *~===\\
 //#region stats Objects
