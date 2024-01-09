@@ -918,7 +918,7 @@ var lastTime = performance.now();
 var deltaTime = 0;
 var interval = 16; // 60 fps
 
-function gameLoop() {
+function Update() {
   var now = performance.now();
   deltaTime += now - lastTime;
   lastTime = now;
@@ -931,7 +931,7 @@ function gameLoop() {
   Main();
 
   // render the game graphics
-  requestAnimationFrame(gameLoop);
+  requestAnimationFrame(Update);
 }
 
-requestAnimationFrame(gameLoop);
+requestAnimationFrame(Update);

@@ -20,7 +20,7 @@ include_once("connection.php");
   <?php include("ASCII_Gallery.php"); ?>
 <!--iframe id="ASCII_Gallery" src="ASCII_Gallery.html" frameborder="0" style="display: none;"></iframe-->
 
-  <div id="header"><h5 style="margin:5px 10px;"><a style="text-decoration:none;" href="index.php">~* MMORTS</a></h5></div>
+  <!--div id="header"><h5 style="margin:5px 10px;"><a style="text-decoration:none;" href="index.php">~* MMORTS</a></h5></div-->
     <div id="container">
       <div id="navigation"><div id="nav_div">
         <?php 
@@ -39,7 +39,7 @@ include_once("connection.php");
   <span class="tooltiptext"><?php echo $food_symbol?>=Food,<?php echo $materials_symbol?>=Materials,<?php echo $currency_symbol?>=Currency</span>
   </a><hr>
 
-          &raquo; <a href="main.php">Your Stats</a><br />
+          &raquo; <a href="profile.php">Your Stats</a><br />
           &raquo; <a href="shop.php">Command</a><br />
           <!--&raquo; <a href="inventory.php">Inventory</a><br /-->
           <!--&raquo; <a href="units.php">Your Units</a><br /-->
@@ -58,5 +58,4 @@ include_once("connection.php");
         }
       ?>
       </div></div>
-      <div id="content"><div id="con_div">
-      </div>
+      <div id="content">
