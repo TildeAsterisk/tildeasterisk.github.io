@@ -18,7 +18,7 @@ else{
 
     <canvas id="myCanvas"></canvas>
 
-    <script type="text/javascript" src="CanvasGame.js"></script>
+    <script type="text/javascript" src="MMORTS.js"></script>
 
   <?php
 }
