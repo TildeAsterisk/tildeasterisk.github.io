@@ -3,96 +3,62 @@ class Player{
   constructor(){
     this.mousePos={x:undefined,y:undefined};
   }
+
+  //Every frame when build mode is selected
+  BuildMode_HighlightCell(){
+    var gridCellSize = cellSize;  // Set cell size
+
+    var mouseGridPos=CanvasToGridPos(playerObj.mousePos.x, playerObj.mousePos.y, gridCellSize);
+    // Draw Background
+    ctx.fillStyle = "lightgreen";
+    ctx.fillRect(mouseGridPos[0],mouseGridPos[1], gridCellSize,gridCellSize);
+  }
 }
 
 class GameObject{
-  constructor(name,position,size){
+  constructor(name,position=RandomPositionOnCanvas(),size){
     this.name     = name;
     this.position = { x:position.x, y:position.y};
     this.size     = [size[0],size[1]];
+    this.text     = "😈";
   }
   
-  DrawCharacter(){ 
-    // Set font size and type
-    const fontSize = this.size[0];
-    ctx.font = `${fontSize}px Arial`;
-
-    // Calculate the position to center the emoji inside the box
-    const textWidth = ctx.measureText(this.text).width;
-    const textHeight = fontSize; // Assuming the height of the emoji is the same as the font size
-
-    const centerX = this.position[0] + (this.size[0] - textWidth) / 2;
-    const centerY = this.position[1] + (this.size[1] + textHeight) / 2;
-
-    //Check if user selected.
-    if (PlayerObj.selected==this){
-      ctx.fillStyle = "lightgreen";
-      ctx.fillRect(centerX, centerY-textHeight, textWidth,textHeight+3.5);
-
-      //Change (Size)
-      //this.size=[ this.defaultSize[0]*1.5 , this.defaultSize[1]*1.5 ];
-    }
-
-    // Use fillText to display emoji
-    ctx.fillText(this.text, centerX, centerY);
-
-    // Uncomment the following line if you still want to draw a rectangle around the emoji
-    //ctx.fillRect(this.position[0], this.position[1], this.size[0], this.size[1]);
+  DrawGameObject(){ 
+    ctx.fillStyle = "white";
+    ctx.fillRect(this.position.x, this.position.y, this.size[0],this.size[1]);
   }
 
   isMouseOver(mouseX, mouseY) {
     if(this.isIndoors){return false;}
     var mouseHitBox=10;
     return (
-      mouseX >= (this.position[0] - (mouseHitBox)) &&
-      mouseX <= this.position[0] + this.size[0] + mouseHitBox &&
-      mouseY >= (this.position[1] - mouseHitBox) &&
-      mouseY <= this.position[1] + this.size[1] + mouseHitBox
+      mouseX >= (this.position.x - (mouseHitBox)) &&
+      mouseX <= this.position.x + this.size[0] + mouseHitBox &&
+      mouseY >= (this.position.y - mouseHitBox) &&
+      mouseY <= this.position.y + this.size[1] + mouseHitBox
     );
   }
 
-  SpawnCharacter() {
+  SpawnGameObject() {
     // Initialization code here
-    this.DrawCharacter();
+    this.DrawGameObject();
 
     //Push character to active spawned character list
     charCount+=1;
     this.name=this.name+charCount;
-    ActiveCharactersArray.push(this);
-    //console.log("Character "+this.name+" initialized.");
+    activeGameObjectsArray.push(this);
+    console.log("Character "+this.name+" initialized.");
   }
 }
 
-// Initialize Variables \\
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
-//Set Main loop variables
-var lastTime = performance.now();
-var deltaTime = 0;
-var interval = 16; // 60 fps
-const playerObj = new Player();
-
-
-//Run at Startup
-function Start(){
-  // Prepare Canvas
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  // Draw Floor
-  canvas.style.backgroundColor = "teal";
-
-  //Add event listener
-  canvas.addEventListener("mousemove", UpdateMousePos);
-}
-
-//Run at every time period (60FPS)
-function Main(){
-  BuildMode_BuildObject();
-}
 
 // FUNCTIONS \\
+function DrawFloor(){
+  ctx.fillStyle = "teal";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
 
-function CanvasToGridPos(pointX, pointY, cellSize) {
+function CanvasToGridPos(pointX, pointY) {
   // Calculate the number of cells in both dimensions
   const numCellsX = Math.floor(canvas.width / cellSize);
   const numCellsY = Math.floor(canvas.height / cellSize);
@@ -128,20 +94,53 @@ function UpdateMousePos(event){
   //return mousePos={x:mouseX, y:mouseY};
 }
 
-//Every frame when build mode is selected
-function BuildMode_BuildObject(){
-  var gridCellSize = 25;  // Set cell size
+// OnClick Event Listener Function
+function OnClick(event){
+  console.log("Click! "+CanvasToGridPos(playerObj.mousePos.x,playerObj.mousePos.y,cellSize));
+  //SpawnStructure();
+  var mouseGridPos=CanvasToGridPos(playerObj.mousePos.x, playerObj.mousePos.y, cellSize);
+  var newGameObject = new GameObject("GameObject",{x:mouseGridPos.x,y:mouseGridPos.y},[25,25]);
+  newGameObject.SpawnGameObject();
+}
 
-  var mouseGridPos=CanvasToGridPos(playerObj.mousePos.x, playerObj.mousePos.y, gridCellSize);
-  // Draw Background
-  ctx.fillStyle = "lightgreen";
-  ctx.fillRect(mouseGridPos[0],mouseGridPos[1], gridCellSize,gridCellSize);
+//Generate random spawn point on canvas
+function RandomPositionOnCanvas(){
+  return {x:(Math.random()*canvas.width), y:(Math.random()*canvas.height)};
 }
 
 
 
-// MAIN GAME LOOP \\
+// MAIN GAME SEQUENCE \\
 
+// Initialize Variables \\
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+//Set Main loop variables
+var lastTime = performance.now();
+var deltaTime = 0;
+var interval = 16; // 60 fps
+const playerObj = new Player();
+var cellSize=25;
+var activeGameObjectsArray=[];
+var charCount=0;
+
+//Run at Startup
+function Start(){
+  // Prepare Canvas
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  // Draw Floor
+  canvas.style.backgroundColor = "teal";
+
+  //Add event listener
+  canvas.addEventListener("mousemove", UpdateMousePos);
+  canvas.addEventListener("click", OnClick);
+
+
+  //Spawn beginning chars
+  //var block=new GameObject("block",{x:20,y:20},[25,25]);
+  //block.SpawnGameObject();
+}
 
 function Update() {
   var now = performance.now();
@@ -155,10 +154,18 @@ function Update() {
     deltaTime -= interval;
   }
 
-  // update the game state
-  Main();
+  //===~* MAIN FUNCTION *~===\\
+  DrawFloor();
+  playerObj.BuildMode_HighlightCell();
+  //For each active character in game...
+  activeGameObjectsArray.forEach(gameObject => {
+    gameObject.DrawGameObject();
+  });
 
-  // render the game graphics
+
+
+
+  // render the game graphics, recursive loop....
   requestAnimationFrame(Update);
 }
 

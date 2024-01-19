@@ -96,6 +96,7 @@ class Character {
     this.name=this.name+charCount;
     ActiveCharactersArray.push(this);
     //console.log("Character "+this.name+" initialized.");
+    GameLog(this.name+" spawned.");
   }
 
   //#region Movement Methods
@@ -269,7 +270,7 @@ class Character {
       case "Ally":
         //Attack if enemy
         if(this.enemyTypes.includes(target.type) && target.isAlive){
-          //console.log("Attacking Target: "+this.focus.name);
+          GameLog(this.name+" is attacking "+this.focus.name);
           this.AttackTarget(target);
         }
         break;
@@ -297,6 +298,7 @@ class Character {
     //console.log(`${target.name} health: ${target.health}`);
     if(target.health<=0){
       console.log(`${this.name} has killed ${target.name}.`);
+      GameLog(`${this.name} has killed ${target.name}.`);
       target.Die();
       this.SetFocus(undefined);
     }
@@ -370,7 +372,7 @@ class Structure extends Character{
         return;
       }
       //Deploy unit to combat enemy
-      //console.log(this.focus.name+" detected near structure");
+      GameLog(this.focus.name+" detected near structure");
       //Set deploy unit and set its focus to enemy
       
       var nonUndefinedElement = this.contents.find((element) => element !== undefined);
@@ -407,7 +409,9 @@ class Structure extends Character{
     }
     //check capacity
     if (this.indoorCount>=this.capacity){
+      //Structure is at max capacity, character cannot enter
       char.SetFocus(undefined);
+      GameLog("Your people need more houses.");
       return;
     } 
     //Enter character inside
@@ -506,7 +510,11 @@ class Player{
   
   GenerateControlPanelHTML(){
     //controlPanelElem.innerHTML = controlPanelElem.innerHTML+" <button> </button> ";
-    var buildMenuHTML=`
+    var playerModeButtonsHTML = `
+    <button onclick="UpdatePlayerMode('Inspecting')">    Select<br>&nbsp;&nbsp;Unit&nbsp;&nbsp;&nbsp;</button>
+    <button onclick="UpdatePlayerMode('Spawn Character')">Spawn<br>Character</button>
+    `;
+    var buildMenuHTML=`<br/>
     <label for="build-selection">Item List:</label>
     <select id="build-selection" name="build-selection">
         <option value="Wall"    >Wall</option>
@@ -514,13 +522,9 @@ class Player{
     </select>
     <button onclick="UpdatePlayerMode('Build Mode')">Build</button>
     `;
-    var playerModeButtonsHTML = `
-    <button onclick="UpdatePlayerMode('Inspecting')">    Select<br>&nbsp;&nbsp;Unit&nbsp;&nbsp;&nbsp;</button>
-    <button onclick="UpdatePlayerMode('Spawn Character')">Spawn<br>Character</button>
-    <button onclick="UpdatePlayerMode('Build Structure')">Build<br>Structure</button>
-    `;
     var gameTxtElem=`<div id="GameTxtMsg1">Select Mode</div>`;
-    return playerModeButtonsHTML+buildMenuHTML+gameTxtElem;
+    var gameLogElem=`<div id="GameLog"><hr><i>Log</i><br></div>`;
+    return playerModeButtonsHTML+buildMenuHTML+gameTxtElem+gameLogElem;
   }
 
 }
@@ -551,7 +555,7 @@ function spawnCharacterOnClick(event) {
   newCharacter.SpawnCharacter();
 }
 
-/* function SpawnStructureOnClick(event) {
+function SpawnStructureOnClick(event) {
   const rect = canvas.getBoundingClientRect();
   const mouseX = event.clientX - rect.left;
   const mouseY = event.clientY - rect.top;
@@ -566,8 +570,10 @@ function spawnCharacterOnClick(event) {
 
   // Spawn the new character
   newStructure.SpawnCharacter();
+
+  //SUBTRACT COST FROM STATS
 }
-*/
+
 
 function UpdatePlayerMode(userMode=undefined){
   if(userMode){
@@ -659,10 +665,11 @@ function CanvasToGridPos(pointX, pointY, cellSize) {
         break;
       case "Build Mode":
         console.log("Spawn build object: "+PlayerObj.buildItemSelection);
+        SpawnStructureOnClick(event);
         break;
       case "Build Structure":
         console.log("Spawning Structure on click.");
-        //SpawnStructureOnClick(event);
+        SpawnStructureOnClick(event);
         break;
       default:
         //Do Nothing
@@ -757,6 +764,11 @@ function GenerateRandomPositionInRange(centrePos,range) {
   return [destinationX, destinationY];
 }
 
+function GameLog(string){
+  currentGameLog+=string;
+  gameLogElem.innerHTML = `<div id="GameLog"><hr><i>`+string+`</i><br></div>`;
+}
+
 
 
 //===*~ STATS *~===\\
@@ -825,6 +837,8 @@ const PlayerObj = new Player(); //There must only be one
 const controlPanelElem=document.getElementById("controlpanel");
 controlPanelElem.innerHTML=PlayerObj.GenerateControlPanelHTML();
 const gameTxtMsg1Elem=document.getElementById("GameTxtMsg1");
+const gameLogElem = document.getElementById("GameLog");
+var currentGameLog="";
 
 var ActiveCharactersArray = [];
 
