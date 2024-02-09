@@ -1,6 +1,6 @@
 http://Zion.run
 
-https://TildeAsterisk.com
+https://www.TildeAsterisk.com
 
 https://tildeasterisk.000webhostapp.com/
 
