@@ -1,4 +1,4 @@
-https://Zion.run
+http://Zion.run
 
 https://TildeAsterisk.com
 
