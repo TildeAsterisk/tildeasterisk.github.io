@@ -7,8 +7,17 @@ class Structure extends Character{
       this.capacity       = statsObj.capacity;
       this.indoorCount    = 0;
       this.contents       = [];
+      this.level          = 1;
+      this.storage        = { food:0};
+      this.maxStorage     = 20;
+      this.text           = "🏠";
+
+      // Add a cooldown property (in milliseconds)
+      this.cooldownTime = 5000; // Example: 5 seconds cooldown
+      this.lastActionTime = 0; // Initialize with zero (no cooldown)
     }
     UpdatePosition(){
+      //STRUCTURE DEFENSE
       // Check for nearby targets and set character focus
       if(!this.focus){
         this.SetFocus(this.FindTargetInRange("isAlive"));
@@ -36,21 +45,58 @@ class Structure extends Character{
           this.ExitCharacterFromStructure(nonUndefinedElement, this.focus);
           //console.log("Defense unit "+nonUndefinedElement.name+" deployed from "+this.name+" with focus "+nonUndefinedElement.focus.name);
         }
-        
       }
+
+      //SGTRUCTURE PROCUDE FOOD
+      if(this.contents.length==this.capacity){
+        //Level up structure
+        //this.LevelUp();
+        this.ProduceFoodOnCooldown();
+      }
+
+      //STRUCTURE LEVEL UP
+      if(this.storage.food >= this.maxStorage && this.contents.length == this.capacity)
+        this.LevelUp();
+    
     }
-    DrawCharacter(){
+
+    DrawCharacter() {
+      // Check if user selected.
+
+      // Set font size and type
+      const fontSize = this.size[0];
+      ctx.font = `${fontSize}px Arial`;
+  
+      // Calculate the position to center the emoji inside the box
+      const textWidth = ctx.measureText(this.text).width;
+      const textHeight = fontSize; // Assuming the height of the emoji is the same as the font size
+  
+      const centerX = this.position[0] + (this.size[0] - textWidth) / 2;
+      const centerY = this.position[1] + (this.size[1] + textHeight) / 2;
+  
       //Check if user selected.
       if (PlayerObj.selected==this){
         ctx.fillStyle = "lightgreen";
-        ctx.fillRect(this.position[0]-(this.size[0]/2)-(this.size[0]*0.1), this.position[1]-(this.size[1]/2)-(this.size[1]*0.1), this.size[0]*1.2, this.size[1]*1.2);
-  
-        //Change (Size)
-        //this.size=[ this.defaultSize[0]*1.5 , this.defaultSize[1]*1.5 ];
+        ctx.fillRect(centerX, centerY-textHeight, textWidth,textHeight+3.5);
+
       }
   
-      ctx.fillStyle = "grey";
-      ctx.fillRect(this.position[0]-(this.size[0]/2), this.position[1]-(this.size[1]/2), this.size[0], this.size[1]);
+      // Use fillText to display emoji
+      ctx.fillText(this.text, centerX, centerY);
+
+      
+      // Draw structure text (level)
+      /*
+      const levelText = "LVL" + this.level; // Replace with the actual level value
+      ctx.font = `${fontSize/5}px Arial`;
+      //ctx.textAlign = "center"; // Center-align horizontally
+      //ctx.textBaseline = "middle"; // Align vertically to the middle
+  
+      // Draw the text
+      ctx.fillStyle = "black"; // Set text color
+      ctx.fillText(levelText, this.position[0], this.position[1]);
+      */
+      
     }
     
   
@@ -92,5 +138,46 @@ class Structure extends Character{
       }
       
     }
+
+    LevelUp(){
+      this.level+=1;
+
+      this.capacity+=2;
+      this.maxStorage+=10;
+
+      //SPAWN NEW STRUCTURE NEXTDOOR
+      const newStructure = new Structure(
+        "Basic Structure",
+        basicStructureStats
+      );
+      newStructure.position = GenerateRandomPositionInRange(this.position,this.size[0]*10);
+      newStructure.SpawnCharacter();
+
+      console.log(this.name+" has leveled up!");
+    }
+
+    // Method to check if the cooldown has passed
+    isCooldownExpired() {
+      const currentTime = Date.now();
+      return currentTime - this.lastActionTime >= this.cooldownTime;
+    }
+
+    // Method to perform an action (e.g., deploy unit)
+    ProduceFoodOnCooldown() {
+      if (this.isCooldownExpired()) {
+          //STRUCTURE FOOD PRODUCTION
+          this.contents.forEach(char => {
+            //for each player inside structure produce food
+            //PRODUCE FOOD ON COOLDOWN
+            this.storage.food += 1;
+          });
+
+          // Update the last action timestamp
+          this.lastActionTime = Date.now();
+      } else {
+          //console.log("Action is on cooldown. Wait a bit.");
+      }
+    }
+
   }
   

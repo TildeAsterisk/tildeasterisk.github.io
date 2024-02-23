@@ -23,9 +23,11 @@ class Player{
       switch (this.selected.type){
         case "Structure":
           gameTxtMsg1Elem.innerHTML=`Selected: ${this.selected.name} ${this.selected.text}<br>
-          HP : ${this.selected.health}<br>
-          DEF: ${this.selected.defense}<br>
-          Contains: ${this.selected.indoorCount} Units`;
+          LVL : ${this.selected.level}<br>
+          HP  : ${this.selected.health}<br>
+          DEF : ${this.selected.defense}<br>
+          PPL : ${this.selected.contents.length}<br>
+          Food: ${this.selected.storage.food}`;
           break;
         default:
           //console.log(type);
