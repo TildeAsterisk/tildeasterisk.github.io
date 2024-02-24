@@ -12,6 +12,13 @@ class Structure extends Character{
       this.maxStorage     = 20;
       this.text           = "🏠";
 
+      this.actionCooldowns = {primaryAction:{
+        cooldownTime : 5000,
+        lastActionTime : 0
+      }
+    };
+
+
       // Add a cooldown property (in milliseconds)
       this.cooldownTime = 5000; // Example: 5 seconds cooldown
       this.lastActionTime = 0; // Initialize with zero (no cooldown)
@@ -150,16 +157,16 @@ class Structure extends Character{
         "Basic Structure",
         basicStructureStats
       );
-      newStructure.position = GenerateRandomPositionInRange(this.position,this.size[0]*10);
+      newStructure.position = GenerateRandomPositionInRange(this.position,this.size[0]*5);
       newStructure.SpawnCharacter();
 
       console.log(this.name+" has leveled up!");
     }
 
     // Method to check if the cooldown has passed
-    isCooldownExpired() {
+    isCooldownExpired () {
       const currentTime = Date.now();
-      return currentTime - this.lastActionTime >= this.cooldownTime;
+      return currentTime - this.actionCooldowns.primaryAction.lastActionTime >= this.actionCooldowns.primaryAction.cooldownTime;
     }
 
     // Method to perform an action (e.g., deploy unit)

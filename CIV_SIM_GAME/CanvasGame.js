@@ -402,11 +402,11 @@ function Main(){
       char.DrawCharacter();
     }
     else{
-      /*Is indoors, randomly chooose to leave
-      if( [Math.round(Math.random()*50)] == 1){
-        char.focus.ToggleCharacterInsideStructure(char);
-      }
-      */
+      //Is indoors, randomly chooose to leave
+      /*if( [Math.round(Math.random()*500)] == 1){
+        char.focus.ExitCharacterFromStructure(char);
+      }*/
+      
     }
 
   });
@@ -420,6 +420,7 @@ function Main(){
     //highlight build object in mouse place
     UpdatePlayerMode();
   }
+
 
 }
 
