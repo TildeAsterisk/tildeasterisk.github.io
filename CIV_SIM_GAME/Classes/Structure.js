@@ -12,7 +12,12 @@ class Structure extends Character{
       this.maxStorage     = 20;
       this.text           = "🏠";
 
-      this.actionCooldowns = {primaryAction:{
+      this.actionCooldowns = {
+        primaryAction:{
+        cooldownTime : 5000,
+        lastActionTime : 0
+      },
+      consumeFood:{
         cooldownTime : 5000,
         lastActionTime : 0
       }
@@ -54,17 +59,24 @@ class Structure extends Character{
         }
       }
 
-      //SGTRUCTURE PROCUDE FOOD
+      //If structure if full capacity
       if(this.contents.length==this.capacity){
         //Level up structure
         //this.LevelUp();
         this.ProduceFoodOnCooldown();
+        //STRUCTURE CONSUME FOOD
+        this.ConsumeFoodOnCooldown();
       }
 
       //STRUCTURE LEVEL UP
-      if(this.storage.food >= this.maxStorage && this.contents.length == this.capacity)
+      if(this.storage.food >= this.maxStorage && this.contents.length == this.capacity){
         this.LevelUp();
-    
+      }
+
+      //STRUCTURE PRODUCE PPL
+      if(this.contents.length == this.capacity){
+
+      }
     }
 
     DrawCharacter() {
@@ -152,13 +164,20 @@ class Structure extends Character{
       this.capacity+=2;
       this.maxStorage+=10;
 
-      //SPAWN NEW STRUCTURE NEXTDOOR
+      /*//SPAWN NEW STRUCTURE NEXTDOOR 
       const newStructure = new Structure(
         "Basic Structure",
         basicStructureStats
       );
       newStructure.position = GenerateRandomPositionInRange(this.position,this.size[0]*5);
       newStructure.SpawnCharacter();
+      */
+
+      //SPAWN NEW CHARACTER
+      var newPlayer=new Character("Ally",  basicStats,this.position);
+      newPlayer.position = [newPlayer.position[0], newPlayer.position[1]+this.size[1]];
+      newPlayer.SpawnCharacter();
+      //this.ExitCharacterFromStructure(newPlayer);
 
       console.log(this.name+" has leveled up!");
     }
@@ -170,17 +189,48 @@ class Structure extends Character{
     }
 
     // Method to perform an action (e.g., deploy unit)
-    ProduceFoodOnCooldown() {
-      if (this.isCooldownExpired()) {
-          //STRUCTURE FOOD PRODUCTION
+    ActionOnCooldown() {
+      const isCooldownExpired = (Date.now - this.actionCooldowns.primaryAction.lastActionTime >= this.actionCooldowns.primaryAction.cooldownTime);
+      if (isCooldownExpired) {
           this.contents.forEach(char => {
-            //for each player inside structure produce food
-            //PRODUCE FOOD ON COOLDOWN
-            this.storage.food += 1;
+            //for each player inside structure do action
           });
 
           // Update the last action timestamp
-          this.lastActionTime = Date.now();
+          this.actionCooldowns.primaryAction.lastActionTime = Date.now();
+      } else {
+          //console.log("Action is on cooldown. Wait a bit.");
+      }
+    }
+
+    // Method to perform an action (e.g., deploy unit)
+    ProduceFoodOnCooldown() {
+      const isCooldownExpired = (Date.now - this.actionCooldowns.primaryAction.lastActionTime >= this.actionCooldowns.primaryAction.cooldownTime);
+      if (isCooldownExpired) {//STRUCTURE FOOD PRODUCTION
+          this.contents.forEach(char => {
+            //for each player inside structure produce food
+            //PRODUCE FOOD ON COOLDOWN
+            this.storage.food += 2;
+          });
+
+          // Update the last action timestamp
+          this.actionCooldowns.primaryAction.lastActionTime = Date.now();
+      } else {
+          //console.log("Action is on cooldown. Wait a bit.");
+      }
+    }
+
+    // Method to perform an action (e.g., deploy unit)
+    ConsumeFoodOnCooldown() {
+      const isCooldownExpired = (Date.now - this.actionCooldowns.consumeFood.lastActionTime >= this.actionCooldowns.consumeFood.cooldownTime);
+      if (isCooldownExpired) {//STRUCTURE FOOD CONSUME
+          this.contents.forEach(char => {
+            //for each player inside structure produce food
+            this.storage.food -= 1;
+          });
+
+          // Update the last action timestamp
+          this.actionCooldowns.consumeFood.lastActionTime = Date.now();
       } else {
           //console.log("Action is on cooldown. Wait a bit.");
       }
