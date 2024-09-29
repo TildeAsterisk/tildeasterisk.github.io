@@ -3,16 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <canvas id="gridCanvas"></canvas>
+    <title>Survivor~*</title>
 
-    <script src="script.js"></script>
-</body>
-</html>
-
+    <!--link rel="stylesheet" href="style.css"-->
+    <style>
 body {
     margin:0px;
     padding:0px;
@@ -21,8 +15,15 @@ body {
 #gridCanvas{
     position:fixed;
 }
+</style>
 
-// SURVIVOR \\
+</head>
+<body>
+    <canvas id="gridCanvas"></canvas>
+
+    <!--script src="script.js"></script-->
+    <script>
+	// SURVIVOR \\
 const canvas = document.getElementById('gridCanvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
@@ -205,3 +206,7 @@ function update() {
 }
 
 update();
+
+    </script>
+</body>
+</html>
