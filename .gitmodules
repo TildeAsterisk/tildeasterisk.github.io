@@ -1,0 +1,3 @@
+[submodule "Survivor"]
+	path = Survivor
+	url = https://github.com/TildeAsterisk/Survivor.git
