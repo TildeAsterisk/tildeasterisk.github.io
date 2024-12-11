@@ -7,3 +7,6 @@
 Blog:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://tildeasterisk.blogspot.com/p/home.html -> https://www.TildeAsterisk.com
 
 Résumé:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://tildeasterisk.github.io -> http://Zion.run
+
+https://zion.run/CIV_SIM_GAME/CanvasGame.html
+https://zion.run/Survivor/survivor.html
