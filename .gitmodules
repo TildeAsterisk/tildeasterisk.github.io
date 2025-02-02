@@ -1,6 +1,0 @@
-[submodule "Survivor"]
-	path = Survivor
-	url = https://github.com/TildeAsterisk/Survivor.git
-[submodule "CIV_SIM"]
-	path = CIV_SIM
-	url = https://github.com/TildeAsterisk/CIV_SIM.git
