@@ -33,7 +33,7 @@ jobs:
       - name: Sync submodules
         run: git submodule update --init --recursive
       - name: Copy submodule contents
-        run: cp -r submodule-path/* ./ # Replace 'submodule-path' with your actual submodule directory
+        run: cp -r Dynasty_Dispute/* ./ # Replace 'submodule-path' with your actual submodule directory
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
