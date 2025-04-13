@@ -1,5 +1,4 @@
 # [~\*](About)
----
 ## Games
 - ### [Dynasty Dispute](Dynasty_Dispute/client/index.html)
 - ### [Physicanim](Projects/Physicanim)
