@@ -13,4 +13,4 @@
 - Fake Money
 - Modern Evolution of Language
 - Nature of Reality and Consciousness
-- The Religious 'Story' and the priestly classes
+- Ancient Scientific and Moral Wisdom Embedded in Myth and Religious Stories (Spoken Vs Written Traditions)

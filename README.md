@@ -1,5 +1,4 @@
-# ~*
-- ## [About](About)
+# [~\*](About)
 ---
 ## Games
 - ### [Dynasty Dispute](Dynasty_Dispute/client/index.html)
