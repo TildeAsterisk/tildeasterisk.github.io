@@ -2,7 +2,7 @@
 - ## [About](About)
 ---
 ## Games
-- ### Dynasty Dispute
+- ### [Dynasty Dispute](Dynasty_Dispute/client/index.html)
 - ### [Physicanim](Projects/Physicanim)
 - ### [Plushie Panic](Projects/Plushie_Panic)
 - ### [Floppy Sprinter](Projects/Floppy_Sprinter)
