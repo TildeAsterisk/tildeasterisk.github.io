@@ -16,6 +16,7 @@ date:
 ---
 # Physicanim ~*
 This Unity asset package contains an active ragdoll toolkit for the Editor that allow you to convert any humanoid character animation to physics driven animations. Convert any rigged humanoid character into an advanced procedurally animated active rag-doll. *A.K.A* Physicanim Character ~\*.
+
 ![[activeragdolldevclipGIF.gif]]
 ### Physicanim FREE
 - Physicanim Active Rag-doll Builder - Create and convert character models into Physicanim active ragdoll characters in one click!
@@ -27,7 +28,6 @@ This Unity asset package contains an active ragdoll toolkit for the Editor that 
 - Advanced Physicanim Character
 ## [Download Physicanim for Unity](https://github.com/TildeAsterisk/Physicanim/releases/tag/v1.0.1)
 ![[Physicanim_DevChar_CrashTest.png]]
----
 ## Physicanim Character Behaviours
 🦿 The Physicanim Character Behaviours class provides the active ragdoll a number of procedural behaviours to react to the standard situations. It is able to walk, run, jump, trip, fall and then get up.  
 While falling, the Physicanim character tries to maintain a protective pose. When getting back up, the movement lock to the root of the static animator is slowly increased to transition from free falling to animation root motion control.
