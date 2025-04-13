@@ -7,6 +7,7 @@
 # Strategic Simulation MMO Game
 
 # Write papers about:
+- Physicanim
 - Common Creation Myth Motifs
 - The Secret (Success, Motivation, Achieving Goals, Planning, Vision)
 - Fake Money
