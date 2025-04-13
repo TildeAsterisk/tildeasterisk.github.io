@@ -1,13 +1,9 @@
-[Zion.run](http://Zion.run)
-
-[TildeAsterisk.com](https://www.TildeAsterisk.com)
-
-~* MMORPSG - https://tildeasterisk.000webhostapp.com/
-
-Blog:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://tildeasterisk.blogspot.com/p/home.html -> https://www.TildeAsterisk.com
-
-Résumé:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;http://tildeasterisk.github.io -> http://Zion.run
-
-https://zion.run/CIV_SIM_GAME/CanvasGame.html
-https://zion.run/Survivor/survivor.html
-https://zion.run/CIV_SIM/index.html
+# ~*
+- ## [About](About)
+---
+## Games
+- ### Dynasty Dispute
+- ### [Physicanim](Projects/Physicanim)
+- ### [Plushie Panic](Projects/Plushie_Panic)
+- ### [Floppy Sprinter](Projects/Floppy_Sprinter)
+- ### [Kendo Duel](https://apkcombo.com/kendo-duel/com.Graphluid.KendoDuel/)
