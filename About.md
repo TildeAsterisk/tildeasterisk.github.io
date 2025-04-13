@@ -1,3 +1,10 @@
+---
+tags:
+  - tilde
+  - asterisk
+  - tildeasterisk
+date:
+---
 <h1 id="title-about_page" font-weight="bold"><center>~*</center></h1>
 <p class="orgCardText">The symbol <b>~</b> is called a tilde &amp; the <b>*</b> symbol is called an asterisk. Together <b>~*</b> they create the pseudonym <b>Tilde Asterisk</b>.</p><p>
 In the world of indie game development, few names are as intriguing as Tilde Asterisk. This pseudonym, a combination of the tilde (~) and asterisk (*) symbols, represents a unique blend of creativity and technical skill. The journey of Tilde Asterisk began in 2016 with the release of "Kendo Duel," the first mobile game from this developer to hit the Google Play Store. Crafted with the Unity Game Engine and programmed in C#, "Kendo Duel" marked the start of an innovative venture into the indie (independant) game development industry. This was the first project that was fully completed and ‘officially’ published. The core mechanics of the game were based on rigid-body physics object interactions, allowing for some unpredictable and comedic results.<br>
