@@ -52,6 +52,10 @@
 	a:hover {
 	  text-decoration: underline;
 	}
+
+	h1:first-of-type {
+color:inherit;
+}
 </style>
 <script>
 	function toggleFolder(element) {
