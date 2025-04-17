@@ -1,6 +1,6 @@
 # [~\*](About)
 <p style="font-size:5em; font-weight:bold; text-align:center; margin:0;padding:0;">~*</p>
-<p style="font-size:x-large; font-style:italic;text-align:center;margin:0;padding:0;">“Processing life, one iteration at a time.”</p>
+<p style="font-size:x-large;font-style:italic;text-align:justify;margin:0;padding:0;">“Processing life, one iteration at a time.”</p>
 <hr><br>
 <div id="file-explorer"><div class="folder">
 	    <span class="folder-name">📁 Projects</span><div class="folder-content" style="display:block;">
