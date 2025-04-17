@@ -5,7 +5,7 @@ tags:
   - tildeasterisk
 date:
 ---
-<p style="font-size:10em; font-weight:bold; text-align:center;margin:0;" >~*</p><br>
+<p style="font-size:10em; font-weight:bold; text-align:center;margin:0;" ><a href="ReadMe" style="text-decoration:none; color:inherit; font-weight:bold;">~*</a></p><br>
 The symbol <b>~</b> is called a tilde ~ the <b>*</b> symbol is called an asterisk. Together <b>~*</b> they create the pseudonym <b>Tilde Asterisk</b>.
 In the world of indie game development, few names are as intriguing as Tilde Asterisk. This pseudonym, a combination of the tilde (~) and asterisk (\*) symbols, represents a unique blend of creativity and technical skill. The journey of Tilde Asterisk began in 2016 with the release of "Kendo Duel," the first mobile game from this developer to hit the Google Play Store. Crafted with the Unity Game Engine and programmed in C#, "Kendo Duel" marked the start of an innovative venture into the indie (independant) game development industry. This was the first project that was fully completed and ‘officially’ published. The core mechanics of the game were based on rigid-body physics object interactions, allowing for some unpredictable and comedic results.
 Floppy Sprinter, 2018, a ragdoll physics sprinter game also developed in Unity Game Engine and published to the Google Play Store.
