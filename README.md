@@ -1,6 +1,7 @@
 # [~\*](About)
+<p style="font-size:5em; font-weight:bold; text-align:center; margin:0;">~*</p>
 <span style="font-size:x-large; font-style:italic;">“Processing life, one iteration at a time.”</span>
-
+<hr><br>
 <div id="file-explorer"><div class="folder">
 	    <span class="folder-name">📁 Projects</span><div class="folder-content" style="display:block;">
 	      <a href="Dynasty_Dispute/client/index.html" target="_blank">📄 Dynasty_Dispute.exe</a><br>
