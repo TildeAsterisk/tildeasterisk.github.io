@@ -54,7 +54,7 @@
 	}
 
 	h1:first-of-type {
-color:inherit;
+display:none;
 }
 </style>
 <script>
