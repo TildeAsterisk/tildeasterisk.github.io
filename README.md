@@ -11,7 +11,7 @@
 	      <a href="About">📄 About</a><!--br--></div></div><div class="folder" onclick="toggleFolder(this)">
 	    📁 <span class="folder-name">Misc.</span><div class="folder-content">
 	      <a href="wip/ASCII_Dump">📄 ASCII_Dump.md</a><br>
-	      <a href="Guides/Custom_Blogger">📄 How To Fully Customise Your Blogger</a><br>
+	      <a href="Guides/Custom_Blogger">📄 Custom Blogger Guide</a><br>
 	      <a href="Projects/MMORPSG">📄 MMORPSG~*</a><br>
 	      <a href="Guides/Physicanim_Tutorial">📄 .Physicanim_Tutorial</a><br>
 	      <a href=".">❌ .Concepts</a><br>
