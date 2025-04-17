@@ -27,6 +27,7 @@
 	  margin: 20px auto;
 	
 	  font-family: monospace;
+	  font-size:1.5em;
 	  /*white-space: pre;*/
 	}
 	.folder {

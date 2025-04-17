@@ -16,3 +16,9 @@ Tilde Asterisk Ltd's story is one of passion and perseverance. From the early da
 ## ✉️ Contact
 Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsterisk@gmail.com</a>
 
+<style>
+h1:first-of-type {
+display:none;
+}
+</style>
+
