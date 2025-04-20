@@ -50,7 +50,9 @@ Kind regards,<br>~\*
 h1:first-of-type {
 display:none;
 }
-
+.hover-underline {
+	text-decoration: none;
+}
 .hover-underline:hover {
 	text-decoration: underline;
 }
