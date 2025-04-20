@@ -45,8 +45,7 @@ Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsteri
 
 
 
-Kind regards,<br>
-\- ~\*
+Kind regards,<br>\- ~\*
 <style>
 h1:first-of-type {
 display:none;
