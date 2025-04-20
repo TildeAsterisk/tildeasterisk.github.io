@@ -8,14 +8,14 @@ date:
 <p style="font-size:10em; font-weight:bold; text-align:center;margin:0;" ><a href="https://TildeAsterisk.com" class="hover-underline" style="text-decoration:none; color:inherit; font-weight:bold;">~*</a></p>
 **Tilde Asterisk** is a pseudonym made up of two simple symbols: the tilde (~) and the asterisk (\*). Put together as **~\***, they form a kind of visual name, first name, last name. It’s an alias, a symbolic identity, a signature and a logogram; It’s clean and a little cryptic. Blending the precision of written language with the abstraction of visual symbolism. It serves as both a monogram and a marker of authorship.
 Just two characters, but they say a lot.
-## The Tilde '**~**'
+### The Tilde '**~**'
 The **tilde (~)** is a typographic symbol with various uses across different contexts. Its visual form, a small wave, has led it to be informally associated with variation, approximation, or informal tone in digital communication.
 - In **linguistics**, it appears in Spanish as part of the letter “ñ,” indicating a palatal nasal sound.
 - In **mathematics** and **logic**, it often denotes approximation (e.g., π ~ 3.14) or negation.
 - In **computing**, it can represent a user's home directory in Unix-based systems (`~/`), or serve as a shorthand for backup files or temporary versions.
 - In **programming**, it may be used in expressions, bitwise operations, or pattern matching depending on the language.
 
-## The Asterisk '**\***'
+### The Asterisk '**\***'
 The **asterisk (\*)** is a typographic symbol used primarily as a marker or operator. Its shape makes it one of the most widely recognized non-alphanumeric characters in modern scripts.
 - In **writing**, it often indicates a footnote, annotation, or additional information.
 - In **linguistics**, it can denote ungrammatical constructions or hypothetical forms.
