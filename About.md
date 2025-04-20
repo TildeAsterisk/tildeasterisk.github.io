@@ -16,22 +16,23 @@ The story begins with the release of [_Kendo Duel_](Projects/Kendo_Duel), the fi
 [_Floppy Sprinter_](Projects/Floppy_Sprinter) followed as a ragdoll physics-based sprinting game, also released on the Google Play Store. Continuing the theme of humour and dynamic physics, it embraced chaotic motion and added another title to the growing indie game catalogue.
 
 **2020 — Tilde Asterisk Established**  
-Tilde Asterisk took shape with the launch of ***TildeAsterisk.com***, which became a bit of a developers log the previous games were republished under a unified brand. This marked the beginning of its public presence. Since then, [**~\***](https://TildeAsterisk.com) has undergone multiple design evolutions and creative shifts. Exploring projects across software, electronics, and clothing; Tilde Asterisk continues to grow as a dynamic, multidisciplinary venture. Always evolving, always in motion.
+Tilde Asterisk took shape with the launch of **TildeAsterisk.com**, which became a bit of a developers log the previous games were republished under a unified brand. This marked the beginning of its public presence. Since then, [**~\***](https://TildeAsterisk.com) has undergone multiple design evolutions and creative shifts. Exploring projects across software, electronics, and clothing; Tilde Asterisk continues to grow as a dynamic, multidisciplinary venture. Always evolving, always in motion.
 
 **2022 — Physicanim ~\***  
 Released as an open-source toolkit for the Unity Asset Store, [_Physicanim ~*_](Projects/Physicanim) is an advanced active ragdoll system for Unity. Designed to work seamlessly with humanoid models and Mixamo animations, it allows developers to create physics-driven procedural animation with just one click. _Physicanim_ makes it easy to animate ragdolls and create complex, expressive characters; Merging technical flexibility with artistic control.
 ## The Logogram '~\*'
 A **logogram** is a written character that represents an entire word or phrase rather than a single sound. Unlike alphabetic characters, which are phonetic, logograms convey meaning directly.
 The combination **~\*** functions as a **personal logogram**, a compact symbolic representation of the name **Tilde Asterisk**.
-### The Tilde '**~**'
-The **tilde (~)** is a typographic symbol with various uses across different contexts. Its visual form, a small wave, has led it to be informally associated with variation, approximation, or informal tone in digital communication.
+
+**The Tilde '~'**  
+The *tilde (~)* is a typographic symbol with various uses across different contexts. Its visual form, a small wave, has led it to be informally associated with variation, approximation, or informal tone in digital communication.
 - In **linguistics**, it appears in Spanish as part of the letter “ñ,” indicating a palatal nasal sound.
 - In **mathematics** and **logic**, it often denotes approximation (e.g., π ~ 3.14) or negation.
 - In **computing**, it can represent a user's home directory in Unix-based systems (`~/`), or serve as a shorthand for backup files or temporary versions.
 - In **programming**, it may be used in expressions, bitwise operations, or pattern matching depending on the language.
 
-### The Asterisk '**\***'
-The **asterisk (\*)** is a typographic symbol used primarily as a marker or operator. Its shape makes it one of the most widely recognized non-alphanumeric characters in modern scripts.
+**The Asterisk '\*'**  
+The *asterisk (\*)* is a typographic symbol used primarily as a marker or operator. Its shape makes it one of the most widely recognized non-alphanumeric characters in modern scripts.
 - In **writing**, it often indicates a footnote, annotation, or additional information.
 - In **linguistics**, it can denote ungrammatical constructions or hypothetical forms.
 - In **mathematics**, it functions in multiplication and denotes operations like convolution or the complex conjugate.
