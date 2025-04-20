@@ -1,5 +1,5 @@
 # [~\*](About)
-<p style="font-size:5em; font-weight:bold; text-align:center; margin:0;padding:0;">~*</p>
+<p class="hover-underline">~*</p>
 <p style="font-size:x-large;font-style:italic;text-align:justify;margin:0;padding:0;">“Processing life, one iteration at a time.”</p>
 <hr><br>
 <div id="file-explorer"><div class="folder">
@@ -55,8 +55,21 @@
 	}
 
 	h1:first-of-type {
-display:none;
-}
+	display:none;
+	}
+
+	.hover-underline {
+	font-size:5em; 
+	font-weight:bold; 
+	text-align:center; 
+	margin:0;
+	padding:0;
+	text-decoration: none;
+	}
+	.hover-underline:hover {
+	text-decoration: underline;
+	}
+	
 </style>
 <script>
 	function toggleFolder(element) {
