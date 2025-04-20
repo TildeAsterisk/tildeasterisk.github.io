@@ -14,6 +14,7 @@ The **tilde (~)** is a typographic symbol with various uses across different con
 - In **mathematics** and **logic**, it often denotes approximation (e.g., π ~ 3.14) or negation.
 - In **computing**, it can represent a user's home directory in Unix-based systems (`~/`), or serve as a shorthand for backup files or temporary versions.
 - In **programming**, it may be used in expressions, bitwise operations, or pattern matching depending on the language.
+
 ## The Asterisk '**\***'
 The **asterisk (\*)** is a typographic symbol used primarily as a marker or operator. Its shape makes it one of the most widely recognized non-alphanumeric characters in modern scripts.
 - In **writing**, it often indicates a footnote, annotation, or additional information.
