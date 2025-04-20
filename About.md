@@ -40,11 +40,7 @@ Tilde Asterisk took shape with the launch of ***TildeAsterisk.com***, which beca
 Released as an open-source toolkit for the Unity Asset Store, [_Physicanim ~*_](Projects/Physicanim) is an advanced active ragdoll system for Unity. Designed to work seamlessly with humanoid models and Mixamo animations, it allows developers to create physics-driven procedural animation with just one click. _Physicanim_ makes it easy to animate ragdolls and create complex, expressive characters; Merging technical flexibility with artistic control.
 # ✉️ Contact
 Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsterisk@gmail.com</a>
-
-
-
-
-
+<br><br><br><br><br>
 Kind regards,<br>\- ~\*
 <style>
 h1:first-of-type {
