@@ -5,23 +5,47 @@ tags:
   - tildeasterisk
 date:
 ---
-<p style="font-size:10em; font-weight:bold; text-align:center;margin:0;" ><a href="https://TildeAsterisk.com" class="hover-underline" style="text-decoration:none; color:inherit; font-weight:bold;">~*</a></p><br>
-# The Logogram
-**~\*** is more than just a name. It's a symbol, a signature, a sigil.
-The **tilde (~)** and **asterisk (\*)**, humble characters in the digital and linguistic worlds, come together to form the logogram **~\***. A symbolic fusion that reads as a full name: **Tilde Asterisk**. First name. Last name. Glyph and identity.
-This logogram is the essence of my personal brand. It echoes ancient symbols like the **Chi Rho ☧**, an overlapping of Greek letters representing Christ, or alchemical marks whose meaning transcended language—emblems of ideas, forces, and personas. It’s shorthand for something larger, something mythic.
-Think of **~*** as a digital sigil—part code, part poetry. A nod to the mystical in the mundane. Like **-Q** in Bond lore or **-X** in X-Men, it’s a signature that holds weight beyond its characters. It implies a presence, a persona, a creative force.
-**Tilde Asterisk** is a pseudonym, but also a symbol. A reminder that even in a world of pixels and code, there’s still room for mystery.
-# Backstory
-The journey of Tilde Asterisk began in 2016 with the release of "Kendo Duel," the first mobile game from this developer to hit the Google Play Store. Crafted with the Unity Game Engine and programmed in C#, "Kendo Duel" marked the start of an innovative venture into the indie (independant) game development industry. This was the first project that was fully completed and ‘officially’ published. The core mechanics of the game were based on rigid-body physics object interactions, allowing for some unpredictable and comedic results.
-Floppy Sprinter, 2018, a ragdoll physics sprinter game also developed in Unity Game Engine and published to the Google Play Store.
-Tilde Asterisk Ltd was officially established in the UK in 2021.
-Physicanim ~\*, 2022, is an open source asset package for the Unity Game Engine / Unity Asset Store. This is an advanced active ragdoll toolkit for Unity that allows humanoid character models to play physics driven procedural animations. (Works with Mixamo.) Allowing the user to make their own custom active ragdoll and convert any humanoid character model into an active ragdoll with ONE CLICK! Animate ragdolls. Advanced Physicanim Character.
+<p style="font-size:10em; font-weight:bold; text-align:center;margin:0;" ><a href="https://TildeAsterisk.com" class="hover-underline" style="text-decoration:none; color:inherit; font-weight:bold;">~*</a></p>
+**Tilde Asterisk** is a pseudonym made up of two simple symbols: the tilde (~) and the asterisk (\*). Put together as **~\***, they form a kind of visual name, first name, last name. It’s an alias, a symbolic identity, a signature and a logogram; It’s clean and a little cryptic. Blending the precision of written language with the abstraction of visual symbolism. It serves as both a monogram and a marker of authorship.
+Just two characters, but they say a lot.
+## The Tilde '**~**'
+The **tilde (~)** is a typographic symbol with various uses across different contexts. Its visual form, a small wave, has led it to be informally associated with variation, approximation, or informal tone in digital communication.
+- In **linguistics**, it appears in Spanish as part of the letter “ñ,” indicating a palatal nasal sound.
+- In **mathematics** and **logic**, it often denotes approximation (e.g., π ~ 3.14) or negation.
+- In **computing**, it can represent a user's home directory in Unix-based systems (`~/`), or serve as a shorthand for backup files or temporary versions.
+- In **programming**, it may be used in expressions, bitwise operations, or pattern matching depending on the language.
+## The Asterisk '**\***'
+The **asterisk (\*)** is a typographic symbol used primarily as a marker or operator. Its shape makes it one of the most widely recognized non-alphanumeric characters in modern scripts.
+- In **writing**, it often indicates a footnote, annotation, or additional information.
+- In **linguistics**, it can denote ungrammatical constructions or hypothetical forms.
+- In **mathematics**, it functions in multiplication and denotes operations like convolution or the complex conjugate.
+- In **computing**, it serves as a wildcard character, representing any number of characters in search patterns or commands.
+- In **programming**, it can indicate pointers (in C/C++) or be used in unpacking arguments (in Python), among other functions.
 
-Tilde Asterisk Ltd's story is one of passion and perseverance. From the early days of "Kendo Duel" to the formation of an official company, this developer has navigated the challenges of the gaming industry with a distinct identity and a dedication to their craft. As they continue to create and innovate, Tilde Asterisk stands as a testament to the vibrant spirit of indie game developers everywhere. Keep an eye on this creative force as they are sure to bring more exciting adventures to our screens. For more insights and updates on their journey, you might want to check out their social media presence.
+A **logogram** is a written character that represents an entire word or phrase rather than a single sound. Unlike alphabetic characters, which are phonetic, logograms convey meaning directly.
+The combination **~\*** functions as a **personal logogram**, a compact symbolic representation of the name **Tilde Asterisk**.
+# History
+
+**2016 — Kendo Duel**  
+The story begins with the release of [_Kendo Duel_](Projects/Kendo_Duel), the first mobile game developed and published under what would become the Tilde Asterisk name. Built in Unity and programmed in C#, the game featured ragdoll-like physics-based sword combat. Its unpredictable and often comedic gameplay laid the foundation for a unique design style focused on physical interaction and expressive movement.
+
+**2018 — Floppy Sprinter**  
+[_Floppy Sprinter_](Projects/Floppy_Sprinter) followed as a ragdoll physics-based sprinting game, also released on the Google Play Store. Continuing the theme of humour and dynamic physics, it embraced chaotic motion and added another title to the growing indie game catalogue.
+
+**2020 — Tilde Asterisk Established**
+Tilde Asterisk took shape with the launch of ***TildeAsterisk.com***, which became a bit of a developers log the previous games were republished under a unified brand. This marked the beginning of its public presence. Since then, [**~\***](https://TildeAsterisk.com) has undergone multiple design evolutions and creative shifts. Exploring projects across software, electronics, and clothing; Tilde Asterisk continues to grow as a dynamic, multidisciplinary venture. Always evolving, always in motion.
+
+**2022 — Physicanim ~\***  
+Released as an open-source toolkit for the Unity Asset Store, [_Physicanim ~*_](Projects/Physicanim) is an advanced active ragdoll system for Unity. Designed to work seamlessly with humanoid models and Mixamo animations, it allows developers to create physics-driven procedural animation with just one click. _Physicanim_ makes it easy to animate ragdolls and create complex, expressive characters; Merging technical flexibility with artistic control.
 # ✉️ Contact
 Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsterisk@gmail.com</a>
 
+
+
+
+
+Kind regards,
+\- ~\*
 <style>
 h1:first-of-type {
 display:none;
