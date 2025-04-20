@@ -6,8 +6,14 @@ tags:
 date:
 ---
 <p style="font-size:10em; font-weight:bold; text-align:center;margin:0;" ><a href="https://TildeAsterisk.com" class="hover-underline" >~*</a></p>
+
+What began as a place to publish indie games and then a developers blog, **Tilde Asterisk** _(~*)_ has become an emerging brand. Exploring projects across software, electronics and clothing; **Tilde Asterisk ~\*** continues to grow as a dynamic, multidisciplinary venture.
+
+**The Name**
 **Tilde Asterisk** is a name made up of two simple symbols: the tilde (~) and the asterisk (\*). Put together as **~\***, they form a kind of visual name, first name, last name. It’s an alias, a pseudonym, a logogram and a signature. It’s clean and a little cryptic. Blending the precision of written language with the abstraction of visual symbolism.
 Just two characters, but they say a lot.
+[[#The Logogram '~ *']]    
+[Read more...](#The Logogram '~ *')
 # History
 **2016 — Kendo Duel**  
 The story begins with the release of [_Kendo Duel_](Projects/Kendo_Duel), the first mobile game developed and published under what would become the Tilde Asterisk name. Built in Unity and programmed in C#, the game featured ragdoll-like physics-based sword combat. Its unpredictable and often comedic gameplay laid the foundation for a unique design style focused on physical interaction and expressive movement.
@@ -23,15 +29,14 @@ Released as an open-source toolkit for the Unity Asset Store, [_Physicanim ~*_](
 ## The Logogram '~\*'
 A **logogram** is a written character that represents an entire word or phrase rather than a single sound. Unlike alphabetic characters, which are phonetic, logograms convey meaning directly.
 The combination **~\*** functions as a **personal logogram**, a compact symbolic representation of the name **Tilde Asterisk**.
-
-**The Tilde '~'**  
+#### **The Tilde '~'**  
 The *tilde (~)* is a typographic symbol with various uses across different contexts. Its visual form, a small wave, has led it to be informally associated with variation, approximation, or informal tone in digital communication.
 - In **linguistics**, it appears in Spanish as part of the letter “ñ,” indicating a palatal nasal sound.
 - In **mathematics** and **logic**, it often denotes approximation (e.g., π ~ 3.14) or negation.
 - In **computing**, it can represent a user's home directory in Unix-based systems (`~/`), or serve as a shorthand for backup files or temporary versions.
 - In **programming**, it may be used in expressions, bitwise operations, or pattern matching depending on the language.
 
-**The Asterisk '\*'**  
+#### **The Asterisk '\*'**  
 The *asterisk (\*)* is a typographic symbol used primarily as a marker or operator. Its shape makes it one of the most widely recognized non-alphanumeric characters in modern scripts.
 - In **writing**, it often indicates a footnote, annotation, or additional information.
 - In **linguistics**, it can denote ungrammatical constructions or hypothetical forms.
