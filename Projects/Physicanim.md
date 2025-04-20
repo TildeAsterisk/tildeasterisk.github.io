@@ -30,5 +30,5 @@ While falling, the Physicanim character tries to maintain a protective pose. Whe
 <center><img src="/Assets/activeragdolldevclipGIF.gif" alt=""></center>
 # 📝 Developer Comments
 For many years I have been making games in Unity exploring ragdoll physics and procedural animation. Setting up an active ragdoll for every project can become very tedious, so I have  developed a Unity Package that will create your active ragdoll, set up its bones & joints and animate it in a way that is physically simulated with physics rigid body and collider components. The package is available install through the Unity Package Manager and on the [GitHub page](https://github.com/TildeAsterisk/Physicanim/releases/tag/v1.0.1).
-<br> <img src="../Assets/Physicanim_RoundhouseKick.mp4" alt="">
+
 ![](../Assets/Physicanim_RoundhouseKick.mp4)
