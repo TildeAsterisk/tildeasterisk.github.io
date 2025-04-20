@@ -5,7 +5,7 @@ tags:
   - tildeasterisk
 date:
 ---
-<p style="font-size:10em; font-weight:bold; text-align:center;margin:0;" ><a href="https://TildeAsterisk.com" class="hover-underline" style="text-decoration:none; color:inherit; font-weight:bold;">~*</a></p>
+<p style="font-size:10em; font-weight:bold; text-align:center;margin:0;" ><a href="https://TildeAsterisk.com" class="hover-underline" >~*</a></p>
 **Tilde Asterisk** is a name made up of two simple symbols: the tilde (~) and the asterisk (\*). Put together as **~\***, they form a kind of visual name, first name, last name. It’s an alias, a pseudonym, a logogram and a signature. It’s clean and a little cryptic. Blending the precision of written language with the abstraction of visual symbolism.
 Just two characters, but they say a lot.
 # History
@@ -52,6 +52,8 @@ display:none;
 }
 .hover-underline {
 	text-decoration: none;
+	color:inherit; 
+	font-weight:bold;
 }
 .hover-underline:hover {
 	text-decoration: underline;
