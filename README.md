@@ -58,7 +58,7 @@
 	display:none;
 	}
 
-	.hover-underline {
+	/*.hover-underline {
 	font-size:5em; 
 	font-weight:bold; 
 	text-align:center; 
@@ -68,7 +68,7 @@
 	}
 	.hover-underline:hover {
 	text-decoration: underline;
-	}
+	}*/
 	
 </style>
 <script>
