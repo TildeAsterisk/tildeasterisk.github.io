@@ -7,7 +7,6 @@ date:
 ---
 <p style="font-size:10em; font-weight:bold; text-align:center;margin:0;" ><a href="https://TildeAsterisk.com" class="hover-underline" >~*</a></p>
 What began as a place to publish indie games and then a developers blog, **Tilde Asterisk** _(~*)_ has become an emerging brand. Exploring projects across software, electronics and clothing; **Tilde Asterisk ~\*** continues to grow as a dynamic, multidisciplinary venture.
-#### The Name
 **Tilde Asterisk** is a name made up of two simple symbols: the tilde (~) and the asterisk (\*). Put together as **~\***, they form a kind of visual name, first name, last name. It’s an alias, a pseudonym, a logogram and a signature. It’s clean and a little cryptic. Blending the precision of written language with the abstraction of visual symbolism.
 Just two characters, but they say a lot.
 [Read more...](https://tildeasterisk.com/About.html#the-logogram-)
