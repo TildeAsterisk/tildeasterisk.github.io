@@ -41,7 +41,9 @@ Released as an open-source toolkit for the Unity Asset Store, [_Physicanim ~*_](
 # ✉️ Contact
 Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsterisk@gmail.com</a>
 <br><br><br><br><br>
-Kind regards,<br>\- ~\*
+Kind regards,
+~\*
+
 <style>
 h1:first-of-type {
 display:none;
