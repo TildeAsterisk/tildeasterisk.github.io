@@ -6,7 +6,7 @@ tags:
 date:
 ---
 <p style="font-size:10em; font-weight:bold; text-align:center;margin:0;" ><a href="https://TildeAsterisk.com" class="hover-underline" style="text-decoration:none; color:inherit; font-weight:bold;">~*</a></p>
-**Tilde Asterisk** is a pseudonym made up of two simple symbols: the tilde (~) and the asterisk (\*). Put together as **~\***, they form a kind of visual name, first name, last name. It’s an alias, a symbolic identity, a signature and a logogram; It’s clean and a little cryptic. Blending the precision of written language with the abstraction of visual symbolism. It serves as both a monogram and a marker of authorship.
+**Tilde Asterisk** is a pseudonym made up of two simple symbols: the tilde (~) and the asterisk (\*). Put together as **~\***, they form a kind of visual name, first name, last name. It’s an alias, a symbolic identity, a signature and a logogram; It’s clean and a little cryptic. Blending the precision of written language with the abstraction of visual symbolism.
 Just two characters, but they say a lot.
 ### The Tilde '**~**'
 The **tilde (~)** is a typographic symbol with various uses across different contexts. Its visual form, a small wave, has led it to be informally associated with variation, approximation, or informal tone in digital communication.
