@@ -4,11 +4,11 @@
 <hr><br>
 <div id="file-explorer"><div class="folder">
 	    <span class="folder-name">📁 Projects</span><div class="folder-content" style="display:block;">
-	      <a href="Dynasty_Dispute/client/index.html" target="_blank">📄 Dynasty_Dispute.exe</a><br>
+	      <a href="Dynasty_Dispute/client/index.html" target="_blank">📄 Dynasty Dispute</a><br>
 	      <a href="Projects/Physicanim">📄 Physicanim</a><br>
 	      <a href="Projects/Plushie_Panic">📄 Plushie Panic</a><br>
 	      <a href="Projects/Floppy_Sprinter">📄 Floppy Sprinter</a><br>
-	      <a href="https://apkcombo.com/kendo-duel/com.Graphluid.KendoDuel/" target="_blank">📄 Kendo_Duel.exe</a><br>
+	      <a href="https://apkcombo.com/kendo-duel/com.Graphluid.KendoDuel/" target="_blank">📄 Kendo Duel</a><br>
 	      <a href="About">📄 About</a><!--br--></div></div><div class="folder" onclick="toggleFolder(this)">
 	    📁 <span class="folder-name">Misc.</span><div class="folder-content">
 	      <a href="wip/ASCII_Dump">📄 ASCII_Dump.md</a><br>
