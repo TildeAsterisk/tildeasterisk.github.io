@@ -58,15 +58,15 @@
 	display:none;
 	}
 
-	/*.hover-underline {
+	.hover-underline {
 	font-size:5em; 
 	font-weight:bold; 
 	text-align:center; 
 	margin:0;
 	padding:0;
-	text-decoration: none;
+	/*text-decoration: none;*/
 	}
-	.hover-underline:hover {
+	/*.hover-underline:hover {
 	text-decoration: underline;
 	}*/
 	
