@@ -33,7 +33,7 @@ The story begins with the release of [_Kendo Duel_](Projects/Kendo_Duel), the fi
 **2018 — Floppy Sprinter**  
 [_Floppy Sprinter_](Projects/Floppy_Sprinter) followed as a ragdoll physics-based sprinting game, also released on the Google Play Store. Continuing the theme of humour and dynamic physics, it embraced chaotic motion and added another title to the growing indie game catalogue.
 
-**2020 — Tilde Asterisk Established**
+**2020 — Tilde Asterisk Established**  
 Tilde Asterisk took shape with the launch of ***TildeAsterisk.com***, which became a bit of a developers log the previous games were republished under a unified brand. This marked the beginning of its public presence. Since then, [**~\***](https://TildeAsterisk.com) has undergone multiple design evolutions and creative shifts. Exploring projects across software, electronics, and clothing; Tilde Asterisk continues to grow as a dynamic, multidisciplinary venture. Always evolving, always in motion.
 
 **2022 — Physicanim ~\***  
