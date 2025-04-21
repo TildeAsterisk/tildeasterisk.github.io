@@ -47,7 +47,7 @@ The *asterisk (\*)* is a typographic symbol used primarily as a marker or operat
 Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsterisk@gmail.com</a>
 
 # Please support me
-You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~\*<br><form action="https://www.paypal.com/paypalme/TildeAsterisk" method="post" target="_top">  
+You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~\*<br><center><form action="https://www.paypal.com/paypalme/TildeAsterisk" method="post" target="_top">  
  <!-- Identify your business so that you can collect the payments. -->  
  <input type="hidden" name="business" value="donations@kcparkfriends.org">  
  <!-- Specify details about the contribution -->  
@@ -58,23 +58,7 @@ You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~\*<br><
  <!-- Display the payment button. -->  
  <input type="image" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate">  
  <img alt="" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >  
-</form>
-<div id="donate-button-container">
-	
-	<center><a href=''><div id="donate-button"></div></a></center>
-	<script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
-	<script>
-		PayPal.Donation.Button( {
-			env:'production',
-			hosted_button_id:'24FNF5BAM87U4',
-			image: {
-				src: 'https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif',
-				alt:'Donate with PayPal button',
-				title:'PayPal - The safer, easier way to pay online!',
-			}
-		}).render('#donate-button');
-	</script>
-</div>
+</form></center>
 
 <style>
 h1:first-of-type {
