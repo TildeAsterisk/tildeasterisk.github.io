@@ -41,12 +41,10 @@ The *asterisk (\*)* is a typographic symbol used primarily as a marker or operat
 - In **computing**, it serves as a wildcard character, representing any number of characters in search patterns or commands.
 - In **programming**, it can indicate pointers (in C/C++) or be used in unpacking arguments (in Python), among other functions.
 
----
 
-# ✉️ Contact
+
+# ✉️ Contact me
 Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsterisk@gmail.com</a>
-
----
 
 # Please support me
 You can donate below.

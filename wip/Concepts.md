@@ -19,6 +19,7 @@ File converter?
 - [ ] Modern Evolution of Language
 - [ ] Nature of Reality and Consciousness
 - [ ] Ancient Scientific and Moral Wisdom Embedded in Myth and Religious Stories (Spoken Vs Written Traditions)
+- [ ] Great Dopamine Industrial Complex - Human Attention being farmed by AI algorithms to increase ad revenue. Contoversial, ourtageous, sensational generates interactions...
 
 # Robot Kinect
 Recently I have been working on integrating the Xbox 360 Kinect v1 with ROS. I played around with a number of packages to use for this robotics project, including: GoogleAssisstantSDK, OpenCV (opencv_examples, opencv_apps) and IFTTT webhooks integration.
