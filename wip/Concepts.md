@@ -44,102 +44,18 @@ Recently I have been working on integrating the Xbox 360 Kinect v1 with ROS. I p
 | ''             | AI Chatbot?     |
 
 
-# Floralarm
-<div style="text-align: left;">
-  <div class="separator" style="clear: both; text-align: center;">
-    <a
-      href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-tyXEc8v9zeN2gXCwiGm1gA1b8KbPanwS-LqZ1diWLzuqriXA8vVsa2W64saBieK88kNEfC1a0Z-XvrZWwq2vtPl2MynSaunj973scTBqq1-uJQz_8nmhLA18flN_-AZAyfcZ2kuuDn4necAqnHQzgw-dvd_SUnh0qiiWKbKis39CMsNSjeIRRjWXOQ/s1002/Screenshot%202022-10-09%20220803.jpg"
-      imageanchor="1"
-      style="margin-left: 1em; margin-right: 1em;"
-      ><img
-        border="0"
-        data-original-height="1002"
-        data-original-width="1002"
-        height="320"
-        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-tyXEc8v9zeN2gXCwiGm1gA1b8KbPanwS-LqZ1diWLzuqriXA8vVsa2W64saBieK88kNEfC1a0Z-XvrZWwq2vtPl2MynSaunj973scTBqq1-uJQz_8nmhLA18flN_-AZAyfcZ2kuuDn4necAqnHQzgw-dvd_SUnh0qiiWKbKis39CMsNSjeIRRjWXOQ/s320/Screenshot%202022-10-09%20220803.jpg"
-        width="320"
-    />
-    </a>
-    <p class="buybutton_soldout" style="text-align: center; width:40%; margin:auto;">Sold out</p>
-  </div>
-</div>
-<div style="text-align: left;">
-  The Floralarm by Tilde Asterisk ~* is a plant watering alarm. It uses a
-  moisture sensor and a small speaker to generate a chirp sound when it detects
-  that the soil is dry. A button on the Floralarm is used to calibrate the
-  level.
-</div>
+# Web Workflow
+Obsidian Vault -> GitHub Pages Workflow
+With iCloud syncing
+-
+Backend: Render
+Frontend: Github Pages
+-
+PayPal Product Link
+Alternative Store page (with basket and stuff...):
+	Shop: Big Cartel
+E-Commerce Management: DSers
 
-<div>
-  <br />
-  <div>
-    <div>
-      <b><span style="font-size: large;">Description:</span></b>
-    </div>
-  </div>
-</div>
-<blockquote
-  style="border: none; margin: 0px 0px 0px 40px; padding: 0px; text-align: left;"
->
-  <div>
-    <div>
-      <div style="text-align: left;">
-        This is an alarm that tells you when your plant soil is ready to be
-        watered. The alarm will not be an annoyance. It will not ring when it's
-        dark, restricting itself from making too much noise.
-      </div>
-    </div>
-  </div>
-  <div>
-    <div>
-      <div style="text-align: left;">
-        The Floralarm ~* uses capacitive humidity sensing as opposed to
-        resistive humidity sensing, this means, it does not make an electric
-        contact with the soil, avoiding electrode corrosion and soil
-        electrolysis and resulting in better accuracy and longer battery life.
-      </div>
-    </div>
-  </div>
-  <div>
-    <div>
-      <div style="text-align: left;">
-        The alarm level can be set for each plant individually. As water is
-        consumed by the plant, Floralarm ~* will detect the low moisture level
-        and will start to emit rare short chirps. As more water evaporates,
-        Floralarm ~* will increase the alarm rate. Floralarm ~* can detect if
-        it's day or night by measuring the amount of ambient light and will not
-        make noise when it's dark.
-      </div>
-    </div>
-  </div>
-</blockquote>
-<div>
-  <div><br /></div>
-  <span style="font-size: large;"><b>Directions:</b></span>
-</div>
-<blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px;">
-  <div>
-    <div style="text-align: left;">
-      Put the pointed side into the soil near the plant. The Floralarm ~* will
-      emit a chirping sound when it detects that the soil is dry, reminding you
-      to water the plant.
-    </div>
-  </div>
-</blockquote>
-<div>
-  <div><br /></div>
-  <div style="text-align: left;">
-    <b><span style="font-size: large;">Specifications:</span></b>
-  </div>
-</div>
-<blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px;">
-  <div><div style="text-align: left;">Size:140*15mm</div></div>
-</blockquote>
-<blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px;">
-  <div><div style="text-align: left;">Work voltage:3V</div></div>
-</blockquote>
-
-<div id="product-component-1665349368523"></div>
 
 <style>
 	.buybutton {
