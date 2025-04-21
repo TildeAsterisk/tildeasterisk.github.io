@@ -47,9 +47,21 @@ The *asterisk (\*)* is a typographic symbol used primarily as a marker or operat
 Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsterisk@gmail.com</a>
 
 # Please support me
+You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~\*<br><form action="https://www.paypal.com/paypalme/TildeAsterisk" method="post" target="_top">  
+ <!-- Identify your business so that you can collect the payments. -->  
+ <input type="hidden" name="business" value="donations@kcparkfriends.org">  
+ <!-- Specify details about the contribution -->  
+ <input type="hidden" name="no_recurring" value="0">  
+ <input type="hidden" name="item_name" value="Friends of the Park">  
+ <input type="hidden" name="item_number" value="Fall Cleanup Campaign">  
+ <input type="hidden" name="**currency_code**" value="**GBP**">  
+ <!-- Display the payment button. -->  
+ <input type="image" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate">  
+ <img alt="" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >  
+</form>
 <div id="donate-button-container">
-	You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~*<br>
-	<center><a href='https://www.paypal.com/paypalme/TildeAsterisk'><div id="donate-button"></div></a></center>
+	
+	<center><a href=''><div id="donate-button"></div></a></center>
 	<script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
 	<script>
 		PayPal.Donation.Button( {
