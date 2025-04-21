@@ -59,7 +59,7 @@
 	}
 
 	.hover-underline {
-	font-size:5em; 
+	font-size:10em; 
 	font-weight:bold; 
 	text-align:center; 
 	margin:0;
