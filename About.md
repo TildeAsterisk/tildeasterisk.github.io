@@ -50,7 +50,7 @@ Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsteri
 
 # Please support me
 You can donate below.
-<div id="donate-button-container">Thank you for you support.
+<div id="donate-button-container">Thank you for you support.<br>Kind regards,<br>~*
 	<div id="donate-button"></div>
 	<script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
 	<script>
@@ -65,11 +65,6 @@ You can donate below.
 		}).render('#donate-button');
 	</script>
 </div>
-
-
-
-
-Kind regards,<br>~\*
 
 <style>
 h1:first-of-type {

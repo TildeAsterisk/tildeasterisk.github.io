@@ -9,7 +9,7 @@
 	      <a href="Projects/Plushie_Panic">📄 Plushie Panic</a><br>
 	      <a href="Projects/Floppy_Sprinter">📄 Floppy Sprinter</a><br>
 	      <a href="https://apkcombo.com/kendo-duel/com.Graphluid.KendoDuel/" target="_blank">📄 Kendo Duel</a><br>
-	      <a href="https://tildeasterisk.bigcartel.com">📄 Shop</a><br>
+	      <a href="https://tildeasterisk.bigcartel.com" target="_blank">📄 Shop</a><br>
 	      <a href="About">📄 About</a><!--br--></div></div><div class="folder" onclick="toggleFolder(this)">
 	    📁 <span class="folder-name">Misc.</span><div class="folder-content">
 	      <a href="wip/ASCII_Dump">📄 ASCII_Dump.md</a><br>
