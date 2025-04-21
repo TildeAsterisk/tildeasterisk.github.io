@@ -48,7 +48,8 @@ Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsteri
 
 # Please support me
 <div id="donate-button-container">
-	<div id="donate-button"></div>
+	You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~*
+	<center><div id="donate-button"></div></center>
 	<script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
 	<script>
 		PayPal.Donation.Button( {
@@ -61,7 +62,6 @@ Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsteri
 			}
 		}).render('#donate-button');
 	</script>
-	You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~*
 </div>
 
 <style>
