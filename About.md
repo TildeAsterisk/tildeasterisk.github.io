@@ -48,8 +48,8 @@ Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsteri
 
 # Please support me
 <div id="donate-button-container">
-	You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~*
-	<center><div id="donate-button"></div></center>
+	You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~*<br>
+	<center><a href='https://www.paypal.com/paypalme/TildeAsterisk'><div id="donate-button"></div></a></center>
 	<script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
 	<script>
 		PayPal.Donation.Button( {
