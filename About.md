@@ -47,7 +47,8 @@ The *asterisk (\*)* is a typographic symbol used primarily as a marker or operat
 Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsterisk@gmail.com</a>
 
 # Please support me
-You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~\*<br><center><form action="https://www.paypal.com/paypalme/TildeAsterisk" method="post" target="_top">  
+You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~\*<br>
+<center><form action="https://www.paypal.com/paypalme/TildeAsterisk" method="post" target="_top">  
  <!-- Identify your business so that you can collect the payments. -->  
  <input type="hidden" name="business" value="donations@kcparkfriends.org">  
  <!-- Specify details about the contribution -->  
