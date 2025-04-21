@@ -16,7 +16,7 @@
 	      <a href="Guides/Custom_Blogger">📄 Custom Blogger Guide</a><br>
 	      <a href="Projects/MMORPSG">📄 MMORPSG~*</a><br>
 	      <a href="Guides/Physicanim_Tutorial">📄 .Physicanim_Tutorial</a><br>
-	      <a href=".">❌ .Concepts</a>
+	      <a href="https://TildeAsterisk.com">❌ .Concepts</a>
 	    </div>
 	  </div>
 </div>
