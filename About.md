@@ -48,7 +48,7 @@ Electronic Mail Address:  <a href="mailto:TildeAsterisk@gmail.com">  TildeAsteri
 
 # Please support me
 You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~\*<br>
-<center><form action="https://www.paypal.com/paypalme/TildeAsterisk" method="post" target="_top">  
+<a href="https://www.paypal.com/paypalme/TildeAsterisk"><center>
  <!-- Identify your business so that you can collect the payments. -->  
  <input type="hidden" name="business" value="donations@kcparkfriends.org">  
  <!-- Specify details about the contribution -->  
@@ -59,7 +59,7 @@ You can donate below.<br>Thank you for you support.<br>Kind regards,<br>~\*<br>
  <!-- Display the payment button. -->  
  <input type="image" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" alt="Donate">  
  <img alt="" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >  
-</form></center>
+</center></a>
 
 <style>
 h1:first-of-type {
