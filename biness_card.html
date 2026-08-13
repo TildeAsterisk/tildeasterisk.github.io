@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>Business Card — Software Engineer Contractor & Game Developer</title>
+		<link rel="stylesheet" href="stylesheet.css" />
+		<style>
+			:root{--card-bg:rgba(255,255,255,0.04);--muted:rgba(203,213,225,0.6)}
+			html,body{height:100%}
+			body{display:flex;align-items:center;justify-content:center;padding:24px}
+			.card{width:100%;max-width:420px;border-radius:12px;padding:20px;background:var(--card-bg);box-shadow:0 8px 30px rgba(2,6,23,0.6);backdrop-filter:blur(6px)}
+			.row{display:flex;gap:16px;align-items:center}
+			.avatar{width:88px;height:88px;border-radius:999px;object-fit:cover;flex:0 0 88px;border:2px solid rgba(255,255,255,0.06)}
+			h1{margin:0;font-size:1.2rem}
+			h2{margin:0;font-size:0.9rem;font-weight:600;color:var(--muted)}
+			p.lead{margin:12px 0 16px;color:var(--muted);font-size:0.95rem}
+			ul.meta{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+			a.inline{color:inherit;text-decoration:underline}
+			.foot{margin-top:16px;border-top:1px solid rgba(255,255,255,0.03);padding-top:12px;font-size:0.87rem;color:var(--muted)}
+			.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+			.chip{padding:6px 8px;background:rgba(255,255,255,0.02);border-radius:8px;font-size:0.8rem}
+		</style>
+	</head>
+	<body>
+		<main class="card" role="main">
+			<div class="row">
+				<img class="avatar" src="Assets/images.jpeg" alt="Headshot" />
+				<div>
+					<h1>Zion D.</h1>
+					<h2>Software Engineer (Contractor) & Game Developer</h2>
+					<div class="chips">
+						<span class="chip">Unity</span>
+						<span class="chip">C#</span>
+						<span class="chip">Game Systems</span>
+						<span class="chip">Tools / Editor</span>
+						<span class="chip">Web / JS</span>
+					</div>
+				</div>
+			</div>
+
+			<p class="lead">Experienced indie game developer and systems engineer. I build game systems, tooling and simulation-driven interactive experiences and accept short-to-medium term contracts for gameplay, tools and Unity integrations.</p>
+
+			<ul class="meta">
+				<li><strong>Email:</strong> <a class="inline" href="mailto:ZionZTDuncan@gmail.com">ZionZTDuncan@gmail.com</a></li>
+				<li><strong>Portfolio:</strong> <a class="inline" href="https://TildeAsterisk.com">TildeAsterisk.com</a></li>
+				<li><strong>GitHub:</strong> <a class="inline" href="https://github.com/TildeAsterisk">github.com/TildeAsterisk</a></li>
+			</ul>
+
+			<div class="foot">
+				<strong>Selected Projects</strong>
+				<ul style="margin:8px 0 0 1rem;color:var(--muted)">
+					<li><b>Physicanim</b> (2022) — Active ragdoll Unity package; procedural animation toolkit.</li>
+					<li><b>Floppy Sprinter</b> (2018) — Physics-driven infinite runner.</li>
+					<li><b>Kendo Duel</b> (2016) — Mobile ragdoll combat prototype.</li>
+				</ul>
+				<div style="margin-top:8px;color:var(--muted)">Available for contract work — open to remote engagements.</div>
+			</div>
+		</main>
+	</body>
+</html>
