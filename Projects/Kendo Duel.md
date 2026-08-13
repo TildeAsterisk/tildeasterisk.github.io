@@ -1,1 +1,0 @@
-Kendo Duel is a game released onto the Google Play store in 2016.
