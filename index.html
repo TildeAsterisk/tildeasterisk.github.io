@@ -78,8 +78,8 @@
                                 <p>The editor builder creates a character's ragdoll setup in one step. Character
                                     behaviours support walking, running, jumping, falling and getting back up, with
                                     protective poses and a gradual return to animation control.</p>
-                                <a class="project-cta" href="Projects/physicanim.html"
-                                    rel="noreferrer">Read More...</a>
+                                <a class="project-cta" href="Projects/physicanim.html" target="physicanim-document"
+                                    data-document-dialog aria-haspopup="dialog">Read More...</a>
                                 <br>
                                 <a class="project-cta" href="https://github.com/TildeAsterisk/Physicanim" target="_blank"
                                     rel="noreferrer">Get Physicanim for your Unity Game Engine. <span aria-hidden="true">↗</span></a>
@@ -88,7 +88,7 @@
                     </div>
                 </article>
 
-                <!-- <article class="project-card">
+                <article class="project-card">
                     <div class="project-art">
                         <img src="Assets/FloppySprinterIcon.jpg" alt="Floppy Sprinter game icon" loading="lazy">
                         <span class="project-number">PROJECT 002</span>
@@ -179,7 +179,7 @@
                         <div class="project-tags"><span>Web game</span><span>Strategy</span><span>Multiplayer</span></div>
                     </div>
                 </article>
-            </div>-->
+            </div>
         </section>
 
         <section class="section articles-section" id="articles" aria-labelledby="articles-title">
@@ -299,6 +299,36 @@
         <a href="mailto:TildeAsterisk@gmail.com">TildeAsterisk@gmail.com <span aria-hidden="true">↗</span></a>
         <span class="copyright">© Tilde Asterisk</span>
     </footer>
+
+    <dialog class="document-dialog" id="project-document" aria-labelledby="document-dialog-title">
+        <div class="document-dialog-header">
+            <h2 id="document-dialog-title">Project document</h2>
+            <button class="document-dialog-close" type="button" aria-label="Close document">×</button>
+        </div>
+        <iframe class="document-dialog-frame" title="Physicanim project document"></iframe>
+    </dialog>
+
+    <script>
+        const documentDialog = document.getElementById("project-document");
+        const documentFrame = documentDialog.querySelector(".document-dialog-frame");
+        const closeDocumentButton = documentDialog.querySelector(".document-dialog-close");
+
+        document.querySelectorAll("[data-document-dialog]").forEach(link => {
+            link.addEventListener("click", event => {
+                event.preventDefault();
+                documentFrame.src = link.href;
+                documentDialog.showModal();
+            });
+        });
+
+        closeDocumentButton.addEventListener("click", () => documentDialog.close());
+
+        documentDialog.addEventListener("click", event => {
+            if (event.target === documentDialog) {
+                documentDialog.close();
+            }
+        });
+    </script>
 </body>
 
 </html>
