@@ -9,6 +9,20 @@
   --night: #1d2523;
   --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  
+  /*
+  color-scheme: dark;
+  --ink: #f5f3ed;
+  --muted: #6d7470;
+  --paper: #1d2221;
+  --paper-deep: #ebe9e1;
+  --line: #d8d8cf;
+  --lime: #d4f45a;
+  --night: #1d2523;
+  --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  */
+  
 }
 
 * {
@@ -117,7 +131,7 @@ summary:focus-visible {
 .hero {
   width: min(100% - 64px, 1180px);
   margin: 0 auto;
-  padding: 58px 0 48px;
+  padding: 29px 0 48px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -211,7 +225,8 @@ summary:focus-visible {
 .section {
   width: min(100% - 64px, 1180px);
   margin: 0 auto;
-  padding: 108px 0 30px;
+  /*padding: 108px 0 30px;*/
+  padding: 30px 0 30px;
 }
 
 .projects-section {
@@ -258,8 +273,8 @@ summary:focus-visible {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .project-card {
@@ -271,9 +286,14 @@ summary:focus-visible {
 }
 
 .project-card-featured {
-  grid-column: span 2;
+  grid-column: span 4;
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
+}
+
+.project-card-secondary {
+  display: flex;
+  flex-direction: column;
 }
 
 .project-art {
@@ -308,6 +328,20 @@ summary:focus-visible {
   object-position: center;
 }
 
+.project-card-secondary .project-art {
+  height: 150px;
+  min-height: 150px;
+}
+
+.project-card-secondary .project-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+}
+
 .project-art-plushie {
   background: #dad3c6;
 }
@@ -339,6 +373,31 @@ summary:focus-visible {
 
 .project-copy {
   padding: 24px;
+}
+
+.project-card-secondary .project-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 17px;
+}
+
+.project-card-secondary .project-copy > p {
+  margin: 8px 0 15px;
+  font-size: 0.76rem;
+}
+
+.project-card-secondary .project-copy h3 {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+
+.project-card-secondary .project-cta {
+  margin-top: auto;
+  padding-top: 2px;
 }
 
 .project-card-featured .project-copy {
@@ -540,7 +599,7 @@ summary:focus-visible {
   font-family: var(--mono);
   font-size: clamp(3rem, 7vw, 5.5rem);
   font-weight: 700;
-  letter-spacing: -0.15em;
+  letter-spacing: -0.01em;
   text-shadow: 7px 7px 0 rgba(212, 244, 90, 0.14);
 }
 
@@ -548,9 +607,9 @@ summary:focus-visible {
   color: #f6f7ee;
 }
 
-.articles-section {
+/*.articles-section {
   padding-top: 120px;
-}
+}*/
 
 .article-list {
   border-top: 1px solid var(--line);
@@ -805,7 +864,7 @@ summary:focus-visible {
   font-family: var(--mono);
   font-size: clamp(4rem, 8vw, 7rem);
   font-weight: 800;
-  letter-spacing: -0.18em;
+  letter-spacing: -0.01em;
 }
 
 .about-copy .eyebrow {
@@ -857,7 +916,7 @@ summary:focus-visible {
   font-family: var(--mono);
   font-size: 1.3rem;
   font-weight: 800;
-  letter-spacing: -0.15em;
+  letter-spacing: -0.01em;
 }
 
 .site-footer > a:nth-of-type(2) {
@@ -901,7 +960,7 @@ summary:focus-visible {
 
   .section {
     width: min(100% - 40px, 1180px);
-    padding-top: 82px;
+    /*padding-top: 82px;*/
   }
 
   .section-heading {
@@ -911,6 +970,14 @@ summary:focus-visible {
 
   .section-intro {
     margin-top: 15px;
+  }
+
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-card-featured {
+    grid-column: span 2;
   }
 
   .project-card-featured {
@@ -1020,6 +1087,11 @@ summary:focus-visible {
 
   .project-card-featured {
     grid-column: auto;
+  }
+
+  .project-card-secondary .project-art {
+    height: 190px;
+    min-height: 190px;
   }
 
   .project-art,

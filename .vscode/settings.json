@@ -1,0 +1,12 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "/^node -e 'const fs=require\\(\"fs\"\\); const html=fs\\.readFileSync\\(\"index\\.html\",\"utf8\"\\); const code=html\\.match\\(/<script>\\(\\[\\\\s\\\\S\\]\\*\\?\\)<\\\\/script>/\\)\\[1\\]; new Function\\(code\\); if \\(!html\\.includes\\(\"href=\\\\\"Projects/physicanim\\.html\\\\\" target=\\\\\"physicanim-document\\\\\"\"\\)\\) process\\.exit\\(1\\); console\\.log\\(\"Inline popup script parses; document link has a named separate browsing context\\.\"\\);'$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^python3 - <<'PY'\nfrom html\\.parser import HTMLParser\nfrom pathlib import Path\n\nclass Links\\(HTMLParser\\):\n    def __init__\\(self\\):\n        super\\(\\)\\.__init__\\(\\)\n        self\\.refs = \\[\\]\n    def handle_starttag\\(self, tag, attrs\\):\n        attrs = dict\\(attrs\\)\n        for key in \\('href', 'src'\\):\n            if key in attrs:\n                self\\.refs\\.append\\(attrs\\[key\\]\\)\n\nfor filename in \\('index\\.html', 'Projects/other-projects\\.html'\\):\n    parser = Links\\(\\)\n    parser\\.feed\\(Path\\(filename\\)\\.read_text\\(\\)\\)\n    for ref in parser\\.refs:\n        if ref\\.startswith\\(\\('http://', 'https://', 'mailto:', '#', 'data:'\\)\\):\n            continue\n        target = \\(Path\\(filename\\)\\.parent / ref\\.split\\('#', 1\\)\\[0\\]\\)\\.resolve\\(\\)\n        if not target\\.exists\\(\\):\n            raise SystemExit\\(f'\\{filename\\}: missing local target \\{ref\\}'\\)\n        if '#' in ref:\n            fragment = ref\\.split\\('#', 1\\)\\[1\\]\n            target_parser = Links\\(\\)\n            target_parser\\.feed\\(target\\.read_text\\(\\)\\)\n            ids = \\[\\]\n            class Ids\\(HTMLParser\\):\n                def handle_starttag\\(self, tag, attrs\\):\n                    value = dict\\(attrs\\)\\.get\\('id'\\)\n                    if value:\n                        ids\\.append\\(value\\)\n            ids_parser = Ids\\(\\)\n            ids_parser\\.feed\\(target\\.read_text\\(\\)\\)\n            if fragment not in ids:\n                raise SystemExit\\(f'\\{filename\\}: missing fragment \\{ref\\}'\\)\nprint\\('Local links and fragments resolve\\.'\\)\nPY$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
+}
