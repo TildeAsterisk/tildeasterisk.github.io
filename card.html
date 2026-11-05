@@ -3,59 +3,330 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>Business Card — Software Engineer Contractor & Game Developer</title>
+		<meta name="theme-color" content="#f5f3ed" />
+		<meta name="description" content="Zion D. — independent software and systems engineer building software, electronics and interactive experiences." />
+		<title>Zion D. — Software &amp; Systems Engineer</title>
+		<link rel="icon" href="favicon.ico" />
 		<link rel="stylesheet" href="stylesheet.css" />
 		<style>
-			:root{--card-bg:rgba(255,255,255,0.04);--muted:rgba(203,213,225,0.6)}
-			html,body{height:100%}
-			body{display:flex;align-items:center;justify-content:center;padding:24px}
-			.card{width:100%;max-width:420px;border-radius:12px;padding:20px;background:var(--card-bg);box-shadow:0 8px 30px rgba(2,6,23,0.6);backdrop-filter:blur(6px)}
-			.row{display:flex;gap:16px;align-items:center}
-			.avatar{width:88px;height:88px;border-radius:999px;object-fit:cover;flex:0 0 88px;border:2px solid rgba(255,255,255,0.06)}
-			h1{margin:0;font-size:1.2rem}
-			h2{margin:0;font-size:0.9rem;font-weight:600;color:var(--muted)}
-			p.lead{margin:12px 0 16px;color:var(--muted);font-size:0.95rem}
-			ul.meta{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
-			a.inline{color:inherit;text-decoration:underline}
-			.foot{margin-top:16px;border-top:1px solid rgba(255,255,255,0.03);padding-top:12px;font-size:0.87rem;color:var(--muted)}
-			.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-			.chip{padding:6px 8px;background:rgba(255,255,255,0.02);border-radius:8px;font-size:0.8rem}
+			body {
+				min-height: 100vh;
+				display: grid;
+				place-items: center;
+				padding: 32px 20px;
+				background:
+					radial-gradient(ellipse at 12% 10%, rgba(212, 244, 90, 0.18), transparent 30rem),
+					var(--paper);
+			}
+
+			.business-card {
+				display: grid;
+				grid-template-columns: minmax(230px, 0.78fr) minmax(0, 1.22fr);
+				width: min(100%, 900px);
+				overflow: hidden;
+				background: #fffefa;
+				border: 1px solid var(--line);
+				border-radius: 18px;
+				box-shadow: 0 24px 70px rgba(29, 34, 33, 0.12);
+			}
+
+			.card-profile {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				min-height: 510px;
+				padding: 32px;
+				color: #f5f3ed;
+				background: var(--night);
+			}
+
+			.card-brand {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				font-size: 0.77rem;
+				font-weight: 650;
+				letter-spacing: 0.04em;
+			}
+
+			.card-brand-mark {
+				color: var(--lime);
+				font-family: var(--mono);
+				font-size: 1.25rem;
+				font-weight: 800;
+			}
+
+			.card-portrait {
+				width: 126px;
+				height: 126px;
+				margin: 0 0 24px;
+				border: 3px solid rgba(212, 244, 90, 0.8);
+				border-radius: 50%;
+				object-fit: cover;
+				object-position: center;
+			}
+
+			.card-name {
+				margin: 0;
+				font-size: clamp(2.35rem, 5vw, 3.4rem);
+				font-weight: 600;
+				letter-spacing: -0.075em;
+				line-height: 0.98;
+			}
+
+			.card-role {
+				max-width: 250px;
+				margin: 16px 0 0;
+				color: rgba(245, 243, 237, 0.72);
+				font-size: 1rem;
+				line-height: 1.5;
+			}
+
+			.card-availability {
+				display: flex;
+				align-items: center;
+				gap: 9px;
+				margin: 26px 0 0;
+				color: #dce5ce;
+				font-size: 0.78rem;
+			}
+
+			.card-availability::before {
+				width: 7px;
+				height: 7px;
+				border-radius: 50%;
+				background: var(--lime);
+				content: "";
+			}
+
+			.card-details {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				padding: clamp(28px, 5vw, 52px);
+			}
+
+			.card-eyebrow {
+				margin: 0 0 10px;
+				color: #718600;
+				font-family: var(--mono);
+				font-size: 0.68rem;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+			}
+
+			.card-intro {
+				max-width: 450px;
+				margin: 0;
+				font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+				font-weight: 550;
+				letter-spacing: -0.045em;
+				line-height: 1.3;
+			}
+
+			.card-description {
+				max-width: 460px;
+				margin: 14px 0 28px;
+				color: var(--muted);
+				font-size: 0.91rem;
+			}
+
+			.card-section {
+				padding-top: 20px;
+				border-top: 1px solid var(--line);
+			}
+
+			.card-section + .card-section {
+				margin-top: 20px;
+			}
+
+			.card-section h2 {
+				margin: 0 0 12px;
+				font-size: 0.73rem;
+				font-weight: 700;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+			}
+
+			.card-services,
+			.card-projects {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 8px;
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+
+			.card-services li,
+			.card-projects li {
+				padding: 7px 10px;
+				border: 1px solid var(--line);
+				border-radius: 999px;
+				font-size: 0.77rem;
+				line-height: 1.2;
+			}
+
+			.card-projects li {
+				background: var(--paper);
+			}
+
+			.card-contact {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 12px 20px;
+				margin-top: 26px;
+			}
+
+			.card-contact a {
+				font-size: 0.8rem;
+				font-weight: 650;
+				text-decoration: none;
+			}
+
+			.card-contact a:hover {
+				text-decoration: underline;
+				text-underline-offset: 3px;
+			}
+
+			.card-contact .email-link {
+				padding: 11px 15px;
+				border-radius: 6px;
+				background: var(--lime);
+			}
+
+			@media (max-width: 640px) {
+				body {
+					padding: 16px;
+				}
+
+				.business-card {
+					grid-template-columns: 1fr;
+					border-radius: 14px;
+				}
+
+				.card-profile {
+					min-height: 0;
+					gap: 42px;
+					padding: 24px;
+				}
+
+				.card-identity {
+					display: grid;
+					grid-template-columns: 88px 1fr;
+					align-items: center;
+					gap: 18px;
+				}
+
+				.card-portrait {
+					width: 88px;
+					height: 88px;
+					margin: 0;
+				}
+
+				.card-name {
+					font-size: 2.35rem;
+				}
+
+				.card-role {
+					margin-top: 9px;
+					font-size: 0.87rem;
+				}
+
+				.card-availability {
+					margin-top: 0;
+				}
+
+				.card-details {
+					padding: 28px 24px;
+				}
+			}
+
+			@media print {
+				@page {
+					size: landscape;
+					margin: 10mm;
+				}
+
+				body {
+					min-height: 0;
+					display: block;
+					padding: 0;
+					background: #fff;
+				}
+
+				.business-card {
+					width: 100%;
+					max-width: none;
+					border-radius: 0;
+					box-shadow: none;
+					break-inside: avoid;
+					-webkit-print-color-adjust: exact;
+					print-color-adjust: exact;
+				}
+
+				.card-profile {
+					min-height: 0;
+				}
+
+				a {
+					color: inherit;
+				}
+			}
 		</style>
 	</head>
 	<body>
-		<main class="card" role="main">
-			<div class="row">
-				<img class="avatar" src="Assets/IMG_2425.JPG" alt="Headshot" />
-				<div>
-					<h1>Zion D.</h1>
-					<h2>Software Engineer & Game Developer (Contractor)</h2>
+		<main class="business-card" aria-label="Business card for Zion D.">
+			<section class="card-profile" aria-labelledby="card-name">
+				<div class="card-brand">
+					<span class="card-brand-mark" aria-hidden="true">~*</span>
+					<span>Tilde Asterisk</span>
 				</div>
-			</div>
-			
-			<div class="chips">
-					   <span class="chip">Control Systems</span>
-					   <span class="chip">Embedded Software</span>
-					   <span class="chip">UNIX Server Admin</span>
-						<span class="chip">Indie Games</span>
-						<span class="chip">HTML5 Web / JS</span>
+				<div>
+					<div class="card-identity">
+						<img class="card-portrait" src="Assets/IMG_2425.JPG" alt="Portrait of Zion D." />
+						<div>
+							<h1 class="card-name" id="card-name">Zion D.</h1>
+							<p class="card-role">Software, systems &amp; interactive experiences</p>
+						</div>
 					</div>
-			<p class="lead">Experienced systems engineer and indie developer. I build systems, tooling, apps and simulation-driven interactive experiences. Currently accepting short-to-medium term contracts for software apps, tools, games and general engineering projects.</p>
+					<p class="card-availability">Available for freelance &amp; contract work</p>
+				</div>
+			</section>
 
-			<ul class="meta">
-				<li><strong>Email:</strong> <a class="inline" href="mailto:TildeAsterisk@gmail.com">TildeAsterisk@gmail.com</a></li>
-				<li><strong>Portfolio:</strong> <a class="inline" href="https://TildeAsterisk.com">TildeAsterisk.com</a></li>
-				<li><strong>GitHub:</strong> <a class="inline" href="https://github.com/TildeAsterisk">github.com/TildeAsterisk</a></li>
-			</ul>
+			<section class="card-details" aria-label="Services and contact">
+				<p class="card-eyebrow">Independent engineering</p>
+				<p class="card-intro">I turn curious ideas into practical, working things.</p>
+				<p class="card-description">From embedded and control systems to web tools and physics-driven games, I design, build and iterate across software and electronics.</p>
 
-			<div class="foot">
-				<strong>Selected Projects</strong>
-				<ul style="margin:8px 0 0 1rem;color:var(--muted)">
-					<li><b>Physicanim</b> (2022) — Active ragdoll Unity package; procedural animation toolkit.</li>
-					<li><b>Floppy Sprinter</b> (2018) — Physics-driven infinite runner.</li>
-					<li><b>Kendo Duel</b> (2016) — Mobile ragdoll combat prototype.</li>
-				</ul>
-				<div style="margin-top:8px;color:var(--muted)">Available for contract work — open to remote engagements.</div>
-			</div>
+				<section class="card-section" aria-labelledby="services-title">
+					<h2 id="services-title">What I do</h2>
+					<ul class="card-services">
+						<li>Software &amp; web apps</li>
+						<li>Embedded &amp; control systems</li>
+						<li>Unity tools &amp; games</li>
+						<li>Linux / UNIX systems</li>
+						<li>Prototyping &amp; testing</li>
+					</ul>
+				</section>
+
+				<section class="card-section" aria-labelledby="work-title">
+					<h2 id="work-title">Selected work</h2>
+					<ul class="card-projects">
+						<li>Physicanim · Unity toolkit</li>
+						<li>Floppy Sprinter · Game</li>
+						<li>Kendo Duel · Mobile game</li>
+					</ul>
+				</section>
+
+				<nav class="card-contact" aria-label="Contact links">
+					<a class="email-link" href="mailto:TildeAsterisk@gmail.com">Let’s talk <span aria-hidden="true">↗</span></a>
+					<a href="https://TildeAsterisk.com">Portfolio</a>
+					<a href="https://github.com/TildeAsterisk">GitHub</a>
+				</nav>
+			</section>
 		</main>
 	</body>
 </html>

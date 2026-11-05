@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physicanim Tutorial — Tilde Asterisk</title>
+  <link rel="stylesheet" href="../stylesheet.css">
+</head>
+<body>
+  <main class="section">
+    <p class="eyebrow section-kicker">Tutorial • Unity</p>
+    <h1>How to: Create and animate active ragdolls in Unity using Physicanim</h1>
+    <p class="section-intro">In this tutorial you will learn how to create and animate active ragdolls in the Unity game engine using the Physicanim asset package.</p>
+
+    <article class="article-copy">
+      <h2>Installing the Physicanim package from git</h2>
+      <img alt="Physicanim install screenshot" src="../Assets/physicanim-tutorial-1.png">
+      <p>In the Unity Editor open the package manager.<br>
+      Go to Window > Package Manager</p>
+
+      <img alt="Physicanim package screenshot" src="../Assets/physicanim-tutorial-2.jpeg">
+      <p>
+        In the Unity Package Manager window, click the '+' button, then select 'Add package from git URL...'<br>
+        Enter the following URL for Physicanim: 
+        <span style="font-family:monospace;white-space:pre;">https://github.com/TildeAsterisk/Physicanim.git</span>
+      </p>
+
+      <img alt="Git repository screenshot" src="../Assets/physicanim-tutorial-3.jpg">
+      <p>Install GIT if necessary. <a href="https://git-scm.com/downloads">Install Git here.</a></p>
+
+      <h2>Create a Physicanim Character</h2>
+      <p>In order to create your active ragdoll you will start with a normal character model playing a regular animation. Make sure your character is rigged as a humanoid.</p>
+
+      <img alt="Character setup screenshot" src="../Assets/physicanim-tutorial-4.jpg">
+      <p>
+        Select your character model asset and view the inspector. In the models's the 'Rig' tab, set the Animation Type to 'Humanoid'.
+        Import your character into the scene.<br>
+        Drag and drop your chosen animation onto your character.
+      </p>
+      
+      <img alt="Animation import screenshot" src="../Assets/physicanim-tutorial-5.jpg">
+      <p>With your character gameobject selected in the scene, find the 'Create Physicanim Active Ragdoll...' option and open the Physicanim Editor window.</p>
+
+      <img alt="Physicanim setup screenshot" src="../Assets/physicanim-tutorial-6.jpg">
+      <p>Drag your character model into the 'Character Model' field and select 'Create Physicanim Character'.</p>
+
+      <img alt="Physicanim ragdoll step screenshot" src="../Assets/physicanim-tutorial-7.jpg">
+      <p>Review the configuration of the Physicanim active ragdoll character by selecting the character gameobject in the heirarchy and reviewing the configuration in the inspector window.</p>
+
+
+      <img alt="Final Physicanim character screenshot" src="../Assets/physicanim-tutorial-8.jpg">
+      <p>This how the hierarchy looks of the Physicanim active ragdoll character.<br>Animate the 'StaticAnimator' character as you would normally animate a 3D character. The animations will be physics simulated.</p>
+
+      <p>Physicanim - The active ragdoll creator for Unity Game Engine. Procedurally generated physics animations. Animated ragdoll. Full-body collision.</p>
+    </article>
+  </main>
+</body>
+</html>
